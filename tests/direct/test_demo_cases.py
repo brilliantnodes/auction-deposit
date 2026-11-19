@@ -111,7 +111,9 @@ def read(e, case, at, answer=None):
     e.vm.warp(iso(at))
     e.vm.sender = e.anyone
     e.vm.mock_web(re.escape(url(case)), {"status": 200, "body": page})
-    e.vm.mock_llm(PROMPT, answer if answer is not None else faithful(case, page))
+    # fenced, as models usually answer; it also stops genlayer-test 0.30's mock
+    # from turning a bare JSON string into a dict before the contract sees it
+    e.vm.mock_llm(PROMPT, "```json\n" + (answer if answer is not None else faithful(case, page)) + "\n```")
     return e.c.read_record(e.ids[case["key"]])
 
 

@@ -252,8 +252,14 @@ def test_validator_rejects_another_reading(env, mine):
     assert env.vm.run_validator() is False
 
 
-def test_validator_compares_reasons(env):
+def test_validator_accepts_any_no_reading_reason(env):
+    # nothing moves on a no-reading, so validators need not agree on why
     leader_then(env, rec("Suspended", other_auctions_shown="yes"), rec("Suspended", page_kind="other"))
+    assert env.vm.run_validator() is True
+
+
+def test_validator_rejects_a_no_reading_when_it_reads(env):
+    leader_then(env, rec("Suspended", page_kind="other"), rec("Suspended"))
     assert env.vm.run_validator() is False
 
 
@@ -281,7 +287,8 @@ def test_check_outcome_rejects_more(env, mod):
     for other in ({**a, "winner": "B-2"}, {**a, "balance": "PAID_IN_FULL"}, {**a, "status": "UNCLEAR", "winner": "", "balance": ""}):
         assert not mod._same_outcome(a, other)
     n1, n2 = {"kind": "NO_READING", "reason": "N2_LABEL"}, {"kind": "NO_READING", "reason": "N2_FORMAT"}
-    assert mod._same_outcome(n1, dict(n1)) and not mod._same_outcome(n1, n2) and not mod._same_outcome(a, n1)
+    assert mod._same_outcome(n1, dict(n1)) and mod._same_outcome(n1, n2)
+    assert not mod._same_outcome(a, n1) and not mod._same_outcome(n1, a)
 
 
 # ------------------------------------------------- the money checks themselves

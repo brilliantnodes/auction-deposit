@@ -24,8 +24,8 @@ DEP = 3 * G // 10  # 0.3 GEN
 
 T0 = int(datetime(2026, 11, 23, 9, 0, tzinfo=timezone.utc).timestamp())
 CLOSE = T0 + 3600
-BALANCE_BY = CLOSE + 6 * 3600
-REFUND_BY = BALANCE_BY + 6 * 3600
+BALANCE_S = 6 * 3600  # the winner's payment window, from its confirmed win
+REFUND_BY = CLOSE + 12 * 3600
 AID = "EA-24117"
 PROP = "Unit 4B, 12 Larkspur Row, Velmora"
 
@@ -94,10 +94,10 @@ def open_(e, at=T0, **over):
     e.vm.warp(iso(at))
     e.vm.sender = e.creditor
     t = dict(auction_id=AID, property_ref=PROP, record_url=URL, deposit=DEP, confirm_seconds=C,
-             deposits_close=CLOSE, balance_by=BALANCE_BY, refund_by=REFUND_BY)
+             deposits_close=CLOSE, balance_seconds=BALANCE_S, refund_by=REFUND_BY)
     t.update(over)
     return e.c.open_auction(*[t[k] for k in ("auction_id", "property_ref", "record_url", "deposit", "confirm_seconds",
-                                             "deposits_close", "balance_by", "refund_by")])
+                                             "deposits_close", "balance_seconds", "refund_by")])
 
 
 def dep(e, who, code, at=T0 + 300, value=DEP, digest=None, aid="1"):
@@ -179,7 +179,7 @@ def test_open(env):
     (dict(property_ref=""), "property_ref is required"), (dict(record_url="http://auctions.example.org/a/1"), "https://"),
     (dict(record_url="https://evil.example.com/a/1"), "record hosts"), (dict(record_url=f"https://{HOST}"), "own page"),
     (dict(record_url=URL + "?x=1"), "\\?"), (dict(deposit=0), "deposit must be"), (dict(confirm_seconds=59), "confirm_seconds"),
-    (dict(deposits_close=T0), "future"), (dict(balance_by=CLOSE + C), "balance_by"), (dict(refund_by=BALANCE_BY + C), "refund_by"),
+    (dict(deposits_close=T0), "future"), (dict(balance_seconds=2 * C - 1), "balance_seconds"), (dict(refund_by=CLOSE + 2 * C - 1), "refund_by"),
     (dict(refund_by=T0 + 10**9), "within"),
 ])
 def test_open_refuses(env, over, msg):
@@ -295,19 +295,20 @@ def test_paid_directly_without_pending_first(env):
 
 def test_balance_deadline_forfeits(env):
     ready(env)
-    twice(env, rec("Completed", "B-101", "Pending"), CLOSE + 100)
-    env.vm.warp(iso(BALANCE_BY + GRACE - 1))
+    a = twice(env, rec("Completed", "B-101", "Pending"), CLOSE + 100)["auction"]
+    due = a["winner_at"] + BALANCE_S
+    env.vm.warp(iso(due + GRACE - 1))
     assert env.c.settle("1")["state"] == "WON_PENDING"
-    env.vm.warp(iso(BALANCE_BY + GRACE))
+    env.vm.warp(iso(due + GRACE))
     a = env.c.settle("1")
-    assert a["state"] == "SETTLED" and "balance_by" in a["settled_reason"] and claim(env, env.creditor) == DEP
+    assert a["state"] == "SETTLED" and "balance_seconds" in a["settled_reason"] and claim(env, env.creditor) == DEP
     reconciled(env)
 
 
 def test_paid_seen_late_does_not_revive(env):
     ready(env)
-    twice(env, rec("Completed", "B-101", "Pending"), CLOSE + 100)
-    r = read(env, rec("Completed", "B-101", "Paid in full"), BALANCE_BY + GRACE + 10)
+    a = twice(env, rec("Completed", "B-101", "Pending"), CLOSE + 100)["auction"]
+    r = read(env, rec("Completed", "B-101", "Paid in full"), a["winner_at"] + BALANCE_S + GRACE + 10)
     assert r["read"] is False and r["auction"]["state"] == "SETTLED" and claim(env, env.creditor) == DEP
 
 
@@ -375,11 +376,15 @@ def test_winner_cannot_change_after_confirmation(env):
     assert any(x["what"] == "IGNORED" for x in a["log"])
 
 
-def test_no_sale_after_winner_is_ignored(env):
+def test_no_sale_after_winner_refunds_the_winner(env):
+    # an award annulled or suspended after the win: the winner's deposit comes back too
     ready(env)
     twice(env, rec("Completed", "B-101", "Pending"), CLOSE + 100)
-    a = twice(env, rec("Cancelled"), CLOSE + 3000)["auction"]
-    assert a["state"] == "WON_PENDING" and claim(env, env.b1) == 0
+    assert claim(env, env.b1) == 0
+    a = twice(env, rec("Suspended by court order"), CLOSE + 3000)["auction"]
+    assert a["state"] == "SETTLED" and "after winner B-101" in a["settled_reason"]
+    assert all(claim(env, w) == DEP for w in (env.b1, env.b2, env.b3)) and claim(env, env.creditor) == 0
+    reconciled(env)
 
 
 def test_older_reading_processed_late_is_ignored(env):

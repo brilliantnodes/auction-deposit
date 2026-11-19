@@ -21,7 +21,7 @@ def main():
     tag, d, out = sys.argv[1], int(sys.argv[2]), Path(sys.argv[3])
     net = "bradbury" if "--bradbury" in sys.argv[4:] else "studio"
     tm = mr.CASES["timing"][net]
-    moments = [-10, tm["result"] - 1, tm["result"] + 1] + tm["reads"] + [tm["change"] - 1, tm["change"] + 1, tm["settle"]]
+    moments = [-10, tm["result"] - 1, tm["result"] + 1] + tm["reads"] + tm["spares"] + [tm["change"] - 1, tm["change"] + 1, tm["settle"]]
     bad, n = [], 0
     with sync_playwright() as p:
         b = p.chromium.launch()

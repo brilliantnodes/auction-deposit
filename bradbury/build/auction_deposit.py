@@ -31,6 +31,8 @@ BALANCES = ('', 'PENDING', 'PAID_IN_FULL', 'DEFAULTED', 'UNCLEAR')
 STATUS_LABELS = ('status', 'auction status', 'result', 'auction result', 'outcome')
 WINNER_LABELS = ('winning bidder', 'winner', 'successful bidder', 'highest bidder', 'awarded to')
 BALANCE_LABELS = ('balance', 'balance payment', 'balance of price', 'payment of balance', 'balance status')
+AUCTION_LABELS = ('auction', 'auction id', 'auction no', 'auction no.', 'auction number', 'auction code', 'auction ref', 'auction reference')
+PROPERTY_LABELS = ('property', 'property ref', 'property reference', 'address', 'asset')
 STATUS_TABLE = {'scheduled': 'SCHEDULED', 'to be held': 'SCHEDULED', 'open for bids': 'SCHEDULED', 'upcoming': 'SCHEDULED', 'adjourned': 'ADJOURNED', 'postponed': 'ADJOURNED', 'rescheduled': 'ADJOURNED', 'suspended': 'SUSPENDED', 'suspended by court order': 'SUSPENDED', 'cancelled': 'CANCELLED', 'canceled': 'CANCELLED', 'withdrawn by the creditor': 'CANCELLED', 'no bidders': 'NO_BIDDERS', 'no bids': 'NO_BIDDERS', 'unsuccessful - no bidders': 'NO_BIDDERS', 'void - no bidders': 'NO_BIDDERS', 'completed': 'COMPLETED', 'concluded': 'COMPLETED', 'sold': 'COMPLETED', 'awarded': 'COMPLETED', 'completed - awarded': 'COMPLETED'}
 BALANCE_TABLE = {'pending': 'PENDING', 'awaiting payment': 'PENDING', 'due': 'PENDING', 'not yet due': 'PENDING', 'paid': 'PAID_IN_FULL', 'paid in full': 'PAID_IN_FULL', 'received in full': 'PAID_IN_FULL', 'balance paid': 'PAID_IN_FULL', 'defaulted': 'DEFAULTED', 'buyer in default': 'DEFAULTED', 'not paid - defaulted': 'DEFAULTED', 'deposit forfeited': 'DEFAULTED'}
 EMPTY_VALUES = ('', '-', '--', 'n/a', 'none', 'not applicable')
@@ -92,8 +94,12 @@ def _to_unix(iso: str) -> int:
 
 def _norm(v) -> str:
  s = str(v or '').replace('\xa0', ' ').replace('\u202f', ' ')
- for d in ('−', '–', '—', '‒', '―'):
+ for d in ('−', '–', '—', '‒', '―', '‐', '‑'):
   s = s.replace(d, '-')
+ for q in ('‘', '’', 'ʼ', '′'):
+  s = s.replace(q, "'")
+ for q in ('“', '”'):
+  s = s.replace(q, '"')
  return ' '.join(s.split()).lower()
 
 def _norm_label(v) -> str:
@@ -145,11 +151,14 @@ def _parse_llm_json(raw) -> dict:
  return out
 
 def _page_lines(page) -> str:
- return '\n'.join((_norm(line) for line in str(page or '').splitlines()))
+ return '\n'.join((_norm(line.replace('\t', ' | ')) for line in str(page or '').splitlines()))
 
 def _line_start(pl: str, label_n: str, value_n: str) -> int:
+ return _anchor(pl, label_n, value_n)[0]
+
+def _anchor(pl: str, label_n: str, value_n: str) -> tuple:
  if label_n == '' or value_n == '' or '\n' in value_n:
-  return -1
+  return (-1, -1)
  i = pl.find(label_n)
  while i >= 0:
   a, b = (i, i + len(label_n))
@@ -164,9 +173,9 @@ def _line_start(pl: str, label_n: str, value_n: str) -> int:
     eol = pl.find('\n', e)
     eol = len(pl) if eol < 0 else eol
     if all((c in ' |' for c in pl[e:eol])):
-     return start
+     return (start, eol)
   i = pl.find(label_n, i + 1)
- return -1
+ return (-1, -1)
 
 def _label_form_lines(pl: str, labels) -> list:
  out, pos = ([], 0)
@@ -178,15 +187,14 @@ def _label_form_lines(pl: str, labels) -> list:
   for lab in labels:
    if rest.startswith(lab):
     tail = rest[len(lab):].lstrip(' ')
-    if tail == '' or tail[0] in ':|=':
+    if tail == '' or tail[0] in ':|=-':
      out.append(pos)
      break
   pos += len(line) + 1
  return out
 
-def _qualified_next(pl: str, start: int) -> bool:
- lines = pl[start:].split('\n')
- for nxt in lines[1:]:
+def _qualified_next(pl: str, end: int) -> bool:
+ for nxt in pl[end:].split('\n')[1:]:
   n = nxt.strip(' |\t')
   if n == '':
    continue
@@ -216,18 +224,24 @@ def _interpret(t: dict, ans: dict, page: str) -> dict:
   return {'kind': 'NO_READING', 'reason': 'N1_WRONG_PAGE'}
  if _norm(ans.get('auction_id_on_page')) != t['auction_id'].lower() or not _token_on_page(page_n, t['auction_id']):
   return {'kind': 'NO_READING', 'reason': 'N1_WRONG_PAGE'}
- prop = _norm(t['property_ref'])
- if _norm(ans.get('property_on_page')) != prop or prop not in page_n:
+ id_at = [_line_start(pl, lab, t['auction_id'].lower()) for lab in AUCTION_LABELS]
+ id_at = [x for x in id_at if x >= 0]
+ if not id_at:
   return {'kind': 'NO_READING', 'reason': 'N1_WRONG_PAGE'}
+ prop = _norm(t['property_ref'])
+ if _norm(ans.get('property_on_page')) != prop or prop not in page_n or all((_line_start(pl, lab, prop) < 0 for lab in PROPERTY_LABELS)):
+  return {'kind': 'NO_READING', 'reason': 'N1_WRONG_PAGE'}
+ if any((x not in id_at for x in _label_form_lines(pl, AUCTION_LABELS))):
+  return {'kind': 'NO_READING', 'reason': 'N2_AMBIGUOUS'}
  if str(ans.get('other_auctions_shown', '')).strip().lower() in ('yes', 'true', '1'):
   return {'kind': 'NO_READING', 'reason': 'N2_AMBIGUOUS'}
  st, wn, bl = (_field(ans, 'status'), _field(ans, 'winning_bidder'), _field(ans, 'balance'))
  if _norm_label(st.get('label')) not in STATUS_LABELS:
   return {'kind': 'NO_READING', 'reason': 'N2_LABEL'}
- st_at = _line_start(pl, _norm_label(st.get('label')), _norm(st.get('value')))
+ st_at, st_end = _anchor(pl, _norm_label(st.get('label')), _norm(st.get('value')))
  if st_at < 0:
   return {'kind': 'NO_READING', 'reason': 'N2_NOT_ANCHORED'}
- if any((x != st_at for x in _label_form_lines(pl, STATUS_LABELS))) or _qualified_next(pl, st_at):
+ if any((x != st_at for x in _label_form_lines(pl, STATUS_LABELS))) or _qualified_next(pl, st_end):
   return {'kind': 'NO_READING', 'reason': 'N2_AMBIGUOUS'}
  status = STATUS_TABLE.get(_norm_phrase(st.get('value')), 'UNCLEAR')
  if status != 'COMPLETED':
@@ -237,13 +251,13 @@ def _interpret(t: dict, ans: dict, page: str) -> dict:
   return {'kind': 'READ', 'status': status, 'winner': '', 'balance': ''}
  if _norm_label(wn.get('label')) not in WINNER_LABELS or _norm_label(bl.get('label')) not in BALANCE_LABELS:
   return {'kind': 'NO_READING', 'reason': 'N2_LABEL'}
- wn_at = _line_start(pl, _norm_label(wn.get('label')), _norm(wn.get('value')))
- bl_at = _line_start(pl, _norm_label(bl.get('label')), _norm(bl.get('value')))
+ wn_at, wn_end = _anchor(pl, _norm_label(wn.get('label')), _norm(wn.get('value')))
+ bl_at, bl_end = _anchor(pl, _norm_label(bl.get('label')), _norm(bl.get('value')))
  if wn_at < 0 or bl_at < 0:
   return {'kind': 'NO_READING', 'reason': 'N2_NOT_ANCHORED'}
  if any((x != wn_at for x in _label_form_lines(pl, WINNER_LABELS))) or any((x != bl_at for x in _label_form_lines(pl, BALANCE_LABELS))):
   return {'kind': 'NO_READING', 'reason': 'N2_AMBIGUOUS'}
- if _qualified_next(pl, wn_at) or _qualified_next(pl, bl_at):
+ if _qualified_next(pl, wn_end) or _qualified_next(pl, bl_end):
   return {'kind': 'NO_READING', 'reason': 'N2_AMBIGUOUS'}
  winner = _code(wn.get('value'))
  if winner is None:
@@ -272,7 +286,7 @@ def _same_outcome(a: dict, b: dict) -> bool:
  if a['kind'] != b['kind']:
   return False
  if a['kind'] == 'NO_READING':
-  return a['reason'] == b['reason']
+  return True
  return (a['status'], a['winner'], a['balance']) == (b['status'], b['winner'], b['balance'])
 
 def _prompt(t: dict, page: str) -> str:
@@ -309,15 +323,15 @@ def _terms_problem(t: dict, now: int, hosts: list, min_confirm: int) -> str:
  c = _int_in(t['confirm_seconds'], min_confirm, MAX_CONFIRM_SECONDS)
  if c is None:
   return f'confirm_seconds must be {min_confirm} to {MAX_CONFIRM_SECONDS}'
- for key in ('deposits_close', 'balance_by', 'refund_by'):
+ for key in ('deposits_close', 'refund_by'):
   if _int_in(t[key], 0, now + MAX_HORIZON_SECONDS) is None:
    return f'{key} must be a unix time within {MAX_HORIZON_SECONDS} seconds'
  if t['deposits_close'] <= now:
   return 'deposits_close must be in the future'
- if t['balance_by'] < t['deposits_close'] + 2 * c:
-  return 'balance_by must be at least two confirmation periods after deposits_close'
- if t['refund_by'] < t['balance_by'] + 2 * c:
-  return 'refund_by must be at least two confirmation periods after balance_by'
+ if _int_in(t['balance_seconds'], 2 * c, MAX_HORIZON_SECONDS) is None:
+  return f'balance_seconds must be at least two confirmation periods and at most {MAX_HORIZON_SECONDS}'
+ if t['refund_by'] < t['deposits_close'] + 2 * c:
+  return 'refund_by must be at least two confirmation periods after deposits_close'
  return ''
 
 def _canonical(t: dict) -> str:
@@ -359,13 +373,16 @@ def _close(s: dict, at: int, reason: str) -> None:
  _log(s, at, 'SETTLED', reason)
 
 def _apply_deadlines(t: dict, s: dict, now: int, pays: list) -> None:
- if s['state'] == 'WON_PENDING' and now >= t['balance_by'] + GRACE_SECONDS:
-  _pay_bidder(s, pays, s['winner'], 'creditor', 'no confirmed payment of the balance by balance_by: the deposit is forfeited')
+ if s['state'] == 'WON_PENDING' and now >= _balance_due(t, s) + GRACE_SECONDS:
+  _pay_bidder(s, pays, s['winner'], 'creditor', 'no confirmed payment of the balance in time: the deposit is forfeited')
   _refund_all(s, pays, 'auction closed')
-  _close(s, now, 'no confirmed payment of the balance by balance_by')
+  _close(s, now, 'no confirmed payment of the balance within balance_seconds of the win')
  elif s['state'] == 'OPEN' and now >= t['refund_by'] + GRACE_SECONDS:
   _refund_all(s, pays, 'no confirmed outcome by refund_by: every deposit back')
   _close(s, now, 'no confirmed outcome by refund_by')
+
+def _balance_due(t: dict, s: dict) -> int:
+ return s['winner_at'] + t['balance_seconds']
 
 def _key(r: dict):
  st = r['status']
@@ -380,7 +397,8 @@ def _key(r: dict):
 def _confirm(t: dict, s: dict, key: list, at: int, pays: list) -> None:
  if key[0] in NO_SALE:
   if s['state'] == 'WON_PENDING':
-   _log(s, at, 'IGNORED', f'{key[0]} after a confirmed winner')
+   _refund_all(s, pays, f"auction {key[0]} after the win: the winner's deposit back")
+   _close(s, at, f"the auction was confirmed {key[0]} after winner {s['winner']}")
    return
   _refund_all(s, pays, f'auction {key[0]}: every deposit back')
   _close(s, at, f'the auction was confirmed {key[0]}')
@@ -414,6 +432,10 @@ def _apply_reading(t: dict, s: dict, r: dict, at: int, pays: list) -> None:
  if r['kind'] != 'READ':
   return
  if at < t['deposits_close']:
+  return
+ due = _balance_due(t, s) if s['state'] == 'WON_PENDING' else t['refund_by']
+ if at >= due:
+  _log(s, at, 'IGNORED', 'a reading stamped at or after the deadline')
   return
  key = _key(r)
  if key is None:
@@ -515,7 +537,10 @@ class AuctionDeposit(gl.contract.Contract):
   for who, addr, v, note in pays:
    to = a.creditor if who == 'creditor' else addr
    self._credit(to, v)
-   _log(s, s['t'], 'CREDIT', f'{v} wei to the {who} ({note}); withdraw it with withdraw()')
+  if pays:
+   c = sum((v for w, _a, v, _n in pays if w == 'creditor'))
+   b = [v for w, _a, v, _n in pays if w == 'bidder']
+   _log(s, s['t'], 'CREDIT', f'{c} wei to the creditor, {sum(b)} wei back to {len(b)} bidder(s) ({pays[-1][3]}); withdraw with withdraw()')
   a.state_json = json.dumps(s, sort_keys=True)
 
  def _refuse(self, error: str) -> dict:
@@ -531,10 +556,10 @@ class AuctionDeposit(gl.contract.Contract):
   self.by_party[k] = json.dumps(ids[-MAX_PER_PARTY:])
 
  @gl.public.write
- def open_auction(self, auction_id: str, property_ref: str, record_url: str, deposit: int, confirm_seconds: int, deposits_close: int, balance_by: int, refund_by: int) -> dict:
+ def open_auction(self, auction_id: str, property_ref: str, record_url: str, deposit: int, confirm_seconds: int, deposits_close: int, balance_seconds: int, refund_by: int) -> dict:
   creditor = gl.message.sender_address.as_hex
   clean = lambda v: ' '.join(v.split()) if isinstance(v, str) else v
-  t = {'auction_id': auction_id.strip() if isinstance(auction_id, str) else auction_id, 'property_ref': clean(property_ref), 'record_url': record_url.strip() if isinstance(record_url, str) else record_url, 'deposit': deposit, 'confirm_seconds': confirm_seconds, 'deposits_close': deposits_close, 'balance_by': balance_by, 'refund_by': refund_by}
+  t = {'auction_id': auction_id.strip() if isinstance(auction_id, str) else auction_id, 'property_ref': clean(property_ref), 'record_url': record_url.strip() if isinstance(record_url, str) else record_url, 'deposit': deposit, 'confirm_seconds': confirm_seconds, 'deposits_close': deposits_close, 'balance_seconds': balance_seconds, 'refund_by': refund_by}
   now = self._tx_time()
   p = _terms_problem(t, now, json.loads(self.hosts_json), int(self.min_confirm))
   if p:

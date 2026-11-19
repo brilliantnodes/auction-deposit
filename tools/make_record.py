@@ -35,7 +35,7 @@ CASES = json.loads((ROOT / "examples" / "cases.json").read_text())
 G = 10**18
 SCHEDULED = {"status": "Scheduled", "winner": "-", "bid": "-", "balance": "-"}
 PUBLISHED_BEFORE = 6 * 3600  # the record is published this long before the auction
-NOTE = ("Bidder codes are given by the notary when a deposit is lodged. "
+NOTE = ("Bidder codes are given by the notary on registration. "
         "Losing bidders' deposits are returned after the auction.")
 FOOTER = ("Fictional platform, creditor, property and bidders, published for a GenLayer "
           "AuctionDeposit demonstration by Brilliant Nodes. Not a real auction record.")
@@ -71,7 +71,7 @@ def terms(case: dict, d: int, net: str) -> dict:
     dl = {**CASES["deadlines"], **case.get("deadlines", {})}
     return {"auction_id": case["auction_id"], "property_ref": case["property"], "deposit": deposit_wei(case, net),
             "confirm_seconds": CASES["confirm_seconds"], "deposits_close": d,
-            "balance_by": d + 60 * dl["balance_by"], "refund_by": d + 60 * dl["refund_by"]}
+            "balance_seconds": 60 * dl["balance_minutes"], "refund_by": d + 60 * dl["refund_by"]}
 
 
 def page_path(tag: str, case: dict) -> str:

@@ -17,22 +17,28 @@ read on that page, with code deciding every amount.
      reference as the record prints them, the record page (its host must be on
      the list frozen when this contract was deployed), the deposit in wei, how
      long a state must persist (confirm_seconds), when deposits close (the
-     auction's start), the balance deadline and the refund deadline.
+     auction's start), how long the winner has to pay the balance once its win
+     is confirmed (balance_seconds) and the refund deadline.
   2. DEPOSIT. Each bidder lodges exactly the deposit before deposits close and
      names the bidder code the record will use for it. One deposit per address,
      one address per code. A bidder may take its deposit back before deposits
      close; the creditor may cancel before then, refunding everyone.
   3. READINGS. Anyone may read. Every validator renders the page and its model
      COPIES the auction id, the property reference, and the status, winning
-     bidder and balance lines, each with its label. Code checks the labels
+     bidder and balance lines, each with its label. Code finds the auction id
+     and the property on their own labelled lines, checks the labels
      against closed lists, finds each value after its label on its own copy of
      the page, looks the whole status and balance text up in closed phrase
      tables (anything else is UNCLEAR and moves nothing), and requires the
      winner to be a well-formed bidder code. Validators accept only an exactly
      equal result.
-  4. NOTHING MOVES ON ONE LOOK. A state counts once it is seen twice, at least
-     confirm_seconds apart, both sightings after deposits closed:
-       SUSPENDED, CANCELLED or NO_BIDDERS: every deposit is refunded;
+  4. NOTHING MOVES ON ONE LOOK. A state counts once it is seen twice, in two
+     readings stamped at least confirm_seconds apart (stamped when sent, not
+     when validators looked), both after deposits closed and before the
+     deadline that applies:
+       SUSPENDED, CANCELLED or NO_BIDDERS: every deposit is refunded, the
+                  winner's too if a winner was already confirmed (an award
+                  annulled or suspended);
        COMPLETED, winner not registered here: every deposit is refunded;
        COMPLETED, balance PENDING: losing deposits are refunded, the winner's
                   is held;
@@ -43,16 +49,25 @@ read on that page, with code deciding every amount.
      SCHEDULED and ADJOURNED keep the auction open. Once a winner is
      confirmed it cannot change.
   5. DEADLINES, applied by any write including settle() (no model), each 30
-     minutes late: a confirmed winner with no confirmed payment by balance_by
-     forfeits the deposit to the creditor; no confirmed outcome by refund_by
-     refunds everyone.
+     minutes late: a confirmed winner with no confirmed payment within
+     balance_seconds of its confirmed win forfeits the deposit to the creditor
+     (so an adjourned auction still gives the winner its full window); no
+     confirmed outcome by refund_by refunds everyone. A reading stamped at or
+     after the deadline that applies does not count: the 30 minutes are for
+     readings stamped before it and processed late.
   6. Every payout is a credit; each address withdraws its own.
 
 Stated plainly: the contract trusts one record page whose host the deployment
 trusts. In real life the record is kept by the auction platform (notaries or
 the state), not by the creditor; a creditor that controlled the page could
-lie. A bidder code links an address to a bidder only because the bidder says
-so. Test GEN; fictional demo; not legal advice.
+lie. The creditor is whoever opens the auction, and anyone may open one for
+any auction id, so a bidder must check the creditor's address before lodging.
+A bidder code links an address to a bidder only because the bidder says so:
+someone can take a code first (and withdraw it before close), which blocks that
+bidder from the escrow but gains nothing. The phrase tables are English and
+codes are A to Z, digits and hyphens: a record in another language reads
+UNCLEAR and refunds everyone at refund_by. Test GEN; fictional demo; not legal
+advice.
 """
 
 import hashlib
@@ -90,6 +105,8 @@ BALANCES = ("", "PENDING", "PAID_IN_FULL", "DEFAULTED", "UNCLEAR")
 STATUS_LABELS = ("status", "auction status", "result", "auction result", "outcome")
 WINNER_LABELS = ("winning bidder", "winner", "successful bidder", "highest bidder", "awarded to")
 BALANCE_LABELS = ("balance", "balance payment", "balance of price", "payment of balance", "balance status")
+AUCTION_LABELS = ("auction", "auction id", "auction no", "auction no.", "auction number", "auction code", "auction ref", "auction reference")
+PROPERTY_LABELS = ("property", "property ref", "property reference", "address", "asset")
 # The whole text, normalised (lower case, single spaces, no final full stop),
 # must be one of these phrases. Anything else is UNCLEAR and moves no money.
 STATUS_TABLE = {
@@ -172,8 +189,12 @@ def _to_unix(iso: str) -> int:
 
 def _norm(v) -> str:
     s = str(v or "").replace(" ", " ").replace(" ", " ")
-    for d in ("−", "–", "—", "‒", "―"):
+    for d in ("−", "–", "—", "‒", "―", "‐", "‑"):
         s = s.replace(d, "-")
+    for q in ("‘", "’", "ʼ", "′"):
+        s = s.replace(q, "'")
+    for q in ("“", "”"):
+        s = s.replace(q, '"')
     return " ".join(s.split()).lower()
 
 
@@ -234,16 +255,22 @@ def _parse_llm_json(raw) -> dict:
 
 
 def _page_lines(page) -> str:
-    return "\n".join(_norm(line) for line in str(page or "").splitlines())
+    """One normalised line per page line; a tab (table cells) becomes " | "."""
+    return "\n".join(_norm(line.replace("\t", " | ")) for line in str(page or "").splitlines())
 
 
 def _line_start(pl: str, label_n: str, value_n: str) -> int:
-    """Where the line starts on which the label opens the line (after
+    return _anchor(pl, label_n, value_n)[0]
+
+
+def _anchor(pl: str, label_n: str, value_n: str) -> tuple:
+    """(start, end): where the line starts on which the label opens the line (after
     separators or bullets), is followed only by separators (at most one line
     break, at most ANCHOR_CHARS characters), then by the value, which runs to
-    the end of its line. -1 if there is no such line."""
+    the end of its line, and where that value's line ends. (-1, -1) if there
+    is no such line."""
     if label_n == "" or value_n == "" or "\n" in value_n:
-        return -1
+        return -1, -1
     i = pl.find(label_n)
     while i >= 0:
         a, b = i, i + len(label_n)
@@ -258,15 +285,15 @@ def _line_start(pl: str, label_n: str, value_n: str) -> int:
                 eol = pl.find("\n", e)
                 eol = len(pl) if eol < 0 else eol
                 if all(c in " |" for c in pl[e:eol]):
-                    return start
+                    return start, eol
         i = pl.find(label_n, i + 1)
-    return -1
+    return -1, -1
 
 
 def _label_form_lines(pl: str, labels) -> list:
     """Start offsets of the lines written as one of these labels: optional
-    separators or bullets, the label, then ':', '|', '=' or the end of the
-    line."""
+    separators or bullets, the label, then ':', '|', '=', '-' or the end of
+    the line (a tab is already ' | ')."""
     out, pos = [], 0
     for line in pl.split("\n"):
         k = 0
@@ -276,18 +303,18 @@ def _label_form_lines(pl: str, labels) -> list:
         for lab in labels:
             if rest.startswith(lab):
                 tail = rest[len(lab):].lstrip(" ")
-                if tail == "" or tail[0] in ":|=":
+                if tail == "" or tail[0] in ":|=-":
                     out.append(pos)
                     break
         pos += len(line) + 1
     return out
 
 
-def _qualified_next(pl: str, start: int) -> bool:
-    """The first non-blank line after the field's line qualifies it
-    ('(provisional, subject to appeal)', 'Partial payment received')."""
-    lines = pl[start:].split("\n")
-    for nxt in lines[1:]:
+def _qualified_next(pl: str, end: int) -> bool:
+    """The first non-blank line after the line where the field's value ends
+    qualifies it ('(provisional, subject to appeal)', 'Partial payment
+    received')."""
+    for nxt in pl[end:].split("\n")[1:]:
         n = nxt.strip(" |\t")
         if n == "":
             continue
@@ -326,18 +353,24 @@ def _interpret(t: dict, ans: dict, page: str) -> dict:
         return {"kind": "NO_READING", "reason": "N1_WRONG_PAGE"}
     if _norm(ans.get("auction_id_on_page")) != t["auction_id"].lower() or not _token_on_page(page_n, t["auction_id"]):
         return {"kind": "NO_READING", "reason": "N1_WRONG_PAGE"}
+    id_at = [_line_start(pl, lab, t["auction_id"].lower()) for lab in AUCTION_LABELS]
+    id_at = [x for x in id_at if x >= 0]
+    if not id_at:
+        return {"kind": "NO_READING", "reason": "N1_WRONG_PAGE"}  # the id only in passing, not as this page's auction
     prop = _norm(t["property_ref"])
-    if _norm(ans.get("property_on_page")) != prop or prop not in page_n:
+    if _norm(ans.get("property_on_page")) != prop or prop not in page_n or all(_line_start(pl, lab, prop) < 0 for lab in PROPERTY_LABELS):
         return {"kind": "NO_READING", "reason": "N1_WRONG_PAGE"}
+    if any(x not in id_at for x in _label_form_lines(pl, AUCTION_LABELS)):
+        return {"kind": "NO_READING", "reason": "N2_AMBIGUOUS"}  # another auction's line on the same page
     if str(ans.get("other_auctions_shown", "")).strip().lower() in ("yes", "true", "1"):
         return {"kind": "NO_READING", "reason": "N2_AMBIGUOUS"}
     st, wn, bl = _field(ans, "status"), _field(ans, "winning_bidder"), _field(ans, "balance")
     if _norm_label(st.get("label")) not in STATUS_LABELS:
         return {"kind": "NO_READING", "reason": "N2_LABEL"}
-    st_at = _line_start(pl, _norm_label(st.get("label")), _norm(st.get("value")))
+    st_at, st_end = _anchor(pl, _norm_label(st.get("label")), _norm(st.get("value")))
     if st_at < 0:
         return {"kind": "NO_READING", "reason": "N2_NOT_ANCHORED"}
-    if any(x != st_at for x in _label_form_lines(pl, STATUS_LABELS)) or _qualified_next(pl, st_at):
+    if any(x != st_at for x in _label_form_lines(pl, STATUS_LABELS)) or _qualified_next(pl, st_end):
         return {"kind": "NO_READING", "reason": "N2_AMBIGUOUS"}
     status = STATUS_TABLE.get(_norm_phrase(st.get("value")), "UNCLEAR")
     if status != "COMPLETED":
@@ -348,13 +381,13 @@ def _interpret(t: dict, ans: dict, page: str) -> dict:
         return {"kind": "READ", "status": status, "winner": "", "balance": ""}
     if _norm_label(wn.get("label")) not in WINNER_LABELS or _norm_label(bl.get("label")) not in BALANCE_LABELS:
         return {"kind": "NO_READING", "reason": "N2_LABEL"}
-    wn_at = _line_start(pl, _norm_label(wn.get("label")), _norm(wn.get("value")))
-    bl_at = _line_start(pl, _norm_label(bl.get("label")), _norm(bl.get("value")))
+    wn_at, wn_end = _anchor(pl, _norm_label(wn.get("label")), _norm(wn.get("value")))
+    bl_at, bl_end = _anchor(pl, _norm_label(bl.get("label")), _norm(bl.get("value")))
     if wn_at < 0 or bl_at < 0:
         return {"kind": "NO_READING", "reason": "N2_NOT_ANCHORED"}
     if any(x != wn_at for x in _label_form_lines(pl, WINNER_LABELS)) or any(x != bl_at for x in _label_form_lines(pl, BALANCE_LABELS)):
         return {"kind": "NO_READING", "reason": "N2_AMBIGUOUS"}
-    if _qualified_next(pl, wn_at) or _qualified_next(pl, bl_at):
+    if _qualified_next(pl, wn_end) or _qualified_next(pl, bl_end):
         return {"kind": "NO_READING", "reason": "N2_AMBIGUOUS"}
     winner = _code(wn.get("value"))
     if winner is None:
@@ -386,7 +419,7 @@ def _same_outcome(a: dict, b: dict) -> bool:
     if a["kind"] != b["kind"]:
         return False
     if a["kind"] == "NO_READING":
-        return a["reason"] == b["reason"]
+        return True  # nothing moves on any no-reading: validators need not agree on why
     return (a["status"], a["winner"], a["balance"]) == (b["status"], b["winner"], b["balance"])
 
 
@@ -452,15 +485,15 @@ def _terms_problem(t: dict, now: int, hosts: list, min_confirm: int) -> str:
     c = _int_in(t["confirm_seconds"], min_confirm, MAX_CONFIRM_SECONDS)
     if c is None:
         return f"confirm_seconds must be {min_confirm} to {MAX_CONFIRM_SECONDS}"
-    for key in ("deposits_close", "balance_by", "refund_by"):
+    for key in ("deposits_close", "refund_by"):
         if _int_in(t[key], 0, now + MAX_HORIZON_SECONDS) is None:
             return f"{key} must be a unix time within {MAX_HORIZON_SECONDS} seconds"
     if t["deposits_close"] <= now:
         return "deposits_close must be in the future"
-    if t["balance_by"] < t["deposits_close"] + 2 * c:
-        return "balance_by must be at least two confirmation periods after deposits_close"
-    if t["refund_by"] < t["balance_by"] + 2 * c:
-        return "refund_by must be at least two confirmation periods after balance_by"
+    if _int_in(t["balance_seconds"], 2 * c, MAX_HORIZON_SECONDS) is None:
+        return f"balance_seconds must be at least two confirmation periods and at most {MAX_HORIZON_SECONDS}"
+    if t["refund_by"] < t["deposits_close"] + 2 * c:
+        return "refund_by must be at least two confirmation periods after deposits_close"
     return ""
 
 
@@ -530,13 +563,18 @@ def _close(s: dict, at: int, reason: str) -> None:
 
 
 def _apply_deadlines(t: dict, s: dict, now: int, pays: list) -> None:
-    if s["state"] == "WON_PENDING" and now >= t["balance_by"] + GRACE_SECONDS:
-        _pay_bidder(s, pays, s["winner"], "creditor", "no confirmed payment of the balance by balance_by: the deposit is forfeited")
+    if s["state"] == "WON_PENDING" and now >= _balance_due(t, s) + GRACE_SECONDS:
+        _pay_bidder(s, pays, s["winner"], "creditor", "no confirmed payment of the balance in time: the deposit is forfeited")
         _refund_all(s, pays, "auction closed")
-        _close(s, now, "no confirmed payment of the balance by balance_by")
+        _close(s, now, "no confirmed payment of the balance within balance_seconds of the win")
     elif s["state"] == "OPEN" and now >= t["refund_by"] + GRACE_SECONDS:
         _refund_all(s, pays, "no confirmed outcome by refund_by: every deposit back")
         _close(s, now, "no confirmed outcome by refund_by")
+
+
+def _balance_due(t: dict, s: dict) -> int:
+    """When a confirmed winner's payment window ends."""
+    return s["winner_at"] + t["balance_seconds"]
 
 
 def _key(r: dict):
@@ -556,7 +594,8 @@ def _key(r: dict):
 def _confirm(t: dict, s: dict, key: list, at: int, pays: list) -> None:
     if key[0] in NO_SALE:
         if s["state"] == "WON_PENDING":
-            _log(s, at, "IGNORED", f"{key[0]} after a confirmed winner")
+            _refund_all(s, pays, f"auction {key[0]} after the win: the winner's deposit back")
+            _close(s, at, f"the auction was confirmed {key[0]} after winner {s['winner']}")
             return
         _refund_all(s, pays, f"auction {key[0]}: every deposit back")
         _close(s, at, f"the auction was confirmed {key[0]}")
@@ -592,6 +631,10 @@ def _apply_reading(t: dict, s: dict, r: dict, at: int, pays: list) -> None:
         return
     if at < t["deposits_close"]:
         return  # before the auction: nothing to count
+    due = _balance_due(t, s) if s["state"] == "WON_PENDING" else t["refund_by"]
+    if at >= due:
+        _log(s, at, "IGNORED", "a reading stamped at or after the deadline")
+        return
     key = _key(r)
     if key is None:
         return
@@ -699,7 +742,10 @@ class AuctionDeposit(gl.Contract):
         for who, addr, v, note in pays:
             to = a.creditor if who == "creditor" else addr
             self._credit(to, v)
-            _log(s, s["t"], "CREDIT", f"{v} wei to the {who} ({note}); withdraw it with withdraw()")
+        if pays:
+            c = sum(v for w, _a, v, _n in pays if w == "creditor")
+            b = [v for w, _a, v, _n in pays if w == "bidder"]
+            _log(s, s["t"], "CREDIT", f"{c} wei to the creditor, {sum(b)} wei back to {len(b)} bidder(s) ({pays[-1][3]}); withdraw with withdraw()")
         a.state_json = json.dumps(s, sort_keys=True)
 
     def _refuse(self, error: str) -> dict:
@@ -718,7 +764,7 @@ class AuctionDeposit(gl.Contract):
 
     @gl.public.write
     def open_auction(self, auction_id: str, property_ref: str, record_url: str, deposit: int, confirm_seconds: int,
-                     deposits_close: int, balance_by: int, refund_by: int) -> dict:
+                     deposits_close: int, balance_seconds: int, refund_by: int) -> dict:
         """The creditor freezes the terms. Nothing can be changed later."""
         creditor = gl.message.sender_address.as_hex
         clean = lambda v: " ".join(v.split()) if isinstance(v, str) else v  # noqa: E731
@@ -727,7 +773,7 @@ class AuctionDeposit(gl.Contract):
             "property_ref": clean(property_ref),
             "record_url": record_url.strip() if isinstance(record_url, str) else record_url,
             "deposit": deposit, "confirm_seconds": confirm_seconds,
-            "deposits_close": deposits_close, "balance_by": balance_by, "refund_by": refund_by,
+            "deposits_close": deposits_close, "balance_seconds": balance_seconds, "refund_by": refund_by,
         }
         now = self._tx_time()
         p = _terms_problem(t, now, json.loads(self.hosts_json), int(self.min_confirm))

@@ -1,0 +1,2785 @@
+{
+ "net": "bradbury",
+ "tag": "b1",
+ "deposits_close": 1795121400,
+ "site": "https://brilliantnodes.github.io/auction-deposit",
+ "contract": {
+  "address": "0x719bF130757Ba445DcB33C33AE8EF154004831b4",
+  "deploy_tx": "0x057010957c4c16432a643f4f4def9631b65ea6989d343cafa75ddff3c432702d"
+ },
+ "accounts": {
+  "creditor": "0x39656Bf3e08b1Bb49A7D147F8F10448b8cA86bE7",
+  "bidder1": "0x58174ae4397090ca509B0c89929c9bB44D53F605",
+  "bidder2": "0xeD5D9eDb6b3C2Ef42D856df5BC626ED87C3b711e",
+  "bidder3": "0x76BcFb70eD769126284A51ca46f4Ab9ec48373Eb"
+ },
+ "auctions": {
+  "paid": {
+   "id": "1",
+   "digest": "55892408389838fbc2fe9768ceb55529be9cc54fc3ce1169cafb64fbd23e8777",
+   "deposit": "8400000000000000",
+   "url": "https://brilliantnodes.github.io/auction-deposit/record/b1/ea-24117.html",
+   "title": "Won, balance paid in full"
+  },
+  "defaulted": {
+   "id": "2",
+   "digest": "0ee25aea3fb76a5631fa74e88fb4584a20f268e1abc667d61442d99c0d076e92",
+   "deposit": "6200000000000000",
+   "url": "https://brilliantnodes.github.io/auction-deposit/record/b1/ea-24125.html",
+   "title": "Won, then the winner defaulted"
+  },
+  "balance_late": {
+   "id": "3",
+   "digest": "5555cbb0022d12ef1c959cacd2d2d13d3e8260e1c5437dd0e53ebd637c9d2173",
+   "deposit": "15000000000000000",
+   "url": "https://brilliantnodes.github.io/auction-deposit/record/b1/ea-24133.html",
+   "title": "Won, balance never shown paid"
+  },
+  "cancelled": {
+   "id": "4",
+   "digest": "b911e86c460e61c678806b6e4bd3085e5958e7cac7b04524558acf6249fc6cc8",
+   "deposit": "4800000000000000",
+   "url": "https://brilliantnodes.github.io/auction-deposit/record/b1/ea-24141.html",
+   "title": "Auction cancelled"
+  },
+  "suspended": {
+   "id": "5",
+   "digest": "fb918e7c0157f5924e4ab5cbf561642caa974829231546ddf0750ffca238ac78",
+   "deposit": "21000000000000000",
+   "url": "https://brilliantnodes.github.io/auction-deposit/record/b1/ea-24158.html",
+   "title": "Auction suspended by the court"
+  },
+  "adjourned": {
+   "id": "6",
+   "digest": "e9b40322ab775a3a08cfd54f11e74acdf2db859260be8be12a7e8578a9cda61b",
+   "deposit": "9100000000000000",
+   "url": "https://brilliantnodes.github.io/auction-deposit/record/b1/ea-24166.html",
+   "title": "Adjourned, then won and paid"
+  },
+  "no_bids": {
+   "id": "7",
+   "digest": "51820174c3b83de77ce8314846af11c5c19e5c6b5139a2accf6b6c486726c8fa",
+   "deposit": "3500000000000000",
+   "url": "https://brilliantnodes.github.io/auction-deposit/record/b1/ea-24174.html",
+   "title": "No bids"
+  },
+  "outside_winner": {
+   "id": "8",
+   "digest": "ec96dff1dcc437cd9f6db521f413c5da3610c8d5e1f932d953fd27c0bfaa4720",
+   "deposit": "7700000000000000",
+   "url": "https://brilliantnodes.github.io/auction-deposit/record/b1/ea-24182.html",
+   "title": "Won by a bidder who did not use the escrow"
+  },
+  "injection": {
+   "id": "9",
+   "digest": "7353b62e19fa249c868b21eb78ff6f1f1776cd7392ae05fd698424ca3e7bc833",
+   "deposit": "12000000000000000",
+   "url": "https://brilliantnodes.github.io/auction-deposit/record/b1/ea-24190.html",
+   "title": "Page with a planted instruction"
+  },
+  "wrong_page": {
+   "id": "10",
+   "digest": "e99f0c136eb2788f5162d74a02ed10750211e038d892528b9168e1fff6f9e465",
+   "deposit": "5400000000000000",
+   "url": "https://brilliantnodes.github.io/auction-deposit/record/b1/ea-24203.html",
+   "title": "The link shows another auction"
+  }
+ },
+ "steps": [
+  {
+   "case": "refused open",
+   "at": "2026-11-19 19:48:05",
+   "from": "0x39656Bf3e08b1Bb49A7D147F8F10448b8cA86bE7",
+   "fn": "open_auction",
+   "args": [
+    "EA-24117",
+    "Unit 4B, 12 Larkspur Row, Velmora",
+    "https://auctions.example.com/auction/ea-24117.html",
+    8400000000000000,
+    600,
+    1795121400,
+    4500,
+    1795128000
+   ],
+   "value": "0",
+   "tx": "0x1d7408b1cc181288a8c78f884af37554ddd41b582ed324ea3b5f933b36c6e81d",
+   "status": "MAJORITY_AGREE",
+   "execution": "FINISHED_WITH_ERROR",
+   "created": "1795117658",
+   "result": null,
+   "sent_at": 1795117655.971899,
+   "done_at": 1795117685.996855,
+   "expect": "error: host not on the frozen list"
+  },
+  {
+   "case": "paid",
+   "at": "2026-11-19 19:48:41",
+   "from": "0x39656Bf3e08b1Bb49A7D147F8F10448b8cA86bE7",
+   "fn": "open_auction",
+   "args": [
+    "EA-24117",
+    "Unit 4B, 12 Larkspur Row, Velmora",
+    "https://brilliantnodes.github.io/auction-deposit/record/b1/ea-24117.html",
+    8400000000000000,
+    600,
+    1795121400,
+    4500,
+    1795128000
+   ],
+   "value": "0",
+   "tx": "0x109ac46775ddd822becae863f346777d1d39e046d4734f62f3678651baef0bcd",
+   "status": "MAJORITY_AGREE",
+   "execution": "FINISHED_WITH_RETURN",
+   "created": "1795117689",
+   "result": null,
+   "sent_at": 1795117685.9976704,
+   "done_at": 1795117721.992049,
+   "expect": "auction opened"
+  },
+  {
+   "case": "defaulted",
+   "at": "2026-11-19 19:49:35",
+   "from": "0x39656Bf3e08b1Bb49A7D147F8F10448b8cA86bE7",
+   "fn": "open_auction",
+   "args": [
+    "EA-24125",
+    "Flat 2, 40 Orrin Street, Velmora",
+    "https://brilliantnodes.github.io/auction-deposit/record/b1/ea-24125.html",
+    6200000000000000,
+    600,
+    1795121400,
+    4500,
+    1795128000
+   ],
+   "value": "0",
+   "tx": "0x3c365d220f60872080f66e426d97bd502dbfe4d33feaf8ee13765f4f3c7e79dd",
+   "status": "MAJORITY_AGREE",
+   "execution": "FINISHED_WITH_RETURN",
+   "created": "1795117735",
+   "result": null,
+   "sent_at": 1795117732.5313716,
+   "done_at": 1795117775.4572687,
+   "expect": "auction opened"
+  },
+  {
+   "case": "balance_late",
+   "at": "2026-11-19 19:50:21",
+   "from": "0x39656Bf3e08b1Bb49A7D147F8F10448b8cA86bE7",
+   "fn": "open_auction",
+   "args": [
+    "EA-24133",
+    "House, 5 Quarry Lane, Hessle Down",
+    "https://brilliantnodes.github.io/auction-deposit/record/b1/ea-24133.html",
+    15000000000000000,
+    600,
+    1795121400,
+    1200,
+    1795128000
+   ],
+   "value": "0",
+   "tx": "0xd3df0fd21b761dce763e2bd1c0d5ad691d7c6b4db5f10e676a218b273f6581ba",
+   "status": "MAJORITY_AGREE",
+   "execution": "FINISHED_WITH_RETURN",
+   "created": "1795117788",
+   "result": null,
+   "sent_at": 1795117785.8560529,
+   "done_at": 1795117821.026583,
+   "expect": "auction opened"
+  },
+  {
+   "case": "cancelled",
+   "at": "2026-11-19 19:51:07",
+   "from": "0x39656Bf3e08b1Bb49A7D147F8F10448b8cA86bE7",
+   "fn": "open_auction",
+   "args": [
+    "EA-24141",
+    "Shop 1, 9 Tanner Yard, Velmora",
+    "https://brilliantnodes.github.io/auction-deposit/record/b1/ea-24141.html",
+    4800000000000000,
+    600,
+    1795121400,
+    4500,
+    1795128000
+   ],
+   "value": "0",
+   "tx": "0xc9961b8bff4bd76ff15c37f5d0bece61f91e090786474ad630bd58fb6a7b6623",
+   "status": "MAJORITY_AGREE",
+   "execution": "FINISHED_WITH_RETURN",
+   "created": "1795117834",
+   "result": null,
+   "sent_at": 1795117831.6837056,
+   "done_at": 1795117867.2051325,
+   "expect": "auction opened"
+  },
+  {
+   "case": "suspended",
+   "at": "2026-11-19 19:51:52",
+   "from": "0x39656Bf3e08b1Bb49A7D147F8F10448b8cA86bE7",
+   "fn": "open_auction",
+   "args": [
+    "EA-24158",
+    "Warehouse, 22 Mill Road, Ostrey",
+    "https://brilliantnodes.github.io/auction-deposit/record/b1/ea-24158.html",
+    21000000000000000,
+    600,
+    1795121400,
+    4500,
+    1795128000
+   ],
+   "value": "0",
+   "tx": "0xe1efb31f8fe97c97778cb96a77d475015ca6e4401e564c89f15b535436ef35c8",
+   "status": "MAJORITY_AGREE",
+   "execution": "FINISHED_WITH_RETURN",
+   "created": "1795117880",
+   "result": null,
+   "sent_at": 1795117877.6693041,
+   "done_at": 1795117912.2680683,
+   "expect": "auction opened"
+  },
+  {
+   "case": "adjourned",
+   "at": "2026-11-19 19:52:38",
+   "from": "0x39656Bf3e08b1Bb49A7D147F8F10448b8cA86bE7",
+   "fn": "open_auction",
+   "args": [
+    "EA-24166",
+    "Unit 7, 3 Harbour Steps, Velmora",
+    "https://brilliantnodes.github.io/auction-deposit/record/b1/ea-24166.html",
+    9100000000000000,
+    600,
+    1795121400,
+    4500,
+    1795128000
+   ],
+   "value": "0",
+   "tx": "0x2c61b2fe1036232378c0365267c42ecd14d6831a2d0f821358c00ae435033a9b",
+   "status": "MAJORITY_AGREE",
+   "execution": "FINISHED_WITH_RETURN",
+   "created": "1795117925",
+   "result": null,
+   "sent_at": 1795117922.7393134,
+   "done_at": 1795117958.0118608,
+   "expect": "auction opened"
+  },
+  {
+   "case": "no_bids",
+   "at": "2026-11-19 19:53:16",
+   "from": "0x39656Bf3e08b1Bb49A7D147F8F10448b8cA86bE7",
+   "fn": "open_auction",
+   "args": [
+    "EA-24174",
+    "Plot 14, Ridgeway Fields, Ostrey",
+    "https://brilliantnodes.github.io/auction-deposit/record/b1/ea-24174.html",
+    3500000000000000,
+    600,
+    1795121400,
+    4500,
+    1795128000
+   ],
+   "value": "0",
+   "tx": "0x62e98efd65235e51658ad7cd06c58c8b91c12619eb17b1f04c97f01054d857fe",
+   "status": "MAJORITY_AGREE",
+   "execution": "FINISHED_WITH_RETURN",
+   "created": "1795117971",
+   "result": null,
+   "sent_at": 1795117968.5570843,
+   "done_at": 1795117996.6054323,
+   "expect": "auction opened"
+  },
+  {
+   "case": "outside_winner",
+   "at": "2026-11-19 19:54:01",
+   "from": "0x39656Bf3e08b1Bb49A7D147F8F10448b8cA86bE7",
+   "fn": "open_auction",
+   "args": [
+    "EA-24182",
+    "Flat 9, 61 Corran Avenue, Velmora",
+    "https://brilliantnodes.github.io/auction-deposit/record/b1/ea-24182.html",
+    7700000000000000,
+    600,
+    1795121400,
+    4500,
+    1795128000
+   ],
+   "value": "0",
+   "tx": "0x71f97f8711ae369da42c8b9f05c6a2686b0f83589519e016c37381df5bbd6ddb",
+   "status": "MAJORITY_AGREE",
+   "execution": "FINISHED_WITH_RETURN",
+   "created": "1795118009",
+   "result": null,
+   "sent_at": 1795118007.1149201,
+   "done_at": 1795118041.7603447,
+   "expect": "auction opened"
+  },
+  {
+   "case": "injection",
+   "at": "2026-11-19 19:54:47",
+   "from": "0x39656Bf3e08b1Bb49A7D147F8F10448b8cA86bE7",
+   "fn": "open_auction",
+   "args": [
+    "EA-24190",
+    "Office 3, 14 Weir Street, Velmora",
+    "https://brilliantnodes.github.io/auction-deposit/record/b1/ea-24190.html",
+    12000000000000000,
+    600,
+    1795121400,
+    4500,
+    1795128000
+   ],
+   "value": "0",
+   "tx": "0x860d3f668d08c984e4593a106e741b573b7fa5bfc3e2ec594fe78e3fb5be9ac3",
+   "status": "MAJORITY_AGREE",
+   "execution": "FINISHED_WITH_RETURN",
+   "created": "1795118055",
+   "result": null,
+   "sent_at": 1795118052.6344614,
+   "done_at": 1795118087.4077444,
+   "expect": "auction opened"
+  },
+  {
+   "case": "wrong_page",
+   "at": "2026-11-19 19:55:32",
+   "from": "0x39656Bf3e08b1Bb49A7D147F8F10448b8cA86bE7",
+   "fn": "open_auction",
+   "args": [
+    "EA-24203",
+    "Flat 1, 8 Pellow Court, Ostrey",
+    "https://brilliantnodes.github.io/auction-deposit/record/b1/ea-24203.html",
+    5400000000000000,
+    600,
+    1795121400,
+    4500,
+    1795123800
+   ],
+   "value": "0",
+   "tx": "0xcbf363286d400c7bb4ed06aa65aad0e83ef87243aa4303359e9a88e462749451",
+   "status": "MAJORITY_AGREE",
+   "execution": "FINISHED_WITH_RETURN",
+   "created": "1795118101",
+   "result": null,
+   "sent_at": 1795118098.0091856,
+   "done_at": 1795118132.9498243,
+   "expect": "auction opened"
+  },
+  {
+   "case": "paid",
+   "at": "2026-11-19 19:56:17",
+   "from": "0x76BcFb70eD769126284A51ca46f4Ab9ec48373Eb",
+   "fn": "deposit",
+   "args": [
+    "1",
+    "B-1103",
+    "55892408389838fbc2fe9768ceb55529be9cc54fc3ce1169cafb64fbd23e8777"
+   ],
+   "value": "8400000000000000",
+   "tx": "0xdf9afffda0b8ddb70db8a33ae126886d2f427cb18461ac6975934746dc099ff9",
+   "status": "MAJORITY_AGREE",
+   "execution": "FINISHED_WITH_RETURN",
+   "created": "1795118145",
+   "result": null,
+   "sent_at": 1795118142.8331964,
+   "done_at": 1795118177.986498,
+   "expect": "deposit lodged"
+  },
+  {
+   "case": "paid",
+   "at": "2026-11-19 19:56:38",
+   "from": "0xeD5D9eDb6b3C2Ef42D856df5BC626ED87C3b711e",
+   "fn": "deposit",
+   "args": [
+    "1",
+    "B-1102",
+    "55892408389838fbc2fe9768ceb55529be9cc54fc3ce1169cafb64fbd23e8777"
+   ],
+   "value": "8400000000000000",
+   "tx": "0x7584bc5ce3a6482d2034e709ac75962578e9e0323d8f0bbf023294f0e3b34f1a",
+   "status": "MAJORITY_AGREE",
+   "execution": "FINISHED_WITH_RETURN",
+   "created": "1795118146",
+   "result": null,
+   "sent_at": 1795118142.8293366,
+   "done_at": 1795118198.6666355,
+   "expect": "deposit lodged"
+  },
+  {
+   "case": "paid",
+   "at": "2026-11-19 19:57:05",
+   "from": "0x58174ae4397090ca509B0c89929c9bB44D53F605",
+   "fn": "deposit",
+   "args": [
+    "1",
+    "B-1101",
+    "55892408389838fbc2fe9768ceb55529be9cc54fc3ce1169cafb64fbd23e8777"
+   ],
+   "value": "8399999999999999",
+   "tx": "0xe10e7aff694ef909e0155cf8ffecb6e6939e119dd29878d66dc16586f5a08f54",
+   "status": "MAJORITY_AGREE",
+   "execution": "FINISHED_WITH_RETURN",
+   "created": "1795118146",
+   "result": null,
+   "sent_at": 1795118142.8285112,
+   "done_at": 1795118225.819215,
+   "expect": "refused: not exactly the deposit (credited back)"
+  },
+  {
+   "case": "defaulted",
+   "at": "2026-11-19 19:57:33",
+   "from": "0x76BcFb70eD769126284A51ca46f4Ab9ec48373Eb",
+   "fn": "deposit",
+   "args": [
+    "2",
+    "B-1203",
+    "0ee25aea3fb76a5631fa74e88fb4584a20f268e1abc667d61442d99c0d076e92"
+   ],
+   "value": "6200000000000000",
+   "tx": "0x7ffd064d7113be7212d0d12b7d687286e5017a414ce1bdccb0be8acf96ba93e3",
+   "status": "MAJORITY_AGREE",
+   "execution": "FINISHED_WITH_RETURN",
+   "created": "1795118180",
+   "result": null,
+   "sent_at": 1795118177.9879482,
+   "done_at": 1795118253.4102013,
+   "expect": "deposit lodged"
+  },
+  {
+   "case": "defaulted",
+   "at": "2026-11-19 19:58:00",
+   "from": "0xeD5D9eDb6b3C2Ef42D856df5BC626ED87C3b711e",
+   "fn": "deposit",
+   "args": [
+    "2",
+    "B-1202",
+    "0ee25aea3fb76a5631fa74e88fb4584a20f268e1abc667d61442d99c0d076e92"
+   ],
+   "value": "6200000000000000",
+   "tx": "0xed2c133c92a8d877fee8a1727c660e35f56912617592b1452c47546b6f18000f",
+   "status": "MAJORITY_AGREE",
+   "execution": "FINISHED_WITH_RETURN",
+   "created": "1795118201",
+   "result": null,
+   "sent_at": 1795118198.6676233,
+   "done_at": 1795118280.806589,
+   "expect": "deposit lodged"
+  },
+  {
+   "case": "paid",
+   "at": "2026-11-19 19:58:21",
+   "from": "0x58174ae4397090ca509B0c89929c9bB44D53F605",
+   "fn": "deposit",
+   "args": [
+    "1",
+    "B-1101",
+    "55892408389838fbc2fe9768ceb55529be9cc54fc3ce1169cafb64fbd23e8777"
+   ],
+   "value": "8400000000000000",
+   "tx": "0x47b74f0543129536d24c1ee74caf4622dc0983289b5c54fc1f464e7d6e4987cf",
+   "status": "MAJORITY_AGREE",
+   "execution": "FINISHED_WITH_RETURN",
+   "created": "1795118228",
+   "result": null,
+   "sent_at": 1795118225.8206356,
+   "done_at": 1795118301.2875292,
+   "expect": "deposit lodged"
+  },
+  {
+   "case": "balance_late",
+   "at": "2026-11-19 19:58:48",
+   "from": "0x76BcFb70eD769126284A51ca46f4Ab9ec48373Eb",
+   "fn": "deposit",
+   "args": [
+    "3",
+    "B-1303",
+    "5555cbb0022d12ef1c959cacd2d2d13d3e8260e1c5437dd0e53ebd637c9d2173"
+   ],
+   "value": "15000000000000000",
+   "tx": "0xa89b89f46f029d5456ce15e39f580f51b338628bb5c42e23af614d20eb1230cc",
+   "status": "MAJORITY_AGREE",
+   "execution": "FINISHED_WITH_RETURN",
+   "created": "1795118256",
+   "result": null,
+   "sent_at": 1795118253.4114397,
+   "done_at": 1795118328.3744423,
+   "expect": "deposit lodged"
+  },
+  {
+   "case": "balance_late",
+   "at": "2026-11-19 19:59:16",
+   "from": "0xeD5D9eDb6b3C2Ef42D856df5BC626ED87C3b711e",
+   "fn": "deposit",
+   "args": [
+    "3",
+    "B-1302",
+    "5555cbb0022d12ef1c959cacd2d2d13d3e8260e1c5437dd0e53ebd637c9d2173"
+   ],
+   "value": "15000000000000000",
+   "tx": "0x6b184d7b8130ff9c0ce0c4bbf263ad4b1895e03560c696e9181226372cd96572",
+   "status": "MAJORITY_AGREE",
+   "execution": "FINISHED_WITH_RETURN",
+   "created": "1795118283",
+   "result": null,
+   "sent_at": 1795118280.8074443,
+   "done_at": 1795118356.0316293,
+   "expect": "deposit lodged"
+  },
+  {
+   "case": "defaulted",
+   "at": "2026-11-19 19:59:36",
+   "from": "0x58174ae4397090ca509B0c89929c9bB44D53F605",
+   "fn": "deposit",
+   "args": [
+    "2",
+    "B-1201",
+    "0ee25aea3fb76a5631fa74e88fb4584a20f268e1abc667d61442d99c0d076e92"
+   ],
+   "value": "6200000000000000",
+   "tx": "0x5c1cd7e73f3de9ce042842c42ff2a8e421aedaf45583a7c9badfd7a2da7b77b2",
+   "status": "MAJORITY_AGREE",
+   "execution": "FINISHED_WITH_RETURN",
+   "created": "1795118304",
+   "result": null,
+   "sent_at": 1795118301.2884548,
+   "done_at": 1795118376.377292,
+   "expect": "deposit lodged"
+  },
+  {
+   "case": "cancelled",
+   "at": "2026-11-19 19:59:50",
+   "from": "0x76BcFb70eD769126284A51ca46f4Ab9ec48373Eb",
+   "fn": "deposit",
+   "args": [
+    "4",
+    "B-1403",
+    "b911e86c460e61c678806b6e4bd3085e5958e7cac7b04524558acf6249fc6cc8"
+   ],
+   "value": "4800000000000000",
+   "tx": "0xb33de79eff90136cc3b112ed04f719d7625d929b3f117980bb2ea705477be650",
+   "status": "MAJORITY_AGREE",
+   "execution": "FINISHED_WITH_RETURN",
+   "created": "1795118331",
+   "result": null,
+   "sent_at": 1795118328.3754652,
+   "done_at": 1795118390.0724132,
+   "expect": "deposit lodged"
+  },
+  {
+   "case": "cancelled",
+   "at": "2026-11-19 20:00:17",
+   "from": "0xeD5D9eDb6b3C2Ef42D856df5BC626ED87C3b711e",
+   "fn": "deposit",
+   "args": [
+    "4",
+    "B-1402",
+    "b911e86c460e61c678806b6e4bd3085e5958e7cac7b04524558acf6249fc6cc8"
+   ],
+   "value": "4800000000000000",
+   "tx": "0x6af101d7d5dddb12c3bfd5a4d32136d550b2bc504771eb2cfc578c376b1eef0c",
+   "status": "MAJORITY_AGREE",
+   "execution": "FINISHED_WITH_RETURN",
+   "created": "1795118358",
+   "result": null,
+   "sent_at": 1795118356.03266,
+   "done_at": 1795118417.8245435,
+   "expect": "deposit lodged"
+  },
+  {
+   "case": "balance_late",
+   "at": "2026-11-19 20:00:31",
+   "from": "0x58174ae4397090ca509B0c89929c9bB44D53F605",
+   "fn": "deposit",
+   "args": [
+    "3",
+    "B-1301",
+    "5555cbb0022d12ef1c959cacd2d2d13d3e8260e1c5437dd0e53ebd637c9d2173"
+   ],
+   "value": "15000000000000000",
+   "tx": "0x57bae8f16ee9aece881937a05d89b7161312b7c1adbe1f86a30de9159d829bf8",
+   "status": "MAJORITY_AGREE",
+   "execution": "FINISHED_WITH_RETURN",
+   "created": "1795118379",
+   "result": null,
+   "sent_at": 1795118376.3784044,
+   "done_at": 1795118431.349104,
+   "expect": "deposit lodged"
+  },
+  {
+   "case": "suspended",
+   "at": "2026-11-19 20:00:52",
+   "from": "0x76BcFb70eD769126284A51ca46f4Ab9ec48373Eb",
+   "fn": "deposit",
+   "args": [
+    "5",
+    "B-1503",
+    "fb918e7c0157f5924e4ab5cbf561642caa974829231546ddf0750ffca238ac78"
+   ],
+   "value": "21000000000000000",
+   "tx": "0x9033855da4c4c563f1c5e3806b1de061c0a884f079ccd9c9fa2c5f28d2190e7e",
+   "status": "MAJORITY_AGREE",
+   "execution": "FINISHED_WITH_RETURN",
+   "created": "1795118392",
+   "result": null,
+   "sent_at": 1795118390.0732973,
+   "done_at": 1795118452.2052774,
+   "expect": "deposit lodged"
+  },
+  {
+   "case": "suspended",
+   "at": "2026-11-19 20:01:22",
+   "from": "0xeD5D9eDb6b3C2Ef42D856df5BC626ED87C3b711e",
+   "fn": "deposit",
+   "args": [
+    "5",
+    "B-1502",
+    "fb918e7c0157f5924e4ab5cbf561642caa974829231546ddf0750ffca238ac78"
+   ],
+   "value": "21000000000000000",
+   "tx": "0xbf7f6b6d918724b916d4477ef1209d492087095126f78119fc64ecaa7b0425b8",
+   "status": "MAJORITY_AGREE",
+   "execution": "FINISHED_WITH_RETURN",
+   "created": "1795118420",
+   "result": null,
+   "sent_at": 1795118417.8256235,
+   "done_at": 1795118482.6071775,
+   "expect": "deposit lodged"
+  },
+  {
+   "case": "cancelled",
+   "at": "2026-11-19 20:01:43",
+   "from": "0x58174ae4397090ca509B0c89929c9bB44D53F605",
+   "fn": "deposit",
+   "args": [
+    "4",
+    "B-1401",
+    "b911e86c460e61c678806b6e4bd3085e5958e7cac7b04524558acf6249fc6cc8"
+   ],
+   "value": "4800000000000000",
+   "tx": "0x5abf60e0ff6a68f671ed6d4cd287b7873c204f67584c7d0b8cabccbbbeafda26",
+   "status": "MAJORITY_AGREE",
+   "execution": "FINISHED_WITH_RETURN",
+   "created": "1795118434",
+   "result": null,
+   "sent_at": 1795118431.3500638,
+   "done_at": 1795118503.0249677,
+   "expect": "deposit lodged"
+  },
+  {
+   "case": "adjourned",
+   "at": "2026-11-19 20:02:05",
+   "from": "0x76BcFb70eD769126284A51ca46f4Ab9ec48373Eb",
+   "fn": "deposit",
+   "args": [
+    "6",
+    "B-1603",
+    "e9b40322ab775a3a08cfd54f11e74acdf2db859260be8be12a7e8578a9cda61b"
+   ],
+   "value": "9100000000000000",
+   "tx": "0x4b0ed56d8256fdbfd57ca48b729e210feec7259b93319b20ebbafb33309c6ff3",
+   "status": "MAJORITY_AGREE",
+   "execution": "FINISHED_WITH_RETURN",
+   "created": "1795118455",
+   "result": null,
+   "sent_at": 1795118452.2061064,
+   "done_at": 1795118525.7728894,
+   "expect": "deposit lodged"
+  },
+  {
+   "case": "adjourned",
+   "at": "2026-11-19 20:02:47",
+   "from": "0xeD5D9eDb6b3C2Ef42D856df5BC626ED87C3b711e",
+   "fn": "deposit",
+   "args": [
+    "6",
+    "B-1602",
+    "e9b40322ab775a3a08cfd54f11e74acdf2db859260be8be12a7e8578a9cda61b"
+   ],
+   "value": "9100000000000000",
+   "tx": "0x6b405e9a5872a8476fe2c6ef2d972e8e59c45139294f82379756709b5acf26bf",
+   "status": "MAJORITY_AGREE",
+   "execution": "FINISHED_WITH_RETURN",
+   "created": "1795118485",
+   "result": null,
+   "sent_at": 1795118482.6083477,
+   "done_at": 1795118567.614545,
+   "expect": "deposit lodged"
+  },
+  {
+   "case": "suspended",
+   "at": "2026-11-19 20:03:09",
+   "from": "0x58174ae4397090ca509B0c89929c9bB44D53F605",
+   "fn": "deposit",
+   "args": [
+    "5",
+    "B-1501",
+    "fb918e7c0157f5924e4ab5cbf561642caa974829231546ddf0750ffca238ac78"
+   ],
+   "value": "21000000000000000",
+   "tx": "0x9ce856fd169e1f1211b26b5f7cd6c596f031b3fb60e56537e203796d9e848bcf",
+   "status": "MAJORITY_AGREE",
+   "execution": "FINISHED_WITH_RETURN",
+   "created": "1795118506",
+   "result": null,
+   "sent_at": 1795118503.0259585,
+   "done_at": 1795118589.8661044,
+   "expect": "deposit lodged"
+  },
+  {
+   "case": "no_bids",
+   "at": "2026-11-19 20:03:33",
+   "from": "0x76BcFb70eD769126284A51ca46f4Ab9ec48373Eb",
+   "fn": "deposit",
+   "args": [
+    "7",
+    "B-1703",
+    "51820174c3b83de77ce8314846af11c5c19e5c6b5139a2accf6b6c486726c8fa"
+   ],
+   "value": "3500000000000000",
+   "tx": "0xf2e32f0349f140b86b25f77048c12d291c5608155bc03083f29b734129c63123",
+   "status": "MAJORITY_AGREE",
+   "execution": "FINISHED_WITH_RETURN",
+   "created": "1795118528",
+   "result": null,
+   "sent_at": 1795118525.774016,
+   "done_at": 1795118613.5184815,
+   "expect": "deposit lodged"
+  },
+  {
+   "case": "no_bids",
+   "at": "2026-11-19 20:04:00",
+   "from": "0xeD5D9eDb6b3C2Ef42D856df5BC626ED87C3b711e",
+   "fn": "deposit",
+   "args": [
+    "7",
+    "B-1702",
+    "51820174c3b83de77ce8314846af11c5c19e5c6b5139a2accf6b6c486726c8fa"
+   ],
+   "value": "3500000000000000",
+   "tx": "0xc6431e506fc18a96e63af99b1f7fa888a6deb0550de39a2035455ca2f4c78e33",
+   "status": "MAJORITY_AGREE",
+   "execution": "FINISHED_WITH_RETURN",
+   "created": "1795118570",
+   "result": null,
+   "sent_at": 1795118567.6155581,
+   "done_at": 1795118640.9081593,
+   "expect": "deposit lodged"
+  },
+  {
+   "case": "adjourned",
+   "at": "2026-11-19 20:04:13",
+   "from": "0x58174ae4397090ca509B0c89929c9bB44D53F605",
+   "fn": "deposit",
+   "args": [
+    "6",
+    "B-1601",
+    "e9b40322ab775a3a08cfd54f11e74acdf2db859260be8be12a7e8578a9cda61b"
+   ],
+   "value": "9100000000000000",
+   "tx": "0x15db146a5594b0c0854855bf54c671c4ac6fdd07e0586136bbfac737303a0a73",
+   "status": "MAJORITY_AGREE",
+   "execution": "FINISHED_WITH_RETURN",
+   "created": "1795118593",
+   "result": null,
+   "sent_at": 1795118589.8675117,
+   "done_at": 1795118653.1908529,
+   "expect": "deposit lodged"
+  },
+  {
+   "case": "outside_winner",
+   "at": "2026-11-19 20:04:38",
+   "from": "0x76BcFb70eD769126284A51ca46f4Ab9ec48373Eb",
+   "fn": "deposit",
+   "args": [
+    "8",
+    "B-1803",
+    "ec96dff1dcc437cd9f6db521f413c5da3610c8d5e1f932d953fd27c0bfaa4720"
+   ],
+   "value": "7700000000000000",
+   "tx": "0xb7153bfb16e46792a6601de12b3cd5dcacbc339b0fc66e3868045e8a19395c7c",
+   "status": "MAJORITY_AGREE",
+   "execution": "FINISHED_WITH_RETURN",
+   "created": "1795118616",
+   "result": null,
+   "sent_at": 1795118613.5196643,
+   "done_at": 1795118678.0697262,
+   "expect": "deposit lodged"
+  },
+  {
+   "case": "outside_winner",
+   "at": "2026-11-19 20:05:06",
+   "from": "0xeD5D9eDb6b3C2Ef42D856df5BC626ED87C3b711e",
+   "fn": "deposit",
+   "args": [
+    "8",
+    "B-1802",
+    "ec96dff1dcc437cd9f6db521f413c5da3610c8d5e1f932d953fd27c0bfaa4720"
+   ],
+   "value": "7700000000000000",
+   "tx": "0xb01e39ea48d6beff620c247b2a433b73bc82a47076b993178cc0fa54e92815e0",
+   "status": "MAJORITY_AGREE",
+   "execution": "FINISHED_WITH_RETURN",
+   "created": "1795118644",
+   "result": null,
+   "sent_at": 1795118640.9093516,
+   "done_at": 1795118706.7313867,
+   "expect": "deposit lodged"
+  },
+  {
+   "case": "no_bids",
+   "at": "2026-11-19 20:05:28",
+   "from": "0x58174ae4397090ca509B0c89929c9bB44D53F605",
+   "fn": "deposit",
+   "args": [
+    "7",
+    "B-1701",
+    "51820174c3b83de77ce8314846af11c5c19e5c6b5139a2accf6b6c486726c8fa"
+   ],
+   "value": "3500000000000000",
+   "tx": "0xbf50393063fa8215d82c3bc58d1fb92cbe85dddd00927399c5d28c57aefd7bd7",
+   "status": "MAJORITY_AGREE",
+   "execution": "FINISHED_WITH_RETURN",
+   "created": "1795118657",
+   "result": null,
+   "sent_at": 1795118653.1918573,
+   "done_at": 1795118728.6448038,
+   "expect": "deposit lodged"
+  },
+  {
+   "case": "injection",
+   "at": "2026-11-19 20:05:53",
+   "from": "0x76BcFb70eD769126284A51ca46f4Ab9ec48373Eb",
+   "fn": "deposit",
+   "args": [
+    "9",
+    "B-1903",
+    "7353b62e19fa249c868b21eb78ff6f1f1776cd7392ae05fd698424ca3e7bc833"
+   ],
+   "value": "12000000000000000",
+   "tx": "0xe51a28ba615b50c8feea6ce2c7199eb95935d6bac4229c1318b99781e0a9c08e",
+   "status": "MAJORITY_AGREE",
+   "execution": "FINISHED_WITH_RETURN",
+   "created": "1795118682",
+   "result": null,
+   "sent_at": 1795118678.0712132,
+   "done_at": 1795118753.7654438,
+   "expect": "deposit lodged"
+  },
+  {
+   "case": "injection",
+   "at": "2026-11-19 20:06:21",
+   "from": "0xeD5D9eDb6b3C2Ef42D856df5BC626ED87C3b711e",
+   "fn": "deposit",
+   "args": [
+    "9",
+    "B-1902",
+    "7353b62e19fa249c868b21eb78ff6f1f1776cd7392ae05fd698424ca3e7bc833"
+   ],
+   "value": "12000000000000000",
+   "tx": "0xe7f8c48157a80f3f380919078ca98d29362ad4f3bae024bf32d9420581b082a0",
+   "status": "MAJORITY_AGREE",
+   "execution": "FINISHED_WITH_RETURN",
+   "created": "1795118710",
+   "result": null,
+   "sent_at": 1795118706.732516,
+   "done_at": 1795118781.1754448,
+   "expect": "deposit lodged"
+  },
+  {
+   "case": "outside_winner",
+   "at": "2026-11-19 20:06:45",
+   "from": "0x58174ae4397090ca509B0c89929c9bB44D53F605",
+   "fn": "deposit",
+   "args": [
+    "8",
+    "B-1801",
+    "ec96dff1dcc437cd9f6db521f413c5da3610c8d5e1f932d953fd27c0bfaa4720"
+   ],
+   "value": "7700000000000000",
+   "tx": "0x197ee3bd9d9f4d1c02ffb61f7c507c5abd51e3227504c0db341e204f8395a936",
+   "status": "MAJORITY_AGREE",
+   "execution": "FINISHED_WITH_RETURN",
+   "created": "1795118732",
+   "result": null,
+   "sent_at": 1795118728.6482081,
+   "done_at": 1795118805.0876503,
+   "expect": "deposit lodged"
+  },
+  {
+   "case": "wrong_page",
+   "at": "2026-11-19 20:07:03",
+   "from": "0x76BcFb70eD769126284A51ca46f4Ab9ec48373Eb",
+   "fn": "deposit",
+   "args": [
+    "10",
+    "B-2003",
+    "e99f0c136eb2788f5162d74a02ed10750211e038d892528b9168e1fff6f9e465"
+   ],
+   "value": "5400000000000000",
+   "tx": "0xeb51eb37c0ae24a15c266b9b69785a9e5c6afb895a77b80aab9c5c3080974d75",
+   "status": "MAJORITY_AGREE",
+   "execution": "FINISHED_WITH_RETURN",
+   "created": "1795118757",
+   "result": null,
+   "sent_at": 1795118753.7664325,
+   "done_at": 1795118823.8683803,
+   "expect": "deposit lodged"
+  },
+  {
+   "case": "wrong_page",
+   "at": "2026-11-19 20:07:29",
+   "from": "0xeD5D9eDb6b3C2Ef42D856df5BC626ED87C3b711e",
+   "fn": "deposit",
+   "args": [
+    "10",
+    "B-2002",
+    "e99f0c136eb2788f5162d74a02ed10750211e038d892528b9168e1fff6f9e465"
+   ],
+   "value": "5400000000000000",
+   "tx": "0x2734fa8333c2a6ba5f3c57a87be330b17818ad3f823ee1acc5294cdb846233f1",
+   "status": "MAJORITY_AGREE",
+   "execution": "FINISHED_WITH_RETURN",
+   "created": "1795118784",
+   "result": null,
+   "sent_at": 1795118781.177053,
+   "done_at": 1795118849.6830156,
+   "expect": "deposit lodged"
+  },
+  {
+   "case": "injection",
+   "at": "2026-11-19 20:07:58",
+   "from": "0x58174ae4397090ca509B0c89929c9bB44D53F605",
+   "fn": "deposit",
+   "args": [
+    "9",
+    "B-1901",
+    "7353b62e19fa249c868b21eb78ff6f1f1776cd7392ae05fd698424ca3e7bc833"
+   ],
+   "value": "12000000000000000",
+   "tx": "0xa4994054603961806f81205133137fcd2bb4f80835c1b00aecc7b70fa407220b",
+   "status": "MAJORITY_AGREE",
+   "execution": "FINISHED_WITH_RETURN",
+   "created": "1795118809",
+   "result": null,
+   "sent_at": 1795118805.0886903,
+   "done_at": 1795118878.1111746,
+   "expect": "deposit lodged"
+  },
+  {
+   "case": "wrong_page",
+   "at": "2026-11-19 20:08:30",
+   "from": "0x58174ae4397090ca509B0c89929c9bB44D53F605",
+   "fn": "deposit",
+   "args": [
+    "10",
+    "B-2001",
+    "e99f0c136eb2788f5162d74a02ed10750211e038d892528b9168e1fff6f9e465"
+   ],
+   "value": "5400000000000000",
+   "tx": "0x4f084bb1566aa714a981c087da0027c89ed286b0570f23420630e33b16dc7d20",
+   "status": "MAJORITY_AGREE",
+   "execution": "FINISHED_WITH_RETURN",
+   "created": "1795118881",
+   "result": null,
+   "sent_at": 1795118878.1123767,
+   "done_at": 1795118910.343816,
+   "expect": "deposit lodged"
+  },
+  {
+   "case": "paid",
+   "at": "2026-11-19 20:55:44",
+   "from": "0x39656Bf3e08b1Bb49A7D147F8F10448b8cA86bE7",
+   "fn": "read_record",
+   "args": [
+    "1"
+   ],
+   "value": "0",
+   "tx": "0x7544b073695b9a5b24c1a21b73f5527abac1f02ce45a6c7a4591e850d98887a3",
+   "status": "MAJORITY_AGREE",
+   "execution": "FINISHED_WITH_RETURN",
+   "created": "1795121703",
+   "result": null,
+   "sent_at": 1795121700.0005631,
+   "done_at": 1795121744.5626504,
+   "expect": "round 1"
+  },
+  {
+   "case": "defaulted",
+   "at": "2026-11-19 20:56:19",
+   "from": "0x58174ae4397090ca509B0c89929c9bB44D53F605",
+   "fn": "read_record",
+   "args": [
+    "2"
+   ],
+   "value": "0",
+   "tx": "0xd29d4d81dd6c216e276b1016ba3d2dcc3617ead0e61d4b766040e4cf24141753",
+   "status": "MAJORITY_AGREE",
+   "execution": "FINISHED_WITH_RETURN",
+   "created": "1795121711",
+   "result": null,
+   "sent_at": 1795121708.0003989,
+   "done_at": 1795121779.093777,
+   "expect": "round 1"
+  },
+  {
+   "case": "balance_late",
+   "at": "2026-11-19 20:56:53",
+   "from": "0xeD5D9eDb6b3C2Ef42D856df5BC626ED87C3b711e",
+   "fn": "read_record",
+   "args": [
+    "3"
+   ],
+   "value": "0",
+   "tx": "0xb7fc3c579b901f015c81764c7bd8f5e57c73c0775dce85fd35f862ad19578af1",
+   "status": "MAJORITY_AGREE",
+   "execution": "FINISHED_WITH_RETURN",
+   "created": "1795121719",
+   "result": null,
+   "sent_at": 1795121716.0003314,
+   "done_at": 1795121813.4156554,
+   "expect": "round 1"
+  },
+  {
+   "case": "cancelled",
+   "at": "2026-11-19 21:00:59",
+   "from": "0x76BcFb70eD769126284A51ca46f4Ab9ec48373Eb",
+   "fn": "read_record",
+   "args": [
+    "4"
+   ],
+   "value": "0",
+   "tx": "0xecf658b125ff37587c571260f721600ff5e9725dc2e3874ab75f34d2ab5abacd",
+   "status": "NO_MAJORITY",
+   "execution": "FINISHED_WITH_RETURN",
+   "created": "1795121727",
+   "result": null,
+   "sent_at": 1795121724.3315842,
+   "done_at": 1795122059.3168359,
+   "expect": "round 1"
+  },
+  {
+   "case": "suspended",
+   "at": "2026-11-19 21:01:13",
+   "from": "0x39656Bf3e08b1Bb49A7D147F8F10448b8cA86bE7",
+   "fn": "read_record",
+   "args": [
+    "5"
+   ],
+   "value": "0",
+   "tx": "0x8cd46e1c883563d14798ec4ecd7f0b0d33377fa5b0086e5f1ae8e21d28e03db2",
+   "status": "MAJORITY_AGREE",
+   "execution": "FINISHED_WITH_RETURN",
+   "created": "1795121745",
+   "result": null,
+   "sent_at": 1795121742.1281135,
+   "done_at": 1795122073.1836298,
+   "expect": "round 1"
+  },
+  {
+   "case": "adjourned",
+   "at": "2026-11-19 21:03:01",
+   "from": "0x58174ae4397090ca509B0c89929c9bB44D53F605",
+   "fn": "read_record",
+   "args": [
+    "6"
+   ],
+   "value": "0",
+   "tx": "0x73253e7b20da7d06278e1348af7cf7ffe105ed788a586030b7703c55352e2a2e",
+   "status": "MAJORITY_AGREE",
+   "execution": "FINISHED_WITH_RETURN",
+   "created": "1795121779",
+   "result": null,
+   "sent_at": 1795121776.6684115,
+   "done_at": 1795122181.4186244,
+   "expect": "round 1"
+  },
+  {
+   "case": "no_bids",
+   "at": "2026-11-19 21:03:33",
+   "from": "0xeD5D9eDb6b3C2Ef42D856df5BC626ED87C3b711e",
+   "fn": "read_record",
+   "args": [
+    "7"
+   ],
+   "value": "0",
+   "tx": "0x5199ce7685054b60d0645c6506fa2fc589c133c527a42a1938f5ad52bedf5e68",
+   "status": "MAJORITY_AGREE",
+   "execution": "FINISHED_WITH_RETURN",
+   "created": "1795121814",
+   "result": null,
+   "sent_at": 1795121811.1519966,
+   "done_at": 1795122213.0474133,
+   "expect": "round 1"
+  },
+  {
+   "case": "outside_winner",
+   "at": "2026-11-19 21:04:11",
+   "from": "0x76BcFb70eD769126284A51ca46f4Ab9ec48373Eb",
+   "fn": "read_record",
+   "args": [
+    "8"
+   ],
+   "value": "0",
+   "tx": "0xcf07453910c642cbfd828cdda2741eab8adf9d2e15866936976cbc48be18cf81",
+   "status": "MAJORITY_AGREE",
+   "execution": "FINISHED_WITH_RETURN",
+   "created": "1795121947",
+   "result": null,
+   "sent_at": 1795121944.5493922,
+   "done_at": 1795122251.8088067,
+   "expect": "round 1"
+  },
+  {
+   "case": "injection",
+   "at": "2026-11-19 21:04:50",
+   "from": "0x39656Bf3e08b1Bb49A7D147F8F10448b8cA86bE7",
+   "fn": "read_record",
+   "args": [
+    "9"
+   ],
+   "value": "0",
+   "tx": "0x53836cebbd75ad1c1c8de61a9729ae3f778f6087989909bc244143b838246fea",
+   "status": "MAJORITY_AGREE",
+   "execution": "FINISHED_WITH_RETURN",
+   "created": "1795122073",
+   "result": null,
+   "sent_at": 1795122071.0512176,
+   "done_at": 1795122290.7417958,
+   "expect": "round 1"
+  },
+  {
+   "case": "wrong_page",
+   "at": "2026-11-19 21:05:38",
+   "from": "0x58174ae4397090ca509B0c89929c9bB44D53F605",
+   "fn": "read_record",
+   "args": [
+    "10"
+   ],
+   "value": "0",
+   "tx": "0xb5a4a020605f750f445745489349b3c0693356805f0b4d0f854a62f64a25fb66",
+   "status": "MAJORITY_AGREE",
+   "execution": "FINISHED_WITH_RETURN",
+   "created": "1795122182",
+   "result": null,
+   "sent_at": 1795122179.192874,
+   "done_at": 1795122338.2857926,
+   "expect": "round 1"
+  },
+  {
+   "case": "paid",
+   "at": "2026-11-19 21:08:51",
+   "from": "0x39656Bf3e08b1Bb49A7D147F8F10448b8cA86bE7",
+   "fn": "read_record",
+   "args": [
+    "1"
+   ],
+   "value": "0",
+   "tx": "0x8adb90caf09709449e8ff68a3d691be30c1e7d2ef3bb61fc9c737d773fbb4a7d",
+   "status": "MAJORITY_AGREE",
+   "execution": "FINISHED_WITH_RETURN",
+   "created": "1795122423",
+   "result": null,
+   "sent_at": 1795122420.0932922,
+   "done_at": 1795122531.1290195,
+   "expect": "round 2"
+  },
+  {
+   "case": "defaulted",
+   "at": "2026-11-19 21:09:37",
+   "from": "0x58174ae4397090ca509B0c89929c9bB44D53F605",
+   "fn": "read_record",
+   "args": [
+    "2"
+   ],
+   "value": "0",
+   "tx": "0xbb65e8b2c43b55de64b69ed51c1711623ef8552be69a16b1008e32b5dababd2d",
+   "status": "MAJORITY_AGREE",
+   "execution": "FINISHED_WITH_RETURN",
+   "created": "1795122441",
+   "result": null,
+   "sent_at": 1795122439.0941634,
+   "done_at": 1795122577.2205727,
+   "expect": "round 2"
+  },
+  {
+   "case": "balance_late",
+   "at": "2026-11-19 21:11:18",
+   "from": "0xeD5D9eDb6b3C2Ef42D856df5BC626ED87C3b711e",
+   "fn": "read_record",
+   "args": [
+    "3"
+   ],
+   "value": "0",
+   "tx": "0x5126518dac4c8070305492a65d5451050778a2597c0545ab005841b74150e6ed",
+   "status": "MAJORITY_DISAGREE",
+   "execution": "FINISHED_WITH_RETURN",
+   "created": "1795122476",
+   "result": null,
+   "sent_at": 1795122473.4159431,
+   "done_at": 1795122678.2103992,
+   "expect": "round 2"
+  },
+  {
+   "case": "cancelled",
+   "at": "2026-11-19 21:12:47",
+   "from": "0x76BcFb70eD769126284A51ca46f4Ab9ec48373Eb",
+   "fn": "read_record",
+   "args": [
+    "4"
+   ],
+   "value": "0",
+   "tx": "0x1a65f188bd7456b3b335adbb03e76d4acc77e0f34db448bf7090e8edfe93e257",
+   "status": "MAJORITY_AGREE",
+   "execution": "FINISHED_WITH_RETURN",
+   "created": "1795122722",
+   "result": null,
+   "sent_at": 1795122719.3171825,
+   "done_at": 1795122767.8642411,
+   "expect": "round 2"
+  },
+  {
+   "case": "suspended",
+   "at": "2026-11-19 21:13:42",
+   "from": "0x39656Bf3e08b1Bb49A7D147F8F10448b8cA86bE7",
+   "fn": "read_record",
+   "args": [
+    "5"
+   ],
+   "value": "0",
+   "tx": "0x23cb512d7eb0b44ce3505f9775c4d4bea2a3bb90dc57ff281dc36dce87c2c071",
+   "status": "MAJORITY_AGREE",
+   "execution": "FINISHED_WITH_RETURN",
+   "created": "1795122736",
+   "result": null,
+   "sent_at": 1795122733.183925,
+   "done_at": 1795122822.5641882,
+   "expect": "round 2"
+  },
+  {
+   "case": "adjourned",
+   "at": "2026-11-19 21:15:37",
+   "from": "0x58174ae4397090ca509B0c89929c9bB44D53F605",
+   "fn": "read_record",
+   "args": [
+    "6"
+   ],
+   "value": "0",
+   "tx": "0x06af643ba273ff03532dd2469e85171b0dc05c0fbfed917e14bf1a3a9c7a061a",
+   "status": "MAJORITY_AGREE",
+   "execution": "FINISHED_WITH_RETURN",
+   "created": "1795122844",
+   "result": null,
+   "sent_at": 1795122841.4189622,
+   "done_at": 1795122937.2075412,
+   "expect": "round 2"
+  },
+  {
+   "case": "no_bids",
+   "at": "2026-11-19 21:17:03",
+   "from": "0xeD5D9eDb6b3C2Ef42D856df5BC626ED87C3b711e",
+   "fn": "read_record",
+   "args": [
+    "7"
+   ],
+   "value": "0",
+   "tx": "0xef158847c4eb1239af8ad0c6929f9e5cbaac223168dfd3d07ec804ac651b9cb9",
+   "status": "MAJORITY_AGREE",
+   "execution": "FINISHED_WITH_RETURN",
+   "created": "1795122876",
+   "result": null,
+   "sent_at": 1795122873.047771,
+   "done_at": 1795123023.660705,
+   "expect": "round 2"
+  },
+  {
+   "case": "injection",
+   "at": "2026-11-19 21:18:20",
+   "from": "0x39656Bf3e08b1Bb49A7D147F8F10448b8cA86bE7",
+   "fn": "read_record",
+   "args": [
+    "9"
+   ],
+   "value": "0",
+   "tx": "0xcd5e5d9cfb48ff1734aa1e7cd16556a4df6e84c68f5005e974e220389b5a3edc",
+   "status": "MAJORITY_AGREE",
+   "execution": "FINISHED_WITH_RETURN",
+   "created": "1795122953",
+   "result": null,
+   "sent_at": 1795122950.7421198,
+   "done_at": 1795123100.2581093,
+   "expect": "round 2"
+  },
+  {
+   "case": "outside_winner",
+   "at": "2026-11-19 21:18:40",
+   "from": "0x76BcFb70eD769126284A51ca46f4Ab9ec48373Eb",
+   "fn": "read_record",
+   "args": [
+    "8"
+   ],
+   "value": "0",
+   "tx": "0xb35866e4dbc8577e7117aa32e73be19e2844e2f702b142cdae00398f9556f097",
+   "status": "MAJORITY_AGREE",
+   "execution": "FINISHED_WITH_RETURN",
+   "created": "1795122914",
+   "result": null,
+   "sent_at": 1795122911.8091943,
+   "done_at": 1795123120.908635,
+   "expect": "round 2"
+  },
+  {
+   "case": "wrong_page",
+   "at": "2026-11-19 21:18:46",
+   "from": "0x58174ae4397090ca509B0c89929c9bB44D53F605",
+   "fn": "read_record",
+   "args": [
+    "10"
+   ],
+   "value": "0",
+   "tx": "0x90fadc1fc4a99537915fb63e6edf90d625a9b5bbeb8867e823932c7936a1963b",
+   "status": "MAJORITY_AGREE",
+   "execution": "FINISHED_WITH_RETURN",
+   "created": "1795123001",
+   "result": null,
+   "sent_at": 1795122998.286071,
+   "done_at": 1795123126.927679,
+   "expect": "round 2"
+  },
+  {
+   "case": "balance_late",
+   "at": "2026-11-19 21:23:34",
+   "from": "0xeD5D9eDb6b3C2Ef42D856df5BC626ED87C3b711e",
+   "fn": "read_record",
+   "args": [
+    "3"
+   ],
+   "value": "0",
+   "tx": "0x05367de24661793f10ac2aa6e1b37f078a3dc22f0d1b8d1861e23bacc3a9cd05",
+   "status": "MAJORITY_AGREE",
+   "execution": "FINISHED_WITH_RETURN",
+   "created": "1795123341",
+   "result": null,
+   "sent_at": 1795123338.2112172,
+   "done_at": 1795123414.7548525,
+   "expect": "spare: not yet WON_PENDING"
+  },
+  {
+   "case": "cancelled",
+   "at": "2026-11-19 21:24:43",
+   "from": "0x76BcFb70eD769126284A51ca46f4Ab9ec48373Eb",
+   "fn": "read_record",
+   "args": [
+    "4"
+   ],
+   "value": "0",
+   "tx": "0x8448284a275d71dc4ebd4e32e8b03fd75196df5ec0e08125da0ff7a0724a0971",
+   "status": "MAJORITY_AGREE",
+   "execution": "FINISHED_WITH_RETURN",
+   "created": "1795123430",
+   "result": null,
+   "sent_at": 1795123427.8645577,
+   "done_at": 1795123483.132773,
+   "expect": "spare: not yet SETTLED"
+  },
+  {
+   "case": "paid",
+   "at": "2026-11-19 21:43:09",
+   "from": "0x39656Bf3e08b1Bb49A7D147F8F10448b8cA86bE7",
+   "fn": "read_record",
+   "args": [
+    "1"
+   ],
+   "value": "0",
+   "tx": "0x08c1b1ef967e7279c00c5704c8b1c44408cf0ac85293032c598031b43240fb89",
+   "status": "MAJORITY_AGREE",
+   "execution": "FINISHED_WITH_RETURN",
+   "created": "1795124523",
+   "result": null,
+   "sent_at": 1795124520.0003526,
+   "done_at": 1795124589.7663074,
+   "expect": "round 3"
+  },
+  {
+   "case": "defaulted",
+   "at": "2026-11-19 21:43:40",
+   "from": "0x58174ae4397090ca509B0c89929c9bB44D53F605",
+   "fn": "read_record",
+   "args": [
+    "2"
+   ],
+   "value": "0",
+   "tx": "0x87c29e91f57f7582b0a3ec5be44e556dc036024566818259a71da4d2cdc20f50",
+   "status": "MAJORITY_AGREE",
+   "execution": "FINISHED_WITH_RETURN",
+   "created": "1795124531",
+   "result": null,
+   "sent_at": 1795124528.0003202,
+   "done_at": 1795124620.0776036,
+   "expect": "round 3"
+  },
+  {
+   "case": "adjourned",
+   "at": "2026-11-19 21:44:32",
+   "from": "0x58174ae4397090ca509B0c89929c9bB44D53F605",
+   "fn": "read_record",
+   "args": [
+    "6"
+   ],
+   "value": "0",
+   "tx": "0xc8a3507a7db3f91d0a958350e347f5521f5abf7cecd32649bc6948770b644782",
+   "status": "MAJORITY_AGREE",
+   "execution": "FINISHED_WITH_RETURN",
+   "created": "1795124620",
+   "result": null,
+   "sent_at": 1795124617.9756358,
+   "done_at": 1795124672.8485737,
+   "expect": "round 3"
+  },
+  {
+   "case": "paid",
+   "at": "2026-11-19 21:55:13",
+   "from": "0x39656Bf3e08b1Bb49A7D147F8F10448b8cA86bE7",
+   "fn": "read_record",
+   "args": [
+    "1"
+   ],
+   "value": "0",
+   "tx": "0x3e2d2fb6cc54d4b6de27bb2790fbad6850b7cb4bdafe38fd045dad3d5ae195ca",
+   "status": "MAJORITY_AGREE",
+   "execution": "FINISHED_WITH_RETURN",
+   "created": "1795125253",
+   "result": null,
+   "sent_at": 1795125249.7666273,
+   "done_at": 1795125313.0388327,
+   "expect": "round 4"
+  },
+  {
+   "case": "defaulted",
+   "at": "2026-11-19 21:55:50",
+   "from": "0x58174ae4397090ca509B0c89929c9bB44D53F605",
+   "fn": "read_record",
+   "args": [
+    "2"
+   ],
+   "value": "0",
+   "tx": "0x46309910886c194163ee7d0cc73874fb9fe11aba881ec9e2fb8522af7cc41fa6",
+   "status": "MAJORITY_AGREE",
+   "execution": "FINISHED_WITH_RETURN",
+   "created": "1795125283",
+   "result": null,
+   "sent_at": 1795125280.078111,
+   "done_at": 1795125350.065027,
+   "expect": "round 4"
+  },
+  {
+   "case": "adjourned",
+   "at": "2026-11-19 21:56:43",
+   "from": "0x58174ae4397090ca509B0c89929c9bB44D53F605",
+   "fn": "read_record",
+   "args": [
+    "6"
+   ],
+   "value": "0",
+   "tx": "0x29b5bc236eee459e1e420236ac17b3388b5914ef34832d02204dd6c914c36d87",
+   "status": "MAJORITY_AGREE",
+   "execution": "FINISHED_WITH_RETURN",
+   "created": "1795125350",
+   "result": null,
+   "sent_at": 1795125348.0427384,
+   "done_at": 1795125403.4881754,
+   "expect": "round 4"
+  },
+  {
+   "case": "adjourned",
+   "at": "2026-11-19 22:08:26",
+   "from": "0x58174ae4397090ca509B0c89929c9bB44D53F605",
+   "fn": "read_record",
+   "args": [
+    "6"
+   ],
+   "value": "0",
+   "tx": "0x8412ceb148044bd26e64af1a791961a1d175f7bdc832eb15ce89b279c50d98dd",
+   "status": "MAJORITY_AGREE",
+   "execution": "FINISHED_WITH_RETURN",
+   "created": "1795126067",
+   "result": null,
+   "sent_at": 1795126063.4892278,
+   "done_at": 1795126106.232688,
+   "expect": "spare: not yet settled"
+  },
+  {
+   "case": "balance_late",
+   "at": "2026-11-19 22:25:58",
+   "from": "0xeD5D9eDb6b3C2Ef42D856df5BC626ED87C3b711e",
+   "fn": "settle",
+   "args": [
+    "3"
+   ],
+   "value": "0",
+   "tx": "0x02b5079c0516a98dc129a4ad3be1cd900311f1333f06d56449f6e2e1be5df087",
+   "status": "MAJORITY_AGREE",
+   "execution": "FINISHED_WITH_RETURN",
+   "created": "1795127126",
+   "result": null,
+   "sent_at": 1795127123.4685464,
+   "done_at": 1795127158.7436233,
+   "expect": "no confirmed payment of the balance within balance_seconds of the win"
+  },
+  {
+   "case": "wrong_page",
+   "at": "2026-11-19 22:26:51",
+   "from": "0x58174ae4397090ca509B0c89929c9bB44D53F605",
+   "fn": "settle",
+   "args": [
+    "10"
+   ],
+   "value": "0",
+   "tx": "0x7ec763eb45d90f833294997fd8d49a78ebd55ce8b2e531e18eb0caace7b1c95a",
+   "status": "MAJORITY_AGREE",
+   "execution": "FINISHED_WITH_RETURN",
+   "created": "1795127179",
+   "result": null,
+   "sent_at": 1795127177.198285,
+   "done_at": 1795127211.5119927,
+   "expect": "no confirmed outcome by refund_by"
+  },
+  {
+   "case": "withdraw",
+   "at": "2026-11-19 22:28:23",
+   "from": "0x39656Bf3e08b1Bb49A7D147F8F10448b8cA86bE7",
+   "fn": "withdraw",
+   "args": [
+    0
+   ],
+   "value": "0",
+   "tx": "0x8d2510fca6ccf33f637af1636df16c3b5e2ec747549c8ded1694c958983958ee",
+   "status": "MAJORITY_AGREE",
+   "execution": "FINISHED_WITH_RETURN",
+   "created": "1795127271",
+   "result": null,
+   "sent_at": 1795127268.4884336,
+   "done_at": 1795127303.2530918
+  },
+  {
+   "case": "withdraw",
+   "at": "2026-11-19 22:29:02",
+   "from": "0x58174ae4397090ca509B0c89929c9bB44D53F605",
+   "fn": "withdraw",
+   "args": [
+    0
+   ],
+   "value": "0",
+   "tx": "0xf46d70193a59683c202c6f382d81bbdb7f7bdd24ebec841aab1ad148b6e31dd5",
+   "status": "MAJORITY_AGREE",
+   "execution": "FINISHED_WITH_RETURN",
+   "created": "1795127311",
+   "result": null,
+   "sent_at": 1795127308.5555425,
+   "done_at": 1795127342.5040746
+  },
+  {
+   "case": "withdraw",
+   "at": "2026-11-19 22:29:48",
+   "from": "0xeD5D9eDb6b3C2Ef42D856df5BC626ED87C3b711e",
+   "fn": "withdraw",
+   "args": [
+    0
+   ],
+   "value": "0",
+   "tx": "0x56e57426ad647b70303b4b7dc21e41dee19afd615f419fd4baa142672db2c725",
+   "status": "MAJORITY_AGREE",
+   "execution": "FINISHED_WITH_RETURN",
+   "created": "1795127350",
+   "result": null,
+   "sent_at": 1795127348.0066738,
+   "done_at": 1795127388.852752
+  },
+  {
+   "case": "withdraw",
+   "at": "2026-11-19 22:30:28",
+   "from": "0x76BcFb70eD769126284A51ca46f4Ab9ec48373Eb",
+   "fn": "withdraw",
+   "args": [
+    0
+   ],
+   "value": "0",
+   "tx": "0xd813038ec44d7aae9f4d3a697feb561a9ca9caafecf21196b06d18f7ed116c02",
+   "status": "MAJORITY_AGREE",
+   "execution": "FINISHED_WITH_RETURN",
+   "created": "1795127396",
+   "result": null,
+   "sent_at": 1795127394.0637317,
+   "done_at": 1795127428.254893
+  }
+ ],
+ "final": {
+  "all_pass": true,
+  "cases": {
+   "paid": {
+    "pass": true,
+    "got": {
+     "state": "SETTLED",
+     "reason": "won by B-1102, balance paid in full",
+     "to_creditor": 8400000000000000,
+     "refunded": 16800000000000000,
+     "held": 0
+    },
+    "want": {
+     "state": "SETTLED",
+     "reason": "won by B-1102, balance paid in full",
+     "to_creditor": 8400000000000000,
+     "refunded": 16800000000000000,
+     "held": 0
+    },
+    "winner": "B-1102",
+    "readings": 4
+   },
+   "defaulted": {
+    "pass": true,
+    "got": {
+     "state": "SETTLED",
+     "reason": "won by B-1201, the winner defaulted",
+     "to_creditor": 6200000000000000,
+     "refunded": 12400000000000000,
+     "held": 0
+    },
+    "want": {
+     "state": "SETTLED",
+     "reason": "won by B-1201, the winner defaulted",
+     "to_creditor": 6200000000000000,
+     "refunded": 12400000000000000,
+     "held": 0
+    },
+    "winner": "B-1201",
+    "readings": 4
+   },
+   "balance_late": {
+    "pass": true,
+    "got": {
+     "state": "SETTLED",
+     "reason": "no confirmed payment of the balance within balance_seconds of the win",
+     "to_creditor": 15000000000000000,
+     "refunded": 30000000000000000,
+     "held": 0
+    },
+    "want": {
+     "state": "SETTLED",
+     "reason": "no confirmed payment of the balance within balance_seconds of the win",
+     "to_creditor": 15000000000000000,
+     "refunded": 30000000000000000,
+     "held": 0
+    },
+    "winner": "B-1303",
+    "readings": 2
+   },
+   "cancelled": {
+    "pass": true,
+    "got": {
+     "state": "SETTLED",
+     "reason": "the auction was confirmed CANCELLED",
+     "to_creditor": 0,
+     "refunded": 14400000000000000,
+     "held": 0
+    },
+    "want": {
+     "state": "SETTLED",
+     "reason": "the auction was confirmed CANCELLED",
+     "to_creditor": 0,
+     "refunded": 14400000000000000,
+     "held": 0
+    },
+    "winner": "",
+    "readings": 2
+   },
+   "suspended": {
+    "pass": true,
+    "got": {
+     "state": "SETTLED",
+     "reason": "the auction was confirmed SUSPENDED",
+     "to_creditor": 0,
+     "refunded": 63000000000000000,
+     "held": 0
+    },
+    "want": {
+     "state": "SETTLED",
+     "reason": "the auction was confirmed SUSPENDED",
+     "to_creditor": 0,
+     "refunded": 63000000000000000,
+     "held": 0
+    },
+    "winner": "",
+    "readings": 2
+   },
+   "adjourned": {
+    "pass": true,
+    "got": {
+     "state": "SETTLED",
+     "reason": "won by B-1601, balance paid in full",
+     "to_creditor": 9100000000000000,
+     "refunded": 18200000000000000,
+     "held": 0
+    },
+    "want": {
+     "state": "SETTLED",
+     "reason": "won by B-1601, balance paid in full",
+     "to_creditor": 9100000000000000,
+     "refunded": 18200000000000000,
+     "held": 0
+    },
+    "winner": "B-1601",
+    "readings": 5
+   },
+   "no_bids": {
+    "pass": true,
+    "got": {
+     "state": "SETTLED",
+     "reason": "the auction was confirmed NO_BIDDERS",
+     "to_creditor": 0,
+     "refunded": 10500000000000000,
+     "held": 0
+    },
+    "want": {
+     "state": "SETTLED",
+     "reason": "the auction was confirmed NO_BIDDERS",
+     "to_creditor": 0,
+     "refunded": 10500000000000000,
+     "held": 0
+    },
+    "winner": "",
+    "readings": 2
+   },
+   "outside_winner": {
+    "pass": true,
+    "got": {
+     "state": "SETTLED",
+     "reason": "confirmed winner B-1899 is not a bidder here",
+     "to_creditor": 0,
+     "refunded": 23100000000000000,
+     "held": 0
+    },
+    "want": {
+     "state": "SETTLED",
+     "reason": "confirmed winner B-1899 is not a bidder here",
+     "to_creditor": 0,
+     "refunded": 23100000000000000,
+     "held": 0
+    },
+    "winner": "",
+    "readings": 2
+   },
+   "injection": {
+    "pass": true,
+    "got": {
+     "state": "SETTLED",
+     "reason": "won by B-1902, balance paid in full",
+     "to_creditor": 12000000000000000,
+     "refunded": 24000000000000000,
+     "held": 0
+    },
+    "want": {
+     "state": "SETTLED",
+     "reason": "won by B-1902, balance paid in full",
+     "to_creditor": 12000000000000000,
+     "refunded": 24000000000000000,
+     "held": 0
+    },
+    "winner": "B-1902",
+    "readings": 2
+   },
+   "wrong_page": {
+    "pass": true,
+    "got": {
+     "state": "SETTLED",
+     "reason": "no confirmed outcome by refund_by",
+     "to_creditor": 0,
+     "refunded": 16200000000000000,
+     "held": 0
+    },
+    "want": {
+     "state": "SETTLED",
+     "reason": "no confirmed outcome by refund_by",
+     "to_creditor": 0,
+     "refunded": 16200000000000000,
+     "held": 0
+    },
+    "winner": "",
+    "readings": 2
+   }
+  },
+  "totals": {
+   "auctions": 10,
+   "credited": "0",
+   "locked": "0"
+  },
+  "balance": "0",
+  "claimable": {
+   "creditor": "0",
+   "bidder1": "0",
+   "bidder2": "0",
+   "bidder3": "0"
+  }
+ },
+ "final_auctions": {
+  "paid": {
+   "bidders": {
+    "B-1101": {
+     "addr": "0x58174ae4397090ca509B0c89929c9bB44D53F605",
+     "at": 1795118228,
+     "held": "0"
+    },
+    "B-1102": {
+     "addr": "0xeD5D9eDb6b3C2Ef42D856df5BC626ED87C3b711e",
+     "at": 1795118146,
+     "held": "0"
+    },
+    "B-1103": {
+     "addr": "0x76BcFb70eD769126284A51ca46f4Ab9ec48373Eb",
+     "at": 1795118145,
+     "held": "0"
+    }
+   },
+   "clock": 1795125253,
+   "created_at": 1795117689,
+   "creditor": "0x39656Bf3e08b1Bb49A7D147F8F10448b8cA86bE7",
+   "digest": "55892408389838fbc2fe9768ceb55529be9cc54fc3ce1169cafb64fbd23e8777",
+   "id": "1",
+   "log": [
+    {
+     "at": 1795117689,
+     "note": "deposit 8400000000000000 wei, deposits close at 1795121400",
+     "what": "OPENED"
+    },
+    {
+     "at": 1795118145,
+     "note": "B-1103: 8400000000000000 wei",
+     "what": "DEPOSIT"
+    },
+    {
+     "at": 1795118146,
+     "note": "B-1102: 8400000000000000 wei",
+     "what": "DEPOSIT"
+    },
+    {
+     "at": 1795118228,
+     "note": "B-1101: 8400000000000000 wei",
+     "what": "DEPOSIT"
+    },
+    {
+     "at": 1795121703,
+     "note": "COMPLETED B-1102 PENDING",
+     "what": "READING"
+    },
+    {
+     "at": 1795122423,
+     "note": "COMPLETED B-1102 PENDING",
+     "what": "READING"
+    },
+    {
+     "at": 1795122423,
+     "note": "B-1102 confirmed",
+     "what": "WINNER"
+    },
+    {
+     "at": 1795122423,
+     "note": "0 wei to the creditor, 16800000000000000 wei back to 2 bidder(s) (auction won by B-1102: losing deposit back); withdraw with withdraw()",
+     "what": "CREDIT"
+    },
+    {
+     "at": 1795124523,
+     "note": "COMPLETED B-1102 PAID_IN_FULL",
+     "what": "READING"
+    },
+    {
+     "at": 1795125253,
+     "note": "COMPLETED B-1102 PAID_IN_FULL",
+     "what": "READING"
+    },
+    {
+     "at": 1795125253,
+     "note": "won by B-1102, balance paid in full",
+     "what": "SETTLED"
+    },
+    {
+     "at": 1795125253,
+     "note": "8400000000000000 wei to the creditor, 0 wei back to 0 bidder(s) (balance paid in full: the deposit goes to the creditor as part of the price); withdraw with withdraw()",
+     "what": "CREDIT"
+    }
+   ],
+   "money": {
+    "deposited": "25200000000000000",
+    "held": "0",
+    "refunded": "16800000000000000",
+    "to_creditor": "8400000000000000"
+   },
+   "readings": 4,
+   "run": null,
+   "settled_reason": "won by B-1102, balance paid in full",
+   "state": "SETTLED",
+   "terms": {
+    "auction_id": "EA-24117",
+    "balance_seconds": 4500,
+    "confirm_seconds": 600,
+    "creditor": "0x39656Bf3e08b1Bb49A7D147F8F10448b8cA86bE7",
+    "deposit": 8400000000000000,
+    "deposits_close": 1795121400,
+    "property_ref": "Unit 4B, 12 Larkspur Row, Velmora",
+    "record_url": "https://brilliantnodes.github.io/auction-deposit/record/b1/ea-24117.html",
+    "refund_by": 1795128000
+   },
+   "winner": "B-1102",
+   "winner_at": 1795122423
+  },
+  "defaulted": {
+   "bidders": {
+    "B-1201": {
+     "addr": "0x58174ae4397090ca509B0c89929c9bB44D53F605",
+     "at": 1795118304,
+     "held": "0"
+    },
+    "B-1202": {
+     "addr": "0xeD5D9eDb6b3C2Ef42D856df5BC626ED87C3b711e",
+     "at": 1795118201,
+     "held": "0"
+    },
+    "B-1203": {
+     "addr": "0x76BcFb70eD769126284A51ca46f4Ab9ec48373Eb",
+     "at": 1795118180,
+     "held": "0"
+    }
+   },
+   "clock": 1795125283,
+   "created_at": 1795117735,
+   "creditor": "0x39656Bf3e08b1Bb49A7D147F8F10448b8cA86bE7",
+   "digest": "0ee25aea3fb76a5631fa74e88fb4584a20f268e1abc667d61442d99c0d076e92",
+   "id": "2",
+   "log": [
+    {
+     "at": 1795117735,
+     "note": "deposit 6200000000000000 wei, deposits close at 1795121400",
+     "what": "OPENED"
+    },
+    {
+     "at": 1795118180,
+     "note": "B-1203: 6200000000000000 wei",
+     "what": "DEPOSIT"
+    },
+    {
+     "at": 1795118201,
+     "note": "B-1202: 6200000000000000 wei",
+     "what": "DEPOSIT"
+    },
+    {
+     "at": 1795118304,
+     "note": "B-1201: 6200000000000000 wei",
+     "what": "DEPOSIT"
+    },
+    {
+     "at": 1795121711,
+     "note": "COMPLETED B-1201 PENDING",
+     "what": "READING"
+    },
+    {
+     "at": 1795122441,
+     "note": "COMPLETED B-1201 PENDING",
+     "what": "READING"
+    },
+    {
+     "at": 1795122441,
+     "note": "B-1201 confirmed",
+     "what": "WINNER"
+    },
+    {
+     "at": 1795122441,
+     "note": "0 wei to the creditor, 12400000000000000 wei back to 2 bidder(s) (auction won by B-1201: losing deposit back); withdraw with withdraw()",
+     "what": "CREDIT"
+    },
+    {
+     "at": 1795124531,
+     "note": "COMPLETED B-1201 DEFAULTED",
+     "what": "READING"
+    },
+    {
+     "at": 1795125283,
+     "note": "COMPLETED B-1201 DEFAULTED",
+     "what": "READING"
+    },
+    {
+     "at": 1795125283,
+     "note": "won by B-1201, the winner defaulted",
+     "what": "SETTLED"
+    },
+    {
+     "at": 1795125283,
+     "note": "6200000000000000 wei to the creditor, 0 wei back to 0 bidder(s) (the winner defaulted on the balance: the deposit is forfeited to the creditor); withdraw with withdraw()",
+     "what": "CREDIT"
+    }
+   ],
+   "money": {
+    "deposited": "18600000000000000",
+    "held": "0",
+    "refunded": "12400000000000000",
+    "to_creditor": "6200000000000000"
+   },
+   "readings": 4,
+   "run": null,
+   "settled_reason": "won by B-1201, the winner defaulted",
+   "state": "SETTLED",
+   "terms": {
+    "auction_id": "EA-24125",
+    "balance_seconds": 4500,
+    "confirm_seconds": 600,
+    "creditor": "0x39656Bf3e08b1Bb49A7D147F8F10448b8cA86bE7",
+    "deposit": 6200000000000000,
+    "deposits_close": 1795121400,
+    "property_ref": "Flat 2, 40 Orrin Street, Velmora",
+    "record_url": "https://brilliantnodes.github.io/auction-deposit/record/b1/ea-24125.html",
+    "refund_by": 1795128000
+   },
+   "winner": "B-1201",
+   "winner_at": 1795122441
+  },
+  "balance_late": {
+   "bidders": {
+    "B-1301": {
+     "addr": "0x58174ae4397090ca509B0c89929c9bB44D53F605",
+     "at": 1795118379,
+     "held": "0"
+    },
+    "B-1302": {
+     "addr": "0xeD5D9eDb6b3C2Ef42D856df5BC626ED87C3b711e",
+     "at": 1795118283,
+     "held": "0"
+    },
+    "B-1303": {
+     "addr": "0x76BcFb70eD769126284A51ca46f4Ab9ec48373Eb",
+     "at": 1795118256,
+     "held": "0"
+    }
+   },
+   "clock": 1795127126,
+   "created_at": 1795117788,
+   "creditor": "0x39656Bf3e08b1Bb49A7D147F8F10448b8cA86bE7",
+   "digest": "5555cbb0022d12ef1c959cacd2d2d13d3e8260e1c5437dd0e53ebd637c9d2173",
+   "id": "3",
+   "log": [
+    {
+     "at": 1795117788,
+     "note": "deposit 15000000000000000 wei, deposits close at 1795121400",
+     "what": "OPENED"
+    },
+    {
+     "at": 1795118256,
+     "note": "B-1303: 15000000000000000 wei",
+     "what": "DEPOSIT"
+    },
+    {
+     "at": 1795118283,
+     "note": "B-1302: 15000000000000000 wei",
+     "what": "DEPOSIT"
+    },
+    {
+     "at": 1795118379,
+     "note": "B-1301: 15000000000000000 wei",
+     "what": "DEPOSIT"
+    },
+    {
+     "at": 1795121719,
+     "note": "COMPLETED B-1303 PENDING",
+     "what": "READING"
+    },
+    {
+     "at": 1795123341,
+     "note": "COMPLETED B-1303 PENDING",
+     "what": "READING"
+    },
+    {
+     "at": 1795123341,
+     "note": "B-1303 confirmed",
+     "what": "WINNER"
+    },
+    {
+     "at": 1795123341,
+     "note": "0 wei to the creditor, 30000000000000000 wei back to 2 bidder(s) (auction won by B-1303: losing deposit back); withdraw with withdraw()",
+     "what": "CREDIT"
+    },
+    {
+     "at": 1795127126,
+     "note": "no confirmed payment of the balance within balance_seconds of the win",
+     "what": "SETTLED"
+    },
+    {
+     "at": 1795127126,
+     "note": "15000000000000000 wei to the creditor, 0 wei back to 0 bidder(s) (no confirmed payment of the balance in time: the deposit is forfeited); withdraw with withdraw()",
+     "what": "CREDIT"
+    }
+   ],
+   "money": {
+    "deposited": "45000000000000000",
+    "held": "0",
+    "refunded": "30000000000000000",
+    "to_creditor": "15000000000000000"
+   },
+   "readings": 2,
+   "run": null,
+   "settled_reason": "no confirmed payment of the balance within balance_seconds of the win",
+   "state": "SETTLED",
+   "terms": {
+    "auction_id": "EA-24133",
+    "balance_seconds": 1200,
+    "confirm_seconds": 600,
+    "creditor": "0x39656Bf3e08b1Bb49A7D147F8F10448b8cA86bE7",
+    "deposit": "15000000000000000",
+    "deposits_close": 1795121400,
+    "property_ref": "House, 5 Quarry Lane, Hessle Down",
+    "record_url": "https://brilliantnodes.github.io/auction-deposit/record/b1/ea-24133.html",
+    "refund_by": 1795128000
+   },
+   "winner": "B-1303",
+   "winner_at": 1795123341
+  },
+  "cancelled": {
+   "bidders": {
+    "B-1401": {
+     "addr": "0x58174ae4397090ca509B0c89929c9bB44D53F605",
+     "at": 1795118434,
+     "held": "0"
+    },
+    "B-1402": {
+     "addr": "0xeD5D9eDb6b3C2Ef42D856df5BC626ED87C3b711e",
+     "at": 1795118358,
+     "held": "0"
+    },
+    "B-1403": {
+     "addr": "0x76BcFb70eD769126284A51ca46f4Ab9ec48373Eb",
+     "at": 1795118331,
+     "held": "0"
+    }
+   },
+   "clock": 1795123430,
+   "created_at": 1795117834,
+   "creditor": "0x39656Bf3e08b1Bb49A7D147F8F10448b8cA86bE7",
+   "digest": "b911e86c460e61c678806b6e4bd3085e5958e7cac7b04524558acf6249fc6cc8",
+   "id": "4",
+   "log": [
+    {
+     "at": 1795117834,
+     "note": "deposit 4800000000000000 wei, deposits close at 1795121400",
+     "what": "OPENED"
+    },
+    {
+     "at": 1795118331,
+     "note": "B-1403: 4800000000000000 wei",
+     "what": "DEPOSIT"
+    },
+    {
+     "at": 1795118358,
+     "note": "B-1402: 4800000000000000 wei",
+     "what": "DEPOSIT"
+    },
+    {
+     "at": 1795118434,
+     "note": "B-1401: 4800000000000000 wei",
+     "what": "DEPOSIT"
+    },
+    {
+     "at": 1795122722,
+     "note": "CANCELLED",
+     "what": "READING"
+    },
+    {
+     "at": 1795123430,
+     "note": "CANCELLED",
+     "what": "READING"
+    },
+    {
+     "at": 1795123430,
+     "note": "the auction was confirmed CANCELLED",
+     "what": "SETTLED"
+    },
+    {
+     "at": 1795123430,
+     "note": "0 wei to the creditor, 14400000000000000 wei back to 3 bidder(s) (auction CANCELLED: every deposit back); withdraw with withdraw()",
+     "what": "CREDIT"
+    }
+   ],
+   "money": {
+    "deposited": "14400000000000000",
+    "held": "0",
+    "refunded": "14400000000000000",
+    "to_creditor": "0"
+   },
+   "readings": 2,
+   "run": null,
+   "settled_reason": "the auction was confirmed CANCELLED",
+   "state": "SETTLED",
+   "terms": {
+    "auction_id": "EA-24141",
+    "balance_seconds": 4500,
+    "confirm_seconds": 600,
+    "creditor": "0x39656Bf3e08b1Bb49A7D147F8F10448b8cA86bE7",
+    "deposit": 4800000000000000,
+    "deposits_close": 1795121400,
+    "property_ref": "Shop 1, 9 Tanner Yard, Velmora",
+    "record_url": "https://brilliantnodes.github.io/auction-deposit/record/b1/ea-24141.html",
+    "refund_by": 1795128000
+   },
+   "winner": "",
+   "winner_at": 0
+  },
+  "suspended": {
+   "bidders": {
+    "B-1501": {
+     "addr": "0x58174ae4397090ca509B0c89929c9bB44D53F605",
+     "at": 1795118506,
+     "held": "0"
+    },
+    "B-1502": {
+     "addr": "0xeD5D9eDb6b3C2Ef42D856df5BC626ED87C3b711e",
+     "at": 1795118420,
+     "held": "0"
+    },
+    "B-1503": {
+     "addr": "0x76BcFb70eD769126284A51ca46f4Ab9ec48373Eb",
+     "at": 1795118392,
+     "held": "0"
+    }
+   },
+   "clock": 1795122736,
+   "created_at": 1795117880,
+   "creditor": "0x39656Bf3e08b1Bb49A7D147F8F10448b8cA86bE7",
+   "digest": "fb918e7c0157f5924e4ab5cbf561642caa974829231546ddf0750ffca238ac78",
+   "id": "5",
+   "log": [
+    {
+     "at": 1795117880,
+     "note": "deposit 21000000000000000 wei, deposits close at 1795121400",
+     "what": "OPENED"
+    },
+    {
+     "at": 1795118392,
+     "note": "B-1503: 21000000000000000 wei",
+     "what": "DEPOSIT"
+    },
+    {
+     "at": 1795118420,
+     "note": "B-1502: 21000000000000000 wei",
+     "what": "DEPOSIT"
+    },
+    {
+     "at": 1795118506,
+     "note": "B-1501: 21000000000000000 wei",
+     "what": "DEPOSIT"
+    },
+    {
+     "at": 1795121745,
+     "note": "SUSPENDED",
+     "what": "READING"
+    },
+    {
+     "at": 1795122736,
+     "note": "SUSPENDED",
+     "what": "READING"
+    },
+    {
+     "at": 1795122736,
+     "note": "the auction was confirmed SUSPENDED",
+     "what": "SETTLED"
+    },
+    {
+     "at": 1795122736,
+     "note": "0 wei to the creditor, 63000000000000000 wei back to 3 bidder(s) (auction SUSPENDED: every deposit back); withdraw with withdraw()",
+     "what": "CREDIT"
+    }
+   ],
+   "money": {
+    "deposited": "63000000000000000",
+    "held": "0",
+    "refunded": "63000000000000000",
+    "to_creditor": "0"
+   },
+   "readings": 2,
+   "run": null,
+   "settled_reason": "the auction was confirmed SUSPENDED",
+   "state": "SETTLED",
+   "terms": {
+    "auction_id": "EA-24158",
+    "balance_seconds": 4500,
+    "confirm_seconds": 600,
+    "creditor": "0x39656Bf3e08b1Bb49A7D147F8F10448b8cA86bE7",
+    "deposit": "21000000000000000",
+    "deposits_close": 1795121400,
+    "property_ref": "Warehouse, 22 Mill Road, Ostrey",
+    "record_url": "https://brilliantnodes.github.io/auction-deposit/record/b1/ea-24158.html",
+    "refund_by": 1795128000
+   },
+   "winner": "",
+   "winner_at": 0
+  },
+  "adjourned": {
+   "bidders": {
+    "B-1601": {
+     "addr": "0x58174ae4397090ca509B0c89929c9bB44D53F605",
+     "at": 1795118593,
+     "held": "0"
+    },
+    "B-1602": {
+     "addr": "0xeD5D9eDb6b3C2Ef42D856df5BC626ED87C3b711e",
+     "at": 1795118485,
+     "held": "0"
+    },
+    "B-1603": {
+     "addr": "0x76BcFb70eD769126284A51ca46f4Ab9ec48373Eb",
+     "at": 1795118455,
+     "held": "0"
+    }
+   },
+   "clock": 1795126067,
+   "created_at": 1795117925,
+   "creditor": "0x39656Bf3e08b1Bb49A7D147F8F10448b8cA86bE7",
+   "digest": "e9b40322ab775a3a08cfd54f11e74acdf2db859260be8be12a7e8578a9cda61b",
+   "id": "6",
+   "log": [
+    {
+     "at": 1795117925,
+     "note": "deposit 9100000000000000 wei, deposits close at 1795121400",
+     "what": "OPENED"
+    },
+    {
+     "at": 1795118455,
+     "note": "B-1603: 9100000000000000 wei",
+     "what": "DEPOSIT"
+    },
+    {
+     "at": 1795118485,
+     "note": "B-1602: 9100000000000000 wei",
+     "what": "DEPOSIT"
+    },
+    {
+     "at": 1795118593,
+     "note": "B-1601: 9100000000000000 wei",
+     "what": "DEPOSIT"
+    },
+    {
+     "at": 1795121779,
+     "note": "ADJOURNED",
+     "what": "READING"
+    },
+    {
+     "at": 1795122844,
+     "note": "ADJOURNED",
+     "what": "READING"
+    },
+    {
+     "at": 1795124620,
+     "note": "COMPLETED B-1601 PAID_IN_FULL",
+     "what": "READING"
+    },
+    {
+     "at": 1795125350,
+     "note": "N2_NOT_ANCHORED",
+     "what": "READING"
+    },
+    {
+     "at": 1795126067,
+     "note": "COMPLETED B-1601 PAID_IN_FULL",
+     "what": "READING"
+    },
+    {
+     "at": 1795126067,
+     "note": "B-1601 confirmed",
+     "what": "WINNER"
+    },
+    {
+     "at": 1795126067,
+     "note": "won by B-1601, balance paid in full",
+     "what": "SETTLED"
+    },
+    {
+     "at": 1795126067,
+     "note": "9100000000000000 wei to the creditor, 18200000000000000 wei back to 2 bidder(s) (balance paid in full: the deposit goes to the creditor as part of the price); withdraw with withdraw()",
+     "what": "CREDIT"
+    }
+   ],
+   "money": {
+    "deposited": "27300000000000000",
+    "held": "0",
+    "refunded": "18200000000000000",
+    "to_creditor": "9100000000000000"
+   },
+   "readings": 5,
+   "run": null,
+   "settled_reason": "won by B-1601, balance paid in full",
+   "state": "SETTLED",
+   "terms": {
+    "auction_id": "EA-24166",
+    "balance_seconds": 4500,
+    "confirm_seconds": 600,
+    "creditor": "0x39656Bf3e08b1Bb49A7D147F8F10448b8cA86bE7",
+    "deposit": "9100000000000000",
+    "deposits_close": 1795121400,
+    "property_ref": "Unit 7, 3 Harbour Steps, Velmora",
+    "record_url": "https://brilliantnodes.github.io/auction-deposit/record/b1/ea-24166.html",
+    "refund_by": 1795128000
+   },
+   "winner": "B-1601",
+   "winner_at": 1795126067
+  },
+  "no_bids": {
+   "bidders": {
+    "B-1701": {
+     "addr": "0x58174ae4397090ca509B0c89929c9bB44D53F605",
+     "at": 1795118657,
+     "held": "0"
+    },
+    "B-1702": {
+     "addr": "0xeD5D9eDb6b3C2Ef42D856df5BC626ED87C3b711e",
+     "at": 1795118570,
+     "held": "0"
+    },
+    "B-1703": {
+     "addr": "0x76BcFb70eD769126284A51ca46f4Ab9ec48373Eb",
+     "at": 1795118528,
+     "held": "0"
+    }
+   },
+   "clock": 1795122876,
+   "created_at": 1795117971,
+   "creditor": "0x39656Bf3e08b1Bb49A7D147F8F10448b8cA86bE7",
+   "digest": "51820174c3b83de77ce8314846af11c5c19e5c6b5139a2accf6b6c486726c8fa",
+   "id": "7",
+   "log": [
+    {
+     "at": 1795117971,
+     "note": "deposit 3500000000000000 wei, deposits close at 1795121400",
+     "what": "OPENED"
+    },
+    {
+     "at": 1795118528,
+     "note": "B-1703: 3500000000000000 wei",
+     "what": "DEPOSIT"
+    },
+    {
+     "at": 1795118570,
+     "note": "B-1702: 3500000000000000 wei",
+     "what": "DEPOSIT"
+    },
+    {
+     "at": 1795118657,
+     "note": "B-1701: 3500000000000000 wei",
+     "what": "DEPOSIT"
+    },
+    {
+     "at": 1795121814,
+     "note": "NO_BIDDERS",
+     "what": "READING"
+    },
+    {
+     "at": 1795122876,
+     "note": "NO_BIDDERS",
+     "what": "READING"
+    },
+    {
+     "at": 1795122876,
+     "note": "the auction was confirmed NO_BIDDERS",
+     "what": "SETTLED"
+    },
+    {
+     "at": 1795122876,
+     "note": "0 wei to the creditor, 10500000000000000 wei back to 3 bidder(s) (auction NO_BIDDERS: every deposit back); withdraw with withdraw()",
+     "what": "CREDIT"
+    }
+   ],
+   "money": {
+    "deposited": "10500000000000000",
+    "held": "0",
+    "refunded": "10500000000000000",
+    "to_creditor": "0"
+   },
+   "readings": 2,
+   "run": null,
+   "settled_reason": "the auction was confirmed NO_BIDDERS",
+   "state": "SETTLED",
+   "terms": {
+    "auction_id": "EA-24174",
+    "balance_seconds": 4500,
+    "confirm_seconds": 600,
+    "creditor": "0x39656Bf3e08b1Bb49A7D147F8F10448b8cA86bE7",
+    "deposit": 3500000000000000,
+    "deposits_close": 1795121400,
+    "property_ref": "Plot 14, Ridgeway Fields, Ostrey",
+    "record_url": "https://brilliantnodes.github.io/auction-deposit/record/b1/ea-24174.html",
+    "refund_by": 1795128000
+   },
+   "winner": "",
+   "winner_at": 0
+  },
+  "outside_winner": {
+   "bidders": {
+    "B-1801": {
+     "addr": "0x58174ae4397090ca509B0c89929c9bB44D53F605",
+     "at": 1795118732,
+     "held": "0"
+    },
+    "B-1802": {
+     "addr": "0xeD5D9eDb6b3C2Ef42D856df5BC626ED87C3b711e",
+     "at": 1795118644,
+     "held": "0"
+    },
+    "B-1803": {
+     "addr": "0x76BcFb70eD769126284A51ca46f4Ab9ec48373Eb",
+     "at": 1795118616,
+     "held": "0"
+    }
+   },
+   "clock": 1795122914,
+   "created_at": 1795118009,
+   "creditor": "0x39656Bf3e08b1Bb49A7D147F8F10448b8cA86bE7",
+   "digest": "ec96dff1dcc437cd9f6db521f413c5da3610c8d5e1f932d953fd27c0bfaa4720",
+   "id": "8",
+   "log": [
+    {
+     "at": 1795118009,
+     "note": "deposit 7700000000000000 wei, deposits close at 1795121400",
+     "what": "OPENED"
+    },
+    {
+     "at": 1795118616,
+     "note": "B-1803: 7700000000000000 wei",
+     "what": "DEPOSIT"
+    },
+    {
+     "at": 1795118644,
+     "note": "B-1802: 7700000000000000 wei",
+     "what": "DEPOSIT"
+    },
+    {
+     "at": 1795118732,
+     "note": "B-1801: 7700000000000000 wei",
+     "what": "DEPOSIT"
+    },
+    {
+     "at": 1795121947,
+     "note": "COMPLETED B-1899 PENDING",
+     "what": "READING"
+    },
+    {
+     "at": 1795122914,
+     "note": "COMPLETED B-1899 PENDING",
+     "what": "READING"
+    },
+    {
+     "at": 1795122914,
+     "note": "confirmed winner B-1899 is not a bidder here",
+     "what": "SETTLED"
+    },
+    {
+     "at": 1795122914,
+     "note": "0 wei to the creditor, 23100000000000000 wei back to 3 bidder(s) (the winner B-1899 did not bid through this contract: every deposit back); withdraw with withdraw()",
+     "what": "CREDIT"
+    }
+   ],
+   "money": {
+    "deposited": "23100000000000000",
+    "held": "0",
+    "refunded": "23100000000000000",
+    "to_creditor": "0"
+   },
+   "readings": 2,
+   "run": null,
+   "settled_reason": "confirmed winner B-1899 is not a bidder here",
+   "state": "SETTLED",
+   "terms": {
+    "auction_id": "EA-24182",
+    "balance_seconds": 4500,
+    "confirm_seconds": 600,
+    "creditor": "0x39656Bf3e08b1Bb49A7D147F8F10448b8cA86bE7",
+    "deposit": 7700000000000000,
+    "deposits_close": 1795121400,
+    "property_ref": "Flat 9, 61 Corran Avenue, Velmora",
+    "record_url": "https://brilliantnodes.github.io/auction-deposit/record/b1/ea-24182.html",
+    "refund_by": 1795128000
+   },
+   "winner": "",
+   "winner_at": 0
+  },
+  "injection": {
+   "bidders": {
+    "B-1901": {
+     "addr": "0x58174ae4397090ca509B0c89929c9bB44D53F605",
+     "at": 1795118809,
+     "held": "0"
+    },
+    "B-1902": {
+     "addr": "0xeD5D9eDb6b3C2Ef42D856df5BC626ED87C3b711e",
+     "at": 1795118710,
+     "held": "0"
+    },
+    "B-1903": {
+     "addr": "0x76BcFb70eD769126284A51ca46f4Ab9ec48373Eb",
+     "at": 1795118682,
+     "held": "0"
+    }
+   },
+   "clock": 1795122953,
+   "created_at": 1795118055,
+   "creditor": "0x39656Bf3e08b1Bb49A7D147F8F10448b8cA86bE7",
+   "digest": "7353b62e19fa249c868b21eb78ff6f1f1776cd7392ae05fd698424ca3e7bc833",
+   "id": "9",
+   "log": [
+    {
+     "at": 1795118055,
+     "note": "deposit 12000000000000000 wei, deposits close at 1795121400",
+     "what": "OPENED"
+    },
+    {
+     "at": 1795118682,
+     "note": "B-1903: 12000000000000000 wei",
+     "what": "DEPOSIT"
+    },
+    {
+     "at": 1795118710,
+     "note": "B-1902: 12000000000000000 wei",
+     "what": "DEPOSIT"
+    },
+    {
+     "at": 1795118809,
+     "note": "B-1901: 12000000000000000 wei",
+     "what": "DEPOSIT"
+    },
+    {
+     "at": 1795122073,
+     "note": "COMPLETED B-1902 PAID_IN_FULL",
+     "what": "READING"
+    },
+    {
+     "at": 1795122953,
+     "note": "COMPLETED B-1902 PAID_IN_FULL",
+     "what": "READING"
+    },
+    {
+     "at": 1795122953,
+     "note": "B-1902 confirmed",
+     "what": "WINNER"
+    },
+    {
+     "at": 1795122953,
+     "note": "won by B-1902, balance paid in full",
+     "what": "SETTLED"
+    },
+    {
+     "at": 1795122953,
+     "note": "12000000000000000 wei to the creditor, 24000000000000000 wei back to 2 bidder(s) (balance paid in full: the deposit goes to the creditor as part of the price); withdraw with withdraw()",
+     "what": "CREDIT"
+    }
+   ],
+   "money": {
+    "deposited": "36000000000000000",
+    "held": "0",
+    "refunded": "24000000000000000",
+    "to_creditor": "12000000000000000"
+   },
+   "readings": 2,
+   "run": null,
+   "settled_reason": "won by B-1902, balance paid in full",
+   "state": "SETTLED",
+   "terms": {
+    "auction_id": "EA-24190",
+    "balance_seconds": 4500,
+    "confirm_seconds": 600,
+    "creditor": "0x39656Bf3e08b1Bb49A7D147F8F10448b8cA86bE7",
+    "deposit": "12000000000000000",
+    "deposits_close": 1795121400,
+    "property_ref": "Office 3, 14 Weir Street, Velmora",
+    "record_url": "https://brilliantnodes.github.io/auction-deposit/record/b1/ea-24190.html",
+    "refund_by": 1795128000
+   },
+   "winner": "B-1902",
+   "winner_at": 1795122953
+  },
+  "wrong_page": {
+   "bidders": {
+    "B-2001": {
+     "addr": "0x58174ae4397090ca509B0c89929c9bB44D53F605",
+     "at": 1795118881,
+     "held": "0"
+    },
+    "B-2002": {
+     "addr": "0xeD5D9eDb6b3C2Ef42D856df5BC626ED87C3b711e",
+     "at": 1795118784,
+     "held": "0"
+    },
+    "B-2003": {
+     "addr": "0x76BcFb70eD769126284A51ca46f4Ab9ec48373Eb",
+     "at": 1795118757,
+     "held": "0"
+    }
+   },
+   "clock": 1795127179,
+   "created_at": 1795118101,
+   "creditor": "0x39656Bf3e08b1Bb49A7D147F8F10448b8cA86bE7",
+   "digest": "e99f0c136eb2788f5162d74a02ed10750211e038d892528b9168e1fff6f9e465",
+   "id": "10",
+   "log": [
+    {
+     "at": 1795118101,
+     "note": "deposit 5400000000000000 wei, deposits close at 1795121400",
+     "what": "OPENED"
+    },
+    {
+     "at": 1795118757,
+     "note": "B-2003: 5400000000000000 wei",
+     "what": "DEPOSIT"
+    },
+    {
+     "at": 1795118784,
+     "note": "B-2002: 5400000000000000 wei",
+     "what": "DEPOSIT"
+    },
+    {
+     "at": 1795118881,
+     "note": "B-2001: 5400000000000000 wei",
+     "what": "DEPOSIT"
+    },
+    {
+     "at": 1795122182,
+     "note": "N1_WRONG_PAGE",
+     "what": "READING"
+    },
+    {
+     "at": 1795123001,
+     "note": "N1_WRONG_PAGE",
+     "what": "READING"
+    },
+    {
+     "at": 1795127179,
+     "note": "no confirmed outcome by refund_by",
+     "what": "SETTLED"
+    },
+    {
+     "at": 1795127179,
+     "note": "0 wei to the creditor, 16200000000000000 wei back to 3 bidder(s) (no confirmed outcome by refund_by: every deposit back); withdraw with withdraw()",
+     "what": "CREDIT"
+    }
+   ],
+   "money": {
+    "deposited": "16200000000000000",
+    "held": "0",
+    "refunded": "16200000000000000",
+    "to_creditor": "0"
+   },
+   "readings": 2,
+   "run": null,
+   "settled_reason": "no confirmed outcome by refund_by",
+   "state": "SETTLED",
+   "terms": {
+    "auction_id": "EA-24203",
+    "balance_seconds": 4500,
+    "confirm_seconds": 600,
+    "creditor": "0x39656Bf3e08b1Bb49A7D147F8F10448b8cA86bE7",
+    "deposit": 5400000000000000,
+    "deposits_close": 1795121400,
+    "property_ref": "Flat 1, 8 Pellow Court, Ostrey",
+    "record_url": "https://brilliantnodes.github.io/auction-deposit/record/b1/ea-24203.html",
+    "refund_by": 1795123800
+   },
+   "winner": "",
+   "winner_at": 0
+  }
+ }
+}

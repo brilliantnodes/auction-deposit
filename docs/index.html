@@ -1,8 +1,111 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>AuctionDeposit - a safe way to put down a bid deposit at a property auction</title>
-<style>body{font-family:-apple-system,Segoe UI,Helvetica,Arial,sans-serif;max-width:760px;margin:40px auto;padding:0 18px;color:#1d2a26}</style></head>
-<body><h1>AuctionDeposit</h1>
-<p><b>A safe way to put down a bid deposit at a distressed-property auction</b>, settled on GenLayer from the official auction record.</p>
-<p>This site holds the fictional auction-record pages read by the live demo runs. The full site comes with the runs. Code: <a href="https://github.com/brilliantnodes/auction-deposit">github.com/brilliantnodes/auction-deposit</a>.</p>
-<p>Everything here is fictional. Test GEN only. Not legal advice.</p></body></html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AuctionDeposit: a safe way to put down a bid deposit at a property auction, on GenLayer</title>
+<meta name="description" content="A safe way to put down a bid deposit at a distressed-property auction: every bidder's deposit waits in one escrow on GenLayer, and moves only on what the official auction record says. Fictional demo, test GEN only.">
+<style>
+:root{--ink:#17202c;--mute:#5b6676;--line:#dde3eb;--bg:#f6f8fb;--card:#fff;--acc:#0d5eaf;--ok:#1b7f4b;--bad:#b3261e;--warn:#9a6700}
+*{box-sizing:border-box}body{margin:0;font-family:-apple-system,Segoe UI,Helvetica,Arial,sans-serif;color:var(--ink);background:var(--bg);line-height:1.55}
+header{background:#0d2f57;color:#fff;padding:42px 20px 34px}header .w{max-width:980px;margin:auto}h1{font-size:34px;margin:0 0 8px}header p{margin:6px 0;color:#d5e2f0;max-width:780px}
+header a{color:#9cc8ff}.pill{display:inline-block;background:#1d4573;border-radius:20px;padding:3px 12px;font-size:13px;margin:10px 8px 0 0}
+.big{font-size:20px;color:#fff !important}.num{color:#ffd76a;font-weight:700}
+main{max-width:980px;margin:auto;padding:24px 20px 60px}h2{font-size:22px;margin:34px 0 10px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px}
+.card h3{margin:0 0 4px;font-size:16px}.small{font-size:13px;color:var(--mute)}.mono{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12px;word-break:break-all}
+table{border-collapse:collapse;width:100%;font-size:14px}th,td{text-align:left;padding:7px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+.tag{display:inline-block;font-size:12px;border-radius:6px;padding:1px 7px;background:#eef2f7;color:#334}.ok{color:var(--ok)}.warn{color:var(--warn)}
+.steps li{margin:3px 0}.steps{padding-left:18px;margin:8px 0}.bar{height:10px;border-radius:5px;background:#e9edf3;overflow:hidden;display:flex;margin:8px 0 2px}
+.bar span{display:block;height:100%}.c{background:#c8892b}.r{background:#2f7d55}select{font-size:14px;padding:4px}
+footer{max-width:980px;margin:auto;padding:0 20px 40px;color:var(--mute);font-size:13px}
+</style>
+</head>
+<body>
+<header><div class="w">
+<h1>AuctionDeposit</h1>
+<p class="big"><b>A safe way to put down a bid deposit at a property auction.</b></p>
+<p>When a bank sells a repossessed home at auction, every bidder must first pay a deposit. Losers wait for their money back, auctions are often cancelled or suspended, and some winners never pay the rest. AuctionDeposit keeps every bidder's deposit in one escrow on GenLayer, and the money moves only on what the official auction record says:</p>
+<ul>
+<li>losers get their deposit back;</li>
+<li>the winner's deposit goes to the bank as part of the price once the record shows the price paid, or as a penalty if the winner walks away;</li>
+<li>a cancelled or suspended auction refunds everyone.</li>
+</ul>
+<p><b>Why it matters:</b> nearly <span class="num">300,000</span> property auctions are waiting in Greece, and only about <span class="num">1 in 5</span> succeeds (auction listings: unsold properties are listed again; <a href="https://www.euro2day.gr/en2/article/2358318/nearly-300000-properties-in-line-for-auction">euro2day</a>, citing IOBE and Cepal, Q1 2026, and the IMF). Europe's largest banks hold <span class="num">€373bn</span> of bad loans (gross non-performing exposures of EU significant banks, Q2 2025, <a href="https://www.bancaifis.it/app/uploads/2025/09/MW_Npl_Sep25_ENG_20250926.pdf">Banca Ifis</a>).</p>
+<span class="pill">Fictional auctions and names</span><span class="pill">Test GEN only</span><span class="pill">Not legal advice</span>
+<p class="small">Live on GenLayer Studio (run s1) and on Testnet Bradbury (run b1, 78 transactions, all finalized): ten fictional auctions each, and every one ended as planned. Pick a run below.</p>
+<p style="margin-top:14px"><a href="https://github.com/brilliantnodes/auction-deposit">Repository</a> · <a href="https://github.com/brilliantnodes/auction-deposit/blob/main/contracts/auction_deposit.py">Contract</a> · by Brilliant Nodes</p>
+</div></header>
+<main>
+<h2>The trust problem</h2>
+<p>At a forced sale, the deposit is the bidder's money held by someone else for weeks. The facts that decide where it should go (who won, whether the auction went ahead, whether the winner paid) are public on the auction platform's record, but on a page made for people. AuctionDeposit lets GenLayer's validators read that page, and plain code move the money.</p>
+
+<h2>How it works</h2>
+<div class="grid">
+<div class="card"><h3>1. Open</h3><p class="small">The bank freezes the terms: the auction and property as the record prints them, the record page (on a host frozen when the contract was deployed), the deposit, when deposits close, the winner's payment window and the refund deadline.</p></div>
+<div class="card"><h3>2. Deposit</h3><p class="small">Each bidder pays exactly the deposit and names the bidder code the record will use for them. A wrong amount is refused and credited back.</p></div>
+<div class="card"><h3>3. Read the record</h3><p class="small">Validators open the record page; the AI only copies the status, winner and balance lines. Code checks every copy against the page and a closed list of phrases. All validators must agree exactly.</p></div>
+<div class="card"><h3>4. Seen twice</h3><p class="small">Nothing moves on one look: a result counts once two readings, sent at least 10 minutes apart, show it. Losers are refunded as soon as the winner is confirmed.</p></div>
+<div class="card"><h3>5. Deadlines</h3><p class="small">No payment shown within the winner's window: its deposit goes to the bank. No result by the refund deadline: everyone is refunded. Code alone, 30 minutes late, no AI needed.</p></div>
+<div class="card"><h3>6. Credits</h3><p class="small">Every payout is a credit each party withdraws itself. After the runs below, every party withdrew and the contract held nothing.</p></div>
+</div>
+
+<h2>Live runs</h2>
+<p>Run: <select id="run"></select> <span class="small" id="runinfo"></span></p>
+<p class="small"><span class="tag" style="background:#c8892b;color:#fff">to the bank</span> <span class="tag" style="background:#2f7d55;color:#fff">back to bidders</span> Each auction had three bidders; the record pages are fictional and change on a schedule, like a real record.</p>
+<div id="auctions" class="grid"></div>
+<h3 style="margin-top:26px">Every transaction</h3>
+<p class="small" id="bbnote" style="display:none">Bradbury returns no result per call: "expected" is what the script aimed for, and what each reading saw is in the auction's log above. A spare reading went out only where a case was not yet where it should be.</p>
+<div class="card" style="overflow-x:auto"><table id="steps"><thead><tr><th>Logged (UTC)</th><th>Auction</th><th>Call</th><th>Outcome</th><th>Tx</th></tr></thead><tbody></tbody></table></div>
+
+<h2>Limits, stated plainly</h2>
+<ul class="small">
+<li>The contract trusts one record page on a host fixed at deployment. In real life the record is kept by the auction platform (notaries or the state), not by the bank.</li>
+<li>Anyone can open an auction for any auction number, so a bidder checks the bank's address before paying.</li>
+<li>Bidder codes are linked to addresses only because bidders say so; taking someone's code first blocks them from the escrow but gains nothing.</li>
+<li>The phrase lists are English: a record in Greek would read as unclear and refund everyone at the refund deadline.</li>
+</ul>
+</main>
+<footer>Every platform, bank, property, bidder and figure on this site and on the record pages is fictional, except the market figures above. Test GEN only. Built by Brilliant Nodes on GenLayer.</footer>
+<script>
+var RUNS = [{file: "runs/live-bradbury-b1.json", label: "Testnet Bradbury, run b1 (19 Nov 2026)"},
+            {file: "runs/live-studio-s1.json", label: "GenLayer Studio, run s1 (19 Nov 2026)"}];
+var EXPL = {studio: "https://explorer-studio.genlayer.com", bradbury: "https://scan.bradbury.genlayer.com"};
+function gen(w) { var x = BigInt(w || "0"); var s = (x / 10n ** 12n).toString().padStart(7, "0"); var f = s.slice(-6).replace(/0+$/, ""); if (f.length < 4) f = (f + "0000").slice(0, 4); return s.slice(0, -6) + "." + f + " GEN"; }
+function esc(s) { return String(s == null ? "" : s).replace(/[&<>"]/g, function (c) { return {"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;"}[c]; }); }
+function load(i) {
+  fetch(RUNS[i].file).then(function (r) { return r.json(); }).then(function (rec) {
+    var ex = EXPL[rec.net];
+    document.getElementById("bbnote").style.display = rec.net === "bradbury" ? "" : "none";
+    document.getElementById("runinfo").innerHTML = 'contract <a class="mono" href="' + ex + "/address/" + rec.contract.address + '">' + esc(rec.contract.address) + "</a>";
+    var box = document.getElementById("auctions"); box.innerHTML = "";
+    var fin = rec.final_auctions || {}, pass = ((rec.final || {}).cases) || {};
+    Object.keys(rec.auctions).forEach(function (k) {
+      var d = rec.auctions[k], f = fin[k];
+      var html = '<div class="card"><h3>' + esc(d.title) + '</h3><div class="small">' + esc(f ? f.terms.auction_id + " · " + f.terms.property_ref : "") + ' · <a href="' + esc(d.url) + '">record page</a></div>';
+      if (f) {
+        var m = f.money, dep = BigInt(m.deposited || "0"), c = BigInt(m.to_creditor), r = BigInt(m.refunded);
+        var pc = dep > 0n ? Number(c * 1000n / dep) / 10 : 0, pr = dep > 0n ? Number(r * 1000n / dep) / 10 : 0;
+        html += '<div class="bar"><span class="c" style="width:' + pc + '%"></span><span class="r" style="width:' + pr + '%"></span></div>';
+        html += '<div class="small">bank ' + gen(m.to_creditor) + ' · <span class="ok">bidders ' + gen(m.refunded) + "</span> · of " + gen(m.deposited) + "</div>";
+        html += '<div class="small" style="margin-top:6px"><span class="tag">' + esc(f.state) + "</span> " + esc(f.settled_reason) + (pass[k] && pass[k].pass ? ' <span class="ok">· as planned</span>' : "") + "</div>";
+        html += '<ul class="steps small">' + f.log.filter(function (x) { return x.what !== "DEPOSIT"; }).map(function (x) { return "<li><b>" + esc(x.what) + "</b> " + esc(x.note) + "</li>"; }).join("") + "</ul>";
+      }
+      box.innerHTML += html + "</div>";
+    });
+    var tb = document.querySelector("#steps tbody"); tb.innerHTML = "";
+    rec.steps.forEach(function (s) {
+      var res = s.result, out = s.status + " / " + (s.execution || "");
+      if (res && typeof res === "object" && res.reading) out += " · " + (res.reading.kind === "READ" ? [res.reading.status, res.reading.winner, res.reading.balance].filter(Boolean).join(" ") : res.reading.reason);
+      else if (res && typeof res === "object" && res.error) out += " · " + res.error;
+      tb.innerHTML += "<tr><td class=mono>" + esc(s.at.slice(11)) + "</td><td>" + esc(s.case) + "</td><td class=mono>" + esc(s.fn) + "</td><td class=small>" + esc(out) + (s.expect ? '<br><span class="small">expected: ' + esc(s.expect) + "</span>" : "") + '</td><td class=mono>' + (s.tx ? '<a href="' + ex + "/tx/" + s.tx + '">' + s.tx.slice(0, 10) + "</a>" : "") + "</td></tr>";
+    });
+  }).catch(function () { document.getElementById("auctions").innerHTML = '<div class="small">This run\'s record is not published yet.</div>'; });
+}
+var sel = document.getElementById("run");
+RUNS.forEach(function (r, i) { var o = document.createElement("option"); o.value = i; o.textContent = r.label; sel.appendChild(o); });
+sel.onchange = function () { load(+sel.value); };
+load(0);
+</script>
+</body>
+</html>

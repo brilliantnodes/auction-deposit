@@ -1,0 +1,146 @@
+[
+ {
+  "t": 1795242962,
+  "what": "accounts",
+  "creditor": "0xE634f1D84906521FBfC8FA7a8cEC91427bFdb318",
+  "b1": "0x403BA21C9405859d0817c118E309F3bbCA271dA0",
+  "b2": "0x6145149b71787dD5598cB04C190CA18dA5690Cd8"
+ },
+ {
+  "t": 1795242962,
+  "what": "slot",
+  "note": "Auction TRY-P-2611210645 starts at 06:45 UTC (your time 10:45:00 AM, in 9 min 02 s); deposits close then. See its record page."
+ },
+ {
+  "t": 1795242971,
+  "what": "open",
+  "note": "Accepted by a majority of validators."
+ },
+ {
+  "t": 1795242971,
+  "what": "auction",
+  "title": "Auction #2: TRY-P-2611210645",
+  "next": "Lodge the deposits before 06:45:00 UTC (in 8 min 50 s)."
+ },
+ {
+  "t": 1795242980,
+  "what": "deposit Bidder 1",
+  "note": "Accepted by a majority of validators."
+ },
+ {
+  "t": 1795242989,
+  "what": "deposit Bidder 2",
+  "note": "Accepted by a majority of validators."
+ },
+ {
+  "t": 1795242989,
+  "what": "tx",
+  "step": "B-202 lodges the deposit",
+  "note": "Accepted by a majority of validators.",
+  "state": "OPEN"
+ },
+ {
+  "t": 1795242990,
+  "what": "waiting",
+  "next": "Both deposits are in. The auction starts at 06:45:00 UTC (in 8 min 32 s); the result appears on the record 3 minutes later."
+ },
+ {
+  "t": 1795243110,
+  "what": "waiting",
+  "next": "Both deposits are in. The auction starts at 06:45:00 UTC (in 6 min 32 s); the result appears on the record 3 minutes later."
+ },
+ {
+  "t": 1795243230,
+  "what": "waiting",
+  "next": "Both deposits are in. The auction starts at 06:45:00 UTC (in 4 min 32 s); the result appears on the record 3 minutes later."
+ },
+ {
+  "t": 1795243350,
+  "what": "waiting",
+  "next": "Both deposits are in. The auction starts at 06:45:00 UTC (in 2 min 32 s); the result appears on the record 3 minutes later."
+ },
+ {
+  "t": 1795243470,
+  "what": "waiting",
+  "next": "Both deposits are in. The auction starts at 06:45:00 UTC (in 32 s); the result appears on the record 3 minutes later."
+ },
+ {
+  "t": 1795243515,
+  "what": "keep reading for me: on"
+ },
+ {
+  "t": 1795243590,
+  "what": "waiting",
+  "next": "The auction is under way. The record shows the result from 06:48:00 UTC (in 1 min 32 s). Then read it twice, at least 120 s apart."
+ },
+ {
+  "t": 1795243710,
+  "what": "waiting",
+  "next": "Read the record: validators open the page and copy the status, winner and balance."
+ },
+ {
+  "t": 1795243725,
+  "what": "tx",
+  "step": "Read the record (automatic reading 1 of at most 8)",
+  "note": "Validators agreed on: status COMPLETED, winner B-201, balance PENDING.",
+  "state": "OPEN"
+ },
+ {
+  "t": 1795243831,
+  "what": "waiting",
+  "next": "Read the record again to confirm what the first look showed."
+ },
+ {
+  "t": 1795243846,
+  "what": "tx",
+  "step": "Read the record (automatic reading 2 of at most 8)",
+  "note": "Validators agreed on: status COMPLETED, winner B-201, balance PENDING.",
+  "state": "WON_PENDING"
+ },
+ {
+  "t": 1795243951,
+  "what": "waiting",
+  "next": "Winner B-201 confirmed: the losing deposit is refunded and the winner's is held. The record shows the balance outcome from 06:55:00 UTC (in 2 min 32 s); then read twice again."
+ },
+ {
+  "t": 1795244071,
+  "what": "waiting",
+  "next": "Winner B-201 confirmed: the losing deposit is refunded and the winner's is held. The record shows the balance outcome from 06:55:00 UTC (in 32 s); then read twice again."
+ },
+ {
+  "t": 1795244146,
+  "what": "tx",
+  "step": "Read the record (automatic reading 3 of at most 8)",
+  "note": "Validators agreed on: status COMPLETED, winner B-201, balance PAID_IN_FULL.",
+  "state": "WON_PENDING"
+ },
+ {
+  "t": 1795244191,
+  "what": "waiting",
+  "next": "First look recorded at 06:55:03 UTC. Read again from 06:57:13 UTC (in 45 s) to confirm it."
+ },
+ {
+  "t": 1795244266,
+  "what": "final",
+  "state": "SETTLED",
+  "next": "Done: won by B-201, balance paid in full. Each party withdraws what was credited to it (buttons under Accounts).",
+  "money": "Deposited\n2 GEN\nHeld in escrow\n0 GEN\nPaid to the creditor\n1 GEN\nRefunded to bidders\n1 GEN\nWinner confirmed\nB-201\nReadings so far\n4"
+ },
+ {
+  "t": 1795244276,
+  "what": "withdraw creditor",
+  "note": "Accepted: 1 GEN is on its way; it reaches the wallet when the transaction is finalized."
+ },
+ {
+  "t": 1795244285,
+  "what": "withdraw bidder2",
+  "note": "Accepted: 1 GEN is on its way; it reaches the wallet when the transaction is finalized."
+ },
+ {
+  "t": 1795244288,
+  "what": "balances",
+  "creditor": "Wallet: 20 GEN. Credited by the contract: 0 GEN.",
+  "b1": "Wallet: 19 GEN. Credited by the contract: 0 GEN.",
+  "b2": "Wallet: 19 GEN. Credited by the contract: 0 GEN."
+ }
+]

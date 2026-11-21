@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AuctionDeposit: try it yourself</title>
+<meta name="description" content="Run a fictional property auction on GenLayer Studio: lodge bid deposits, let validators read the official auction record, and watch code settle every deposit. Test GEN only.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23143d33'/%3E%3Cpath d='M9 20l5 5 9-15' stroke='%23e4c66b' stroke-width='3.4' fill='none'/%3E%3C/svg%3E">
+  <script type="module" crossorigin src="./assets/index-syWXEPu0.js"></script>
+  <link rel="modulepreload" crossorigin href="./assets/genlayer-DpotIrBa.js">
+  <link rel="stylesheet" crossorigin href="./assets/index-C5ElOVdJ.css">
+</head>
+<body>
+<header class="top">
+  <div class="wrap top-in">
+    <a class="brand" href="../">AuctionDeposit</a>
+    <nav class="nets" aria-label="Pages"><a href="../">The live runs</a></nav>
+    <a class="gh" href="https://github.com/brilliantnodes/auction-deposit" target="_blank" rel="noopener noreferrer">Source on GitHub</a>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="hero">
+    <h1>Try it yourself: a property auction where the bid deposits settle themselves.</h1>
+    <p class="lede">At a property auction every bidder first lodges a deposit. Losing bidders wait for their money back, auctions are often cancelled or suspended, and some winners walk away. Nearly <strong>300,000</strong> property auctions are waiting in Greece, and only about <strong>1 in 5</strong> succeeds. Here every deposit waits in one escrow, and it moves only on what GenLayer validators read on the official auction record.</p>
+    <p class="note">This page runs on <strong>GenLayer Studio</strong> with free temporary accounts kept in your browser. You play the creditor and two bidders. A whole auction takes about 20 to 35 minutes, most of it waiting for the auction to start. Fictional platform, property and bidders; test GEN only.</p>
+  </section>
+
+  <section class="how">
+    <ol class="steps4">
+      <li><strong>Open.</strong> The creditor freezes the terms: the auction, the record page, a 1 GEN deposit and the deadlines.</li>
+      <li><strong>Deposit.</strong> Two bidders lodge exactly 1 GEN each before the auction starts, under the codes the record will print (B-201 and B-202).</li>
+      <li><strong>Read.</strong> After the auction, anyone asks for a reading. Each validator opens the record page and copies the status, winner and balance lines; code checks them and validators must agree exactly.</li>
+      <li><strong>Seen twice.</strong> A result counts only when two readings at least 2 minutes apart show it. Then code pays: losers refunded, the winner's deposit to the creditor when paid or forfeited, everyone refunded if cancelled.</li>
+    </ol>
+  </section>
+
+  <section id="accounts">
+    <h2>1. Accounts</h2>
+    <p class="small">Three temporary accounts, kept only in this browser, funded from Studio's built-in faucet.</p>
+    <button type="button" id="btn-setup">Set up all three accounts</button>
+    <div class="grid3">
+      <div class="panel"><h3>Creditor</h3><p class="mono" id="creditor-addr">No account</p><p class="small" id="creditor-bal"></p></div>
+      <div class="panel"><h3>Bidder 1 (code B-201)</h3><p class="mono" id="bidder1-addr">No account</p><p class="small" id="bidder1-bal"></p></div>
+      <div class="panel"><h3>Bidder 2 (code B-202)</h3><p class="mono" id="bidder2-addr">No account</p><p class="small" id="bidder2-bal"></p></div>
+    </div>
+    <p class="error" id="acct-error" hidden></p>
+  </section>
+
+  <section id="start" class="panel">
+    <h2>2. Open an auction (as the creditor)</h2>
+    <p class="small">Pick what the official record will show after the auction. The record page is published in advance by the fictional platform and changes on its own clock.</p>
+    <div class="stories" id="stories"></div>
+    <p class="small" id="slot-note"></p>
+    <button type="button" id="btn-open">Open the auction</button>
+  </section>
+
+  <section id="auction" hidden>
+    <div class="fac-head">
+      <h2 id="a-title"></h2>
+      <span class="badge" id="a-state"></span>
+      <button class="ghost" id="a-reload" type="button">Reload</button>
+    </div>
+    <p class="next" id="a-next"></p>
+    <div class="panel" id="a-actions-panel">
+      <h3>3. Act</h3>
+      <div id="a-actions"></div>
+    </div>
+    <div class="grid2">
+      <div class="panel"><h3>Money</h3><dl class="kv" id="a-money"></dl></div>
+      <div class="panel"><h3>Terms</h3><dl class="kv" id="a-terms"></dl></div>
+    </div>
+    <div class="grid2">
+      <div class="panel"><h3>Bidders</h3><ul class="plain" id="a-bidders"></ul></div>
+      <div class="panel"><h3>What the contract recorded</h3><ol class="timeline" id="a-log"></ol></div>
+    </div>
+  </section>
+
+  <section id="life" class="panel" hidden>
+    <h3 id="life-what"></h3>
+    <ol class="life" id="steps"></ol>
+    <p class="small" id="life-hash"></p>
+    <p id="life-note"></p>
+  </section>
+
+  <section class="panel">
+    <h2>Open any auction</h2>
+    <form class="lookup" id="lookup">
+      <label>Auction number on this contract <input id="lookup-id" inputmode="numeric" autocomplete="off" placeholder="e.g. 1"></label>
+      <button type="submit">Open</button>
+    </form>
+    <p class="small">Finished examples with no wait: the ten auctions of the live runs on Studio and Testnet Bradbury are on <a href="../">the main page</a>, every transaction linked.</p>
+  </section>
+
+  <section id="rules" class="panel">
+    <h2>The rules, in brief</h2>
+    <ul class="rules">
+      <li><strong>The model copies; code decides.</strong> Code finds each copied value after its label on the validator's own copy of the page, looks the whole status and balance text up in closed tables (anything else is UNCLEAR and moves nothing) and checks the winner is a well-formed bidder code.</li>
+      <li><strong>Exact agreement:</strong> validators accept a reading only if kind, reason, status, winner and balance equal their own.</li>
+      <li><strong>Seen twice:</strong> a state counts once two readings stamped at least the confirmation time apart show it, after deposits close.</li>
+      <li><strong>Outcomes:</strong> cancelled, suspended or no bidders refund everyone; completed with a pending balance refunds the losers and holds the winner's deposit; paid in full sends it to the creditor as part of the price; buyer in default sends it as the penalty; no confirmed payment within the winner's window forfeits it; no outcome by the refund date refunds everyone.</li>
+      <li><strong>Payouts are credits:</strong> each address withdraws its own.</li>
+    </ul>
+    <p class="small">Full rules and limits: <a href="https://github.com/brilliantnodes/auction-deposit#readme" target="_blank" rel="noopener noreferrer">README</a>. The contract's <code>get_rules()</code> returns them on chain.</p>
+  </section>
+</main>
+
+<footer class="wrap foot">
+  <p>Fictional demo: every platform, bank, property and bidder is invented. Test GEN only. Not legal advice. Built on <a href="https://genlayer.com" target="_blank" rel="noopener noreferrer">GenLayer</a> by Brilliant Nodes. MIT licence.</p>
+  <p class="small" id="foot-contract"></p>
+</footer>
+</body>
+</html>

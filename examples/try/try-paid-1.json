@@ -1,0 +1,641 @@
+{
+ "story": "paid",
+ "contract": "0xf19d1C798A3D6DBd5D73F60F001A41C630cf15c0",
+ "steps": [
+  {
+   "role": "creditor",
+   "call": "open_auction",
+   "tx": "0x1f61cb5666e9df8e4e5752c920a267931a8ea1c26c772ec6d960f4930db13204",
+   "status": "ACCEPTED",
+   "sent": 1795239472,
+   "secs": 7,
+   "result": {
+    "id": "1"
+   }
+  },
+  {
+   "role": "bidder1",
+   "call": "deposit",
+   "tx": "0xcf51ebb0768b67371c2257cf5f27b49a4a1f51834881ff2f3865cfcd01f760c1",
+   "status": "ACCEPTED",
+   "sent": 1795239480,
+   "secs": 10,
+   "result": {
+    "auction": {
+     "bidders": {
+      "B-201": {
+       "addr": "0xd7F50d083e73D4c67aa685F8C2119f5b3a7E827a",
+       "at": 1795239483,
+       "held": "1000000000000000000"
+      }
+     },
+     "clock": 1795239483,
+     "created_at": 1795239474,
+     "creditor": "0x6083c7A1BDe9b41202BA243657684BfD6474AD2C",
+     "digest": "6952d43384c2a54033e11d7338c7b8832793f349bf63943eff9b4288b344d0aa",
+     "id": "1",
+     "log": [
+      {
+       "at": 1795239474,
+       "note": "deposit 1000000000000000000 wei, deposits close at 1795239900",
+       "what": "OPENED"
+      },
+      {
+       "at": 1795239483,
+       "note": "B-201: 1000000000000000000 wei",
+       "what": "DEPOSIT"
+      }
+     ],
+     "money": {
+      "deposited": "1000000000000000000",
+      "held": "1000000000000000000",
+      "refunded": "0",
+      "to_creditor": "0"
+     },
+     "readings": 0,
+     "run": null,
+     "settled_reason": "",
+     "state": "OPEN",
+     "terms": {
+      "auction_id": "TRY-P-2611210545",
+      "balance_seconds": 900,
+      "confirm_seconds": 120,
+      "creditor": "0x6083c7A1BDe9b41202BA243657684BfD6474AD2C",
+      "deposit": 1000000000000000000,
+      "deposits_close": 1795239900,
+      "property_ref": "Flat 2, 7 Marigold Lane, Velmora",
+      "record_url": "https://brilliantnodes.github.io/auction-deposit/record/try/paid/try-p-2611210545.html",
+      "refund_by": 1795242300
+     },
+     "winner": "",
+     "winner_at": 0
+    },
+    "ok": true
+   }
+  },
+  {
+   "role": "bidder2",
+   "call": "deposit",
+   "tx": "0xf9696d028af7f5d542814f6e3c384f091f4d48b47d76126a63da564931f8e1cf",
+   "status": "ACCEPTED",
+   "sent": 1795239491,
+   "secs": 7,
+   "result": {
+    "auction": {
+     "bidders": {
+      "B-201": {
+       "addr": "0xd7F50d083e73D4c67aa685F8C2119f5b3a7E827a",
+       "at": 1795239483,
+       "held": "1000000000000000000"
+      },
+      "B-202": {
+       "addr": "0x714e7AaBEaCEf6F08c4Ad149a1ebB553f78D6C7d",
+       "at": 1795239493,
+       "held": "1000000000000000000"
+      }
+     },
+     "clock": 1795239493,
+     "created_at": 1795239474,
+     "creditor": "0x6083c7A1BDe9b41202BA243657684BfD6474AD2C",
+     "digest": "6952d43384c2a54033e11d7338c7b8832793f349bf63943eff9b4288b344d0aa",
+     "id": "1",
+     "log": [
+      {
+       "at": 1795239474,
+       "note": "deposit 1000000000000000000 wei, deposits close at 1795239900",
+       "what": "OPENED"
+      },
+      {
+       "at": 1795239483,
+       "note": "B-201: 1000000000000000000 wei",
+       "what": "DEPOSIT"
+      },
+      {
+       "at": 1795239493,
+       "note": "B-202: 1000000000000000000 wei",
+       "what": "DEPOSIT"
+      }
+     ],
+     "money": {
+      "deposited": "2000000000000000000",
+      "held": "2000000000000000000",
+      "refunded": "0",
+      "to_creditor": "0"
+     },
+     "readings": 0,
+     "run": null,
+     "settled_reason": "",
+     "state": "OPEN",
+     "terms": {
+      "auction_id": "TRY-P-2611210545",
+      "balance_seconds": 900,
+      "confirm_seconds": 120,
+      "creditor": "0x6083c7A1BDe9b41202BA243657684BfD6474AD2C",
+      "deposit": 1000000000000000000,
+      "deposits_close": 1795239900,
+      "property_ref": "Flat 2, 7 Marigold Lane, Velmora",
+      "record_url": "https://brilliantnodes.github.io/auction-deposit/record/try/paid/try-p-2611210545.html",
+      "refund_by": 1795242300
+     },
+     "winner": "",
+     "winner_at": 0
+    },
+    "ok": true
+   }
+  },
+  {
+   "role": "bidder2",
+   "call": "read_record",
+   "tx": "0xe44cd8aee7de044eba6eaf341f58122383c149711ecbdfd6f210dc517a70694f",
+   "status": "ACCEPTED",
+   "sent": 1795240100,
+   "secs": 46,
+   "result": {
+    "auction": {
+     "bidders": {
+      "B-201": {
+       "addr": "0xd7F50d083e73D4c67aa685F8C2119f5b3a7E827a",
+       "at": 1795239483,
+       "held": "1000000000000000000"
+      },
+      "B-202": {
+       "addr": "0x714e7AaBEaCEf6F08c4Ad149a1ebB553f78D6C7d",
+       "at": 1795239493,
+       "held": "1000000000000000000"
+      }
+     },
+     "clock": 1795240102,
+     "created_at": 1795239474,
+     "creditor": "0x6083c7A1BDe9b41202BA243657684BfD6474AD2C",
+     "digest": "6952d43384c2a54033e11d7338c7b8832793f349bf63943eff9b4288b344d0aa",
+     "id": "1",
+     "log": [
+      {
+       "at": 1795239474,
+       "note": "deposit 1000000000000000000 wei, deposits close at 1795239900",
+       "what": "OPENED"
+      },
+      {
+       "at": 1795239483,
+       "note": "B-201: 1000000000000000000 wei",
+       "what": "DEPOSIT"
+      },
+      {
+       "at": 1795239493,
+       "note": "B-202: 1000000000000000000 wei",
+       "what": "DEPOSIT"
+      },
+      {
+       "at": 1795240102,
+       "note": "N2_NOT_ANCHORED",
+       "what": "READING"
+      }
+     ],
+     "money": {
+      "deposited": "2000000000000000000",
+      "held": "2000000000000000000",
+      "refunded": "0",
+      "to_creditor": "0"
+     },
+     "readings": 1,
+     "run": null,
+     "settled_reason": "",
+     "state": "OPEN",
+     "terms": {
+      "auction_id": "TRY-P-2611210545",
+      "balance_seconds": 900,
+      "confirm_seconds": 120,
+      "creditor": "0x6083c7A1BDe9b41202BA243657684BfD6474AD2C",
+      "deposit": 1000000000000000000,
+      "deposits_close": 1795239900,
+      "property_ref": "Flat 2, 7 Marigold Lane, Velmora",
+      "record_url": "https://brilliantnodes.github.io/auction-deposit/record/try/paid/try-p-2611210545.html",
+      "refund_by": 1795242300
+     },
+     "winner": "",
+     "winner_at": 0
+    },
+    "ok": true,
+    "read": true,
+    "reading": {
+     "kind": "NO_READING",
+     "reason": "N2_NOT_ANCHORED"
+    }
+   }
+  },
+  {
+   "role": "bidder2",
+   "call": "read_record",
+   "tx": "0x5cc9480c46b449309f415c5733fbf6ab7b2c356aa82c771a1a73e32e443c7438",
+   "status": "ACCEPTED",
+   "sent": 1795240276,
+   "secs": 21,
+   "result": {
+    "auction": {
+     "bidders": {
+      "B-201": {
+       "addr": "0xd7F50d083e73D4c67aa685F8C2119f5b3a7E827a",
+       "at": 1795239483,
+       "held": "1000000000000000000"
+      },
+      "B-202": {
+       "addr": "0x714e7AaBEaCEf6F08c4Ad149a1ebB553f78D6C7d",
+       "at": 1795239493,
+       "held": "1000000000000000000"
+      }
+     },
+     "clock": 1795240277,
+     "created_at": 1795239474,
+     "creditor": "0x6083c7A1BDe9b41202BA243657684BfD6474AD2C",
+     "digest": "6952d43384c2a54033e11d7338c7b8832793f349bf63943eff9b4288b344d0aa",
+     "id": "1",
+     "log": [
+      {
+       "at": 1795239474,
+       "note": "deposit 1000000000000000000 wei, deposits close at 1795239900",
+       "what": "OPENED"
+      },
+      {
+       "at": 1795239483,
+       "note": "B-201: 1000000000000000000 wei",
+       "what": "DEPOSIT"
+      },
+      {
+       "at": 1795239493,
+       "note": "B-202: 1000000000000000000 wei",
+       "what": "DEPOSIT"
+      },
+      {
+       "at": 1795240102,
+       "note": "N2_NOT_ANCHORED",
+       "what": "READING"
+      },
+      {
+       "at": 1795240277,
+       "note": "COMPLETED B-201 PENDING",
+       "what": "READING"
+      }
+     ],
+     "money": {
+      "deposited": "2000000000000000000",
+      "held": "2000000000000000000",
+      "refunded": "0",
+      "to_creditor": "0"
+     },
+     "readings": 2,
+     "run": {
+      "at": 1795240277,
+      "key": [
+       "COMPLETED",
+       "B-201",
+       "PENDING"
+      ]
+     },
+     "settled_reason": "",
+     "state": "OPEN",
+     "terms": {
+      "auction_id": "TRY-P-2611210545",
+      "balance_seconds": 900,
+      "confirm_seconds": 120,
+      "creditor": "0x6083c7A1BDe9b41202BA243657684BfD6474AD2C",
+      "deposit": 1000000000000000000,
+      "deposits_close": 1795239900,
+      "property_ref": "Flat 2, 7 Marigold Lane, Velmora",
+      "record_url": "https://brilliantnodes.github.io/auction-deposit/record/try/paid/try-p-2611210545.html",
+      "refund_by": 1795242300
+     },
+     "winner": "",
+     "winner_at": 0
+    },
+    "ok": true,
+    "read": true,
+    "reading": {
+     "balance": "PENDING",
+     "kind": "READ",
+     "status": "COMPLETED",
+     "winner": "B-201"
+    }
+   }
+  },
+  {
+   "role": "bidder2",
+   "call": "read_record",
+   "tx": "0xb480fed7550552cb70aba670bbd8eac4f15fb5799dc0e04cd5569ef3675a255c",
+   "status": "ACCEPTED",
+   "sent": 1795240520,
+   "secs": 21,
+   "result": {
+    "auction": {
+     "bidders": {
+      "B-201": {
+       "addr": "0xd7F50d083e73D4c67aa685F8C2119f5b3a7E827a",
+       "at": 1795239483,
+       "held": "1000000000000000000"
+      },
+      "B-202": {
+       "addr": "0x714e7AaBEaCEf6F08c4Ad149a1ebB553f78D6C7d",
+       "at": 1795239493,
+       "held": "1000000000000000000"
+      }
+     },
+     "clock": 1795240522,
+     "created_at": 1795239474,
+     "creditor": "0x6083c7A1BDe9b41202BA243657684BfD6474AD2C",
+     "digest": "6952d43384c2a54033e11d7338c7b8832793f349bf63943eff9b4288b344d0aa",
+     "id": "1",
+     "log": [
+      {
+       "at": 1795239474,
+       "note": "deposit 1000000000000000000 wei, deposits close at 1795239900",
+       "what": "OPENED"
+      },
+      {
+       "at": 1795239483,
+       "note": "B-201: 1000000000000000000 wei",
+       "what": "DEPOSIT"
+      },
+      {
+       "at": 1795239493,
+       "note": "B-202: 1000000000000000000 wei",
+       "what": "DEPOSIT"
+      },
+      {
+       "at": 1795240102,
+       "note": "N2_NOT_ANCHORED",
+       "what": "READING"
+      },
+      {
+       "at": 1795240277,
+       "note": "COMPLETED B-201 PENDING",
+       "what": "READING"
+      },
+      {
+       "at": 1795240522,
+       "note": "COMPLETED B-201 PAID_IN_FULL",
+       "what": "READING"
+      }
+     ],
+     "money": {
+      "deposited": "2000000000000000000",
+      "held": "2000000000000000000",
+      "refunded": "0",
+      "to_creditor": "0"
+     },
+     "readings": 3,
+     "run": {
+      "at": 1795240522,
+      "key": [
+       "COMPLETED",
+       "B-201",
+       "PAID_IN_FULL"
+      ]
+     },
+     "settled_reason": "",
+     "state": "OPEN",
+     "terms": {
+      "auction_id": "TRY-P-2611210545",
+      "balance_seconds": 900,
+      "confirm_seconds": 120,
+      "creditor": "0x6083c7A1BDe9b41202BA243657684BfD6474AD2C",
+      "deposit": 1000000000000000000,
+      "deposits_close": 1795239900,
+      "property_ref": "Flat 2, 7 Marigold Lane, Velmora",
+      "record_url": "https://brilliantnodes.github.io/auction-deposit/record/try/paid/try-p-2611210545.html",
+      "refund_by": 1795242300
+     },
+     "winner": "",
+     "winner_at": 0
+    },
+    "ok": true,
+    "read": true,
+    "reading": {
+     "balance": "PAID_IN_FULL",
+     "kind": "READ",
+     "status": "COMPLETED",
+     "winner": "B-201"
+    }
+   }
+  },
+  {
+   "role": "bidder2",
+   "call": "read_record",
+   "tx": "0x2d3e0a762f8a0543ad0461e1180d4d9557ae6ed13fe8b7ca6fa792390343a06f",
+   "status": "ACCEPTED",
+   "sent": 1795240671,
+   "secs": 60,
+   "result": {
+    "auction": {
+     "bidders": {
+      "B-201": {
+       "addr": "0xd7F50d083e73D4c67aa685F8C2119f5b3a7E827a",
+       "at": 1795239483,
+       "held": "1000000000000000000"
+      },
+      "B-202": {
+       "addr": "0x714e7AaBEaCEf6F08c4Ad149a1ebB553f78D6C7d",
+       "at": 1795239493,
+       "held": "1000000000000000000"
+      }
+     },
+     "clock": 1795240673,
+     "created_at": 1795239474,
+     "creditor": "0x6083c7A1BDe9b41202BA243657684BfD6474AD2C",
+     "digest": "6952d43384c2a54033e11d7338c7b8832793f349bf63943eff9b4288b344d0aa",
+     "id": "1",
+     "log": [
+      {
+       "at": 1795239474,
+       "note": "deposit 1000000000000000000 wei, deposits close at 1795239900",
+       "what": "OPENED"
+      },
+      {
+       "at": 1795239483,
+       "note": "B-201: 1000000000000000000 wei",
+       "what": "DEPOSIT"
+      },
+      {
+       "at": 1795239493,
+       "note": "B-202: 1000000000000000000 wei",
+       "what": "DEPOSIT"
+      },
+      {
+       "at": 1795240102,
+       "note": "N2_NOT_ANCHORED",
+       "what": "READING"
+      },
+      {
+       "at": 1795240277,
+       "note": "COMPLETED B-201 PENDING",
+       "what": "READING"
+      },
+      {
+       "at": 1795240522,
+       "note": "COMPLETED B-201 PAID_IN_FULL",
+       "what": "READING"
+      },
+      {
+       "at": 1795240673,
+       "note": "N2_NOT_ANCHORED",
+       "what": "READING"
+      }
+     ],
+     "money": {
+      "deposited": "2000000000000000000",
+      "held": "2000000000000000000",
+      "refunded": "0",
+      "to_creditor": "0"
+     },
+     "readings": 4,
+     "run": {
+      "at": 1795240522,
+      "key": [
+       "COMPLETED",
+       "B-201",
+       "PAID_IN_FULL"
+      ]
+     },
+     "settled_reason": "",
+     "state": "OPEN",
+     "terms": {
+      "auction_id": "TRY-P-2611210545",
+      "balance_seconds": 900,
+      "confirm_seconds": 120,
+      "creditor": "0x6083c7A1BDe9b41202BA243657684BfD6474AD2C",
+      "deposit": 1000000000000000000,
+      "deposits_close": 1795239900,
+      "property_ref": "Flat 2, 7 Marigold Lane, Velmora",
+      "record_url": "https://brilliantnodes.github.io/auction-deposit/record/try/paid/try-p-2611210545.html",
+      "refund_by": 1795242300
+     },
+     "winner": "",
+     "winner_at": 0
+    },
+    "ok": true,
+    "read": true,
+    "reading": {
+     "kind": "NO_READING",
+     "reason": "N2_NOT_ANCHORED"
+    }
+   }
+  },
+  {
+   "role": "bidder2",
+   "call": "settle",
+   "tx": "0x89d863dce5b6e0adb5536a54dca6c42ebe67a2c9bd07d84919e3a8f53acd5560",
+   "status": "ACCEPTED",
+   "sent": 1795240732,
+   "secs": 6,
+   "result": {
+    "bidders": {
+     "B-201": {
+      "addr": "0xd7F50d083e73D4c67aa685F8C2119f5b3a7E827a",
+      "at": 1795239483,
+      "held": "1000000000000000000"
+     },
+     "B-202": {
+      "addr": "0x714e7AaBEaCEf6F08c4Ad149a1ebB553f78D6C7d",
+      "at": 1795239493,
+      "held": "1000000000000000000"
+     }
+    },
+    "clock": 1795240734,
+    "created_at": 1795239474,
+    "creditor": "0x6083c7A1BDe9b41202BA243657684BfD6474AD2C",
+    "digest": "6952d43384c2a54033e11d7338c7b8832793f349bf63943eff9b4288b344d0aa",
+    "id": "1",
+    "log": [
+     {
+      "at": 1795239474,
+      "note": "deposit 1000000000000000000 wei, deposits close at 1795239900",
+      "what": "OPENED"
+     },
+     {
+      "at": 1795239483,
+      "note": "B-201: 1000000000000000000 wei",
+      "what": "DEPOSIT"
+     },
+     {
+      "at": 1795239493,
+      "note": "B-202: 1000000000000000000 wei",
+      "what": "DEPOSIT"
+     },
+     {
+      "at": 1795240102,
+      "note": "N2_NOT_ANCHORED",
+      "what": "READING"
+     },
+     {
+      "at": 1795240277,
+      "note": "COMPLETED B-201 PENDING",
+      "what": "READING"
+     },
+     {
+      "at": 1795240522,
+      "note": "COMPLETED B-201 PAID_IN_FULL",
+      "what": "READING"
+     },
+     {
+      "at": 1795240673,
+      "note": "N2_NOT_ANCHORED",
+      "what": "READING"
+     }
+    ],
+    "money": {
+     "deposited": "2000000000000000000",
+     "held": "2000000000000000000",
+     "refunded": "0",
+     "to_creditor": "0"
+    },
+    "readings": 4,
+    "run": {
+     "at": 1795240522,
+     "key": [
+      "COMPLETED",
+      "B-201",
+      "PAID_IN_FULL"
+     ]
+    },
+    "settled_reason": "",
+    "state": "OPEN",
+    "terms": {
+     "auction_id": "TRY-P-2611210545",
+     "balance_seconds": 900,
+     "confirm_seconds": 120,
+     "creditor": "0x6083c7A1BDe9b41202BA243657684BfD6474AD2C",
+     "deposit": 1000000000000000000,
+     "deposits_close": 1795239900,
+     "property_ref": "Flat 2, 7 Marigold Lane, Velmora",
+     "record_url": "https://brilliantnodes.github.io/auction-deposit/record/try/paid/try-p-2611210545.html",
+     "refund_by": 1795242300
+    },
+    "winner": "",
+    "winner_at": 0
+   }
+  }
+ ],
+ "accounts": {
+  "creditor": "0x6083c7A1BDe9b41202BA243657684BfD6474AD2C",
+  "bidder1": "0xd7F50d083e73D4c67aa685F8C2119f5b3a7E827a",
+  "bidder2": "0x714e7AaBEaCEf6F08c4Ad149a1ebB553f78D6C7d"
+ },
+ "deposits_close": 1795239900,
+ "auction_id": "TRY-P-2611210545",
+ "record_url": "https://brilliantnodes.github.io/auction-deposit/record/try/paid/try-p-2611210545.html",
+ "id": "1",
+ "final": {
+  "state": "OPEN",
+  "winner": "",
+  "money": {
+   "deposited": "2000000000000000000",
+   "held": "2000000000000000000",
+   "refunded": "0",
+   "to_creditor": "0"
+  },
+  "reason": "",
+  "totals": {
+   "auctions": 3,
+   "credited": "0",
+   "locked": "4000000000000000000"
+  }
+ }
+}

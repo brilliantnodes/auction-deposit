@@ -6,7 +6,9 @@ When a bank or loan servicer auctions a repossessed property, every bidder must 
 
 **Why it matters:** nearly **300,000** property auctions are waiting in Greece, and only about **1 in 5** succeeds (auction listings: unsold properties are listed again; [euro2day](https://www.euro2day.gr/en2/article/2358318/nearly-300000-properties-in-line-for-auction), citing IOBE and Cepal, Q1 2026, and the IMF). Europe's largest banks hold **€373bn** of bad loans (gross non-performing exposures of EU significant banks, Q2 2025, [Banca Ifis Market Watch NPL 2025](https://www.bancaifis.it/app/uploads/2025/09/MW_Npl_Sep25_ENG_20250926.pdf)).
 
-Status: **work in progress** (contract v1 after the first independent review, the ten demo cases, 248 tests on GenVM v0.2 and v0.6, every mutant caught). Everything in the demo is fictional: the auction platform, creditor, properties and bidders. Test GEN only. Not legal advice.
+Status: **work in progress** (contract v1.1, the ten demo cases, 259 tests on GenVM v0.2 and v0.6, every mutant caught).
+
+**Try it yourself:** https://brilliantnodes.github.io/auction-deposit/app/ runs your own fictional auction on GenLayer Studio with free temporary accounts (creditor and two bidders; the record shows a paid, defaulted or cancelled outcome; about 20 to 35 minutes). Everything in the demo is fictional: the auction platform, creditor, properties and bidders. Test GEN only. Not legal advice.
 
 ## How it decides
 - Validators read the auction's record page; the model only **copies** the status, winning bidder and balance lines with their labels.
@@ -39,6 +41,15 @@ Each case is one auction with three bidders, on a fictional auction platform. Ti
 - The phrase tables are English and bidder codes are A to Z, digits and hyphens: a record in Greek would read UNCLEAR and refund everyone at `refund_by`. Records laid out with labels and values separated only by spaces are not checked for a second, planted line.
 - Test GEN only; fictional demo; not legal advice.
 
+## v1.1 (21 Nov 2026): a value copied with its label
+
+Probe renders on GenLayer Studio (21 Nov 2026) showed that some models copy a line's label into its value (`"value": "Status: Completed"`). v1 then found no such value after the label on the page and refused the reading (`N2_NOT_ANCHORED`): nothing moved, but the reading had to be repeated (in run s1, six readings were refused as not anchored). v1.1 does two things:
+
+- `_unlabel`: when a copied value starts with its own copied label followed by `:`, `|` or `=`, only what follows is kept. The rest must still be anchored after that label on the validator's own copy of the page, so the reading is no looser: a value under another label, or one the page does not print on the label's line, is still refused.
+- The prompt now asks for the text after the label, without the label.
+
+The live runs s1 (Studio) and b1 (Bradbury) below ran contract v1. The "Try it yourself" page uses the v1.1 visitor contract [`0x01bd…52F0`](https://explorer-studio.genlayer.com/address/0x01bdF97620fFdAe7391df6f98ba8889604d852F0) (record host brilliantnodes.github.io, minimum confirmation 60 s, `tools/deploy_visitor.py`; record pages `tools/make_try_pages.py`). Tests: `tests/direct/test_auction_deposit_v11.py`.
+
 ## Record pages
 Each page shows the record as it stands at the reader's clock, so validators reading at different moments see it change the way a real record does.
 ```
@@ -49,12 +60,12 @@ python3 tools/check_pages.py <tag> <D_unix> docs [--bradbury]     # renders ever
 ## Tests
 ```
 python3 -m venv venv && venv/bin/pip install -r requirements.txt
-PYTHONPATH=. venv/bin/pytest tests/direct -q                 # 248 passed, 28 skipped (GenVM v0.2)
-PYTHONPATH=. venv/bin/python tools/mutate.py                 # 147 of 147 mutants caught
-tools/test_v6.sh /path/to/v6-venv                            # the same 248 on GenVM v0.6, packed Bradbury build
+PYTHONPATH=. venv/bin/pytest tests/direct -q                 # 259 passed, 28 skipped (GenVM v0.2)
+PYTHONPATH=. venv/bin/python tools/mutate.py                 # 150 of 150 mutants caught
+tools/test_v6.sh /path/to/v6-venv                            # the same 259 on GenVM v0.6, packed Bradbury build
 ```
 - `tests/direct/test_demo_cases.py` runs the ten cases on the exact page text, on both timetables, alone and all together in one contract, with each scheduled reading dropped in turn, plus the planted-instruction and wrong-page attacks. The skipped tests are drops of a third or fourth reading in two-reading cases.
 - `tests/direct/test_auction_deposit_review1.py` holds the tests for the fixes after the first independent review.
 - `tests/direct/test_auction_deposit_more.py` holds the tests added for every break the first mutation check found uncaught.
-- `tools/mutate.py` breaks the contract on purpose, one change at a time (147 changes), and checks that the tests catch each one; three further changes are listed as equivalent, with the reasons.
+- `tools/mutate.py` breaks the contract on purpose, one change at a time (150 changes), and checks that the tests catch each one; three further changes are listed as equivalent, with the reasons.
 - GenVM v0.6 (Testnet Bradbury): `bradbury/port.py` makes `bradbury/build/auction_deposit.py` and the compressed `auction_deposit_packed.py` (12.2 KB; ClaimEscrow's 15.5 KB packed build deployed on Bradbury where its 42.7 KB plain build did not); `tools/test_v6.sh` runs the unchanged tests against either with genlayer-test 0.30.0rc2 (`pip install --pre genlayer-test==0.30.0rc2`) and `tests/conftest_v6.py`.

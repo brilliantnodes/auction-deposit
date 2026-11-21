@@ -61,24 +61,26 @@ with sync_playwright() as p:
     pg.screenshot(path=str(out / "02-deposits.png"), full_page=True)
     t0 = time.time()
     shots = 3
+    seen = set()
     while time.time() - t0 < 60 * 60:
         state = pg.inner_text("#a-state")
-        nxt = pg.inner_text("#a-next")
         if state in ("SETTLED", "CANCELLED"):
             break
-        btn = pg.get_by_role("button", name="Read the record")
-        if btn.count() and btn.first.is_enabled():
-            btn.first.click()
-            note = wait_tx(pg)
-            log("read", note=note, state=pg.inner_text("#a-state"))
-            pg.screenshot(path=str(out / f"{shots:02d}-read.png"), full_page=True)
+        box = pg.locator(".auto input[type=checkbox]")
+        if box.count() and not box.first.is_checked():
+            box.first.check()
+            log("keep reading for me: on")
+        note = pg.inner_text("#life-note") if pg.locator("#life:not([hidden])").count() else ""
+        what = pg.inner_text("#life-what") if note else ""
+        key = (what, note[:80])
+        if note and not note.startswith(("Sent ", "Signing")) and key not in seen:
+            seen.add(key)
+            log("tx", step=what, note=note, state=state)
+            pg.screenshot(path=str(out / f"{shots:02d}-step.png"), full_page=True)
             shots += 1
-        else:
-            time.sleep(10)
-            pg.click("#a-reload")
-            time.sleep(2)
-            if int(time.time() - t0) % 120 < 12:
-                log("waiting", next=nxt)
+        if int(time.time() - t0) % 120 < 15:
+            log("waiting", next=pg.inner_text("#a-next"))
+        time.sleep(15)
     log("final", state=pg.inner_text("#a-state"), next=pg.inner_text("#a-next"), money=pg.inner_text("#a-money"))
     pg.screenshot(path=str(out / f"{shots:02d}-final.png"), full_page=True)
     for role in ("creditor", "bidder1", "bidder2"):

@@ -108,3 +108,4 @@ ul.plain li { padding: 5px 0; border-bottom: 1px dashed var(--line); }
 .stories{display:grid;gap:8px;margin:10px 0}
 .story{display:block;padding:10px 12px;border:1px solid #d5ded9;border-radius:8px;cursor:pointer}
 .next{font-size:16px;font-weight:600;padding:10px 14px;border-left:4px solid #e4c66b;background:#fffaf0;border-radius:4px}
+.auto{display:block;padding:10px 12px;margin:0 0 10px;border:1px dashed #b9c7c0;border-radius:8px;cursor:pointer}

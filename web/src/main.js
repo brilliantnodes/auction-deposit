@@ -5,7 +5,7 @@ import { studionet } from "genlayer-js/chains";
 // The visitor contract on GenLayer Studio (tools/deploy_visitor.py): the same
 // source as the live runs, record host brilliantnodes.github.io, minimum
 // confirmation 60 s. Record pages: tools/make_try_pages.py.
-const CONTRACT = "0xf19d1C798A3D6DBd5D73F60F001A41C630cf15c0";
+const CONTRACT = "0x01bdF97620fFdAe7391df6f98ba8889604d852F0"; // v1.1 (a value copied with its label is read); v1 visitor contract: 0xf19d1C798A3D6DBd5D73F60F001A41C630cf15c0
 const EXPLORER = "https://explorer-studio.genlayer.com";
 const SITE = "https://brilliantnodes.github.io/auction-deposit";
 const SLOT = 15 * 60;
@@ -143,6 +143,8 @@ $("btn-open").addEventListener("click", async () => {
 // ------------------------------------------------------- the auction
 
 let current = null; // { id, a }
+let auto = false, autoCount = 0, lastEnd = 0; // "keep reading for me": the page sends each reading when it is due
+const AUTO_MAX = 8;
 async function openAuction(id) {
   try { const a = await read("get_auction", [id]); current = { id, a }; render(); $("auction").hidden = false; }
   catch (e) { current = null; $("auction").hidden = true; alert(`Could not open auction ${id}: ${short(e)}`); }
@@ -193,6 +195,19 @@ function drawActions() {
   const box = $("a-actions"); box.replaceChildren();
   const ns = nextStep();
   $("a-next").textContent = ns.text;
+  const done = current.a.state === "SETTLED" || current.a.state === "CANCELLED";
+  if (!done && Date.now() / 1000 >= current.a.terms.deposits_close) {
+    const lab = el("label", "auto");
+    const cb = el("input"); cb.type = "checkbox"; cb.checked = auto;
+    cb.addEventListener("change", () => { auto = cb.checked; autoCount = 0; drawActions(); });
+    lab.append(cb, el("strong", null, " Keep reading for me. "), el("span", "small", `This page sends each reading as soon as it is due, and reads again after a reading that found nothing usable (at most ${AUTO_MAX} readings; ${autoCount} sent so far). Keep the page open.`));
+    box.append(lab);
+  }
+  if (auto && !busy && ns.can.includes("read") && autoCount < AUTO_MAX && Date.now() - lastEnd > 20000) {
+    const who = roles.bidder2 ? "bidder2" : roles.creditor ? "creditor" : null;
+    if (who) { autoCount += 1; setTimeout(() => send(who, "read_record", [current.id], 0n, `Read the record (automatic reading ${autoCount} of at most ${AUTO_MAX})`), 0); }
+  }
+  if (done) auto = false;
   for (const c of ns.can) {
     const row = el("div", "act");
     let label, help, fn;
@@ -248,14 +263,14 @@ async function send(role, fn, args, value, what) {
   let hash, err;
   try { hash = await who.client.writeContract({ address: CONTRACT, functionName: fn, args, value: value || 0n }); } catch (e) { err = e; }
   let out = null;
-  if (err) { drawSteps("SENT", true); $("life-note").textContent = `The network did not confirm the send (${short(err)}). It may or may not have gone out, so this page does not resend it: press Reload in a minute before trying again.`; }
+  if (err) { drawSteps("SENT", true); $("life-note").textContent = `The network did not confirm the send (${short(err)}). Studio's gateway sometimes refuses for a moment when it is busy. It may or may not have gone out, so this page does not resend it: press Reload in a minute and check before trying again.`; auto = false; }
   else {
     $("life-hash").append("Transaction: ", el("code", null, hash), " · ", link(`${EXPLORER}/tx/${hash}`, "view on the explorer"));
     drawSteps("SENT", false);
     let last = "SENT", fin = null; const t0 = Date.now();
     while (Date.now() - t0 < 10 * 60 * 1000) {
       $("life-note").textContent = `Sent ${Math.round((Date.now() - t0) / 1000)} s ago. ${fn === "read_record" ? "A reading takes one to three minutes." : "Usually under a minute."}`;
-      await new Promise((r) => setTimeout(r, 3000));
+      await new Promise((r) => setTimeout(r, 6000));
       let tx; try { tx = await reader.getTransaction({ hash }); } catch { continue; }
       const st = statusOf(tx);
       if (st && st !== last && ORDER.includes(st)) { last = st; drawSteps(st, false); }
@@ -274,7 +289,7 @@ async function send(role, fn, args, value, what) {
       out = { hash, answer: ans };
     }
   }
-  busy = false; document.querySelectorAll("#a-actions button, #btn-open").forEach((b) => (b.disabled = false));
+  busy = false; lastEnd = Date.now(); document.querySelectorAll("#a-actions button, #btn-open").forEach((b) => (b.disabled = false));
   await reload();
   return out;
 }
@@ -289,4 +304,4 @@ const qid = new URLSearchParams(location.search).get("id");
 const start = qid && /^\d+$/.test(qid) ? qid : store.get("ad.current");
 if (start) openAuction(start);
 setInterval(() => { drawSlot(); if (current) drawActions(); }, 5000);
-setInterval(() => { if (current && !busy) reload(); }, 30000);
+setInterval(() => { if (current && !busy && document.visibilityState === "visible") reload(); }, 60000);

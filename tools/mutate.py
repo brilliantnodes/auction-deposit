@@ -18,6 +18,10 @@ ROOT = Path(__file__).resolve().parents[1]
 SRC = (ROOT / "contracts" / "auction_deposit.py").read_text()
 
 MUTANTS = [
+    # v1.1: a value copied with its label
+    ("label not stripped", '    st, wn, bl = (_unlabel(_field(ans, k)) for k in ("status", "winning_bidder", "balance"))', '    st, wn, bl = (_field(ans, k) for k in ("status", "winning_bidder", "balance"))'),
+    ("label stripped without a separator", '        if rest[:1] in (":", "|", "="):', '        if True:'),
+    ("label match case-sensitive", "    if lab_c and v_c.lower().startswith(lab_c.lower()):", "    if lab_c and v_c.startswith(lab_c):"),
     # deployment
     ("upper-case hosts allowed", "or host != host.lower():", ":"),
     ("internal hosts allowed", "if host.endswith(PRIVATE_SUFFIXES) or all(c in DIGITS for c in labels[-1]):", "if False:"),

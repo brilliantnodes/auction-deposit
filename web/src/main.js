@@ -167,7 +167,7 @@ function render() {
   if (!codes.length) bl.append(el("li", "small", "No deposits yet."));
   for (const c of codes) bl.append(el("li", null, `${c}: ${gen(a.bidders[c].held)} held · ${a.bidders[c].addr}`));
   const lg = $("a-log"); lg.replaceChildren();
-  for (const e of a.log || []) { const li = el("li"); li.append(el("strong", null, `${hhmmss(e.at)} ${e.what}`), el("span", null, e.note ? ` ${e.note}` : "")); lg.append(li); }
+  for (const e of a.log || []) { const li = el("li"); li.append(el("strong", null, `${hhmmss(e.at)} ${e.what}`), el("span", null, e.note ? ` ${String(e.note).replace(/(\d+) wei/g, (_m, n) => gen(n))}` : "")); lg.append(li); }
   drawActions();
 }
 

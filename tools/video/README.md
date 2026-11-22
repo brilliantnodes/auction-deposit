@@ -1,6 +1,6 @@
 # Demo video (docs/auctiondeposit-demo.mp4)
 
-89 s, 1920x1080, 30 fps, narrated, made in code. Every name and auction is fictional.
+91 s (v3, `docs/auctiondeposit-demo-v3.mp4`), 1920x1080, 30 fps, narrated, made in code. Every name and auction is fictional.
 
 1. Narration (Kokoro-82M, voice af_heart): `pip install kokoro-onnx soundfile`, download
    `kokoro-v1.0.fp16.onnx` and `voices-v1.0.bin` from github.com/thewh1teagle/kokoro-onnx releases

@@ -28,7 +28,7 @@
 ## 4. Links
 
 - Source: [`contracts/auction_deposit.py`](contracts/auction_deposit.py)
-- Demo video file: [`docs/auctiondeposit-demo.mp4`](docs/auctiondeposit-demo.mp4)
+- Demo video file: [`docs/auctiondeposit-demo-v3.mp4`](docs/auctiondeposit-demo-v3.mp4) (91 s; the earlier cut `docs/auctiondeposit-demo.mp4` is kept)
 - Limits, stated plainly: README, [Limits](README.md#limits-stated-plainly)
 
 *Fictional platform, creditor, properties and bidders; test GEN only. Not legal advice.*

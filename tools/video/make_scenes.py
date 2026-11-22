@@ -117,9 +117,9 @@ scene("s3", """
 .ic{flex:0 0 56px;height:56px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:32px;font-weight:900}
 """, '<div class="bg"></div><div class="dots"></div><div class="glow" style="left:600px;top:200px"></div>' + """
 <div class="t h in" style="animation-delay:.1s">Today, deposits wait, and trust is thin</div>""" + people + coins + """
-<div class="vault in" style="animation-delay:.6s"><div class="clock"><div class="hand"></div></div></div><div class="weeks in" style="animation-delay:2s">held for weeks</div>
+<div class="vault in" style="animation-delay:.6s"><div class="clock"><div class="hand"></div></div></div><div class="weeks in" style="animation-delay:2s">money tied up</div>
 <div class="list">
-<div class="it slide" style="animation-delay:2.9s"><div class="ic" style="background:#5a4a1c;color:#ffd76a">⏳</div><div>Losers wait weeks to get their deposit back.</div></div>
+<div class="it slide" style="animation-delay:2.9s"><div class="ic" style="background:#5a4a1c;color:#ffd76a">⏳</div><div>Unsuccessful bidders wait to get their deposit back.</div></div>
 <div class="it slide" style="animation-delay:5.0s"><div class="ic" style="background:#5c3a14;color:#ffb547">✕</div><div>Auctions get <span class="amber">cancelled or suspended</span>.</div></div>
 <div class="it slide" style="animation-delay:7.0s"><div class="ic" style="background:#5c2420;color:#ff7a6b">!</div><div>Some winners <span class="red">never pay</span> the rest.</div></div>
 </div>""")
@@ -170,8 +170,8 @@ scene("s5", """
 .dests{display:flex;gap:22px;flex-wrap:wrap}.dest{padding:16px 26px;border-radius:16px;font-size:34px;font-weight:700}
 """, '<div class="bg"></div><div class="dots"></div><div class="glow" style="left:900px;top:300px"></div>' + """
 <div class="t h in" style="animation-delay:.1s">The record decides. <span class="gold">Code pays.</span></div>""" +
-      row(240, 1.4, "Won and paid", [("Losers refunded", "#1d6b47"), ("Winner's deposit → bank, as part of the price", "#8a5a14")]) +
-      row(480, 8.6, "Winner walks away", [("Losers refunded", "#1d6b47"), ("Deposit → bank, as the penalty", "#8a5a14")]) +
+      row(240, 1.4, "Won and paid", [("Unsuccessful bidders refunded", "#1d6b47"), ("Winner's deposit → bank, as part of the price", "#8a5a14")]) +
+      row(480, 8.6, "Winner walks away", [("Unsuccessful bidders refunded", "#1d6b47"), ("Deposit → bank, as the penalty", "#8a5a14")]) +
       row(720, 12.3, "Cancelled or suspended", [("Everyone refunded", "#1d6b47")]))
 
 # ---------------------------------------------------------------- s6 the proof

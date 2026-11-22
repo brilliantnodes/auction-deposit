@@ -1,0 +1,50 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1920px;height:1080px;overflow:hidden;background:#04101f;font-family:Inter,"Helvetica Neue",Arial,sans-serif;color:#fff}
+.stage{position:absolute;inset:0;animation:fade 13.78s linear both}
+@keyframes fade{0%{opacity:0}4%{opacity:1}95%{opacity:1}100%{opacity:0}}
+.bg{position:absolute;inset:0;background:radial-gradient(ellipse at 30% 20%,#16477d 0%,#0b2a50 45%,#040f1e 100%)}
+.glow{position:absolute;width:900px;height:900px;border-radius:50%;background:radial-gradient(rgba(255,215,106,.10),rgba(255,215,106,0) 65%);animation:drift 13.78s linear both}
+@keyframes drift{from{transform:translate(-200px,0)}to{transform:translate(300px,80px)}}
+.dots{position:absolute;inset:0;background-image:radial-gradient(rgba(150,200,255,.18) 1.5px,transparent 1.6px);background-size:46px 46px;animation:pan 13.78s linear both;opacity:.6}
+@keyframes pan{from{background-position:0 0}to{background-position:120px 60px}}
+.photo{position:absolute;inset:-60px;background:url('file:///home/claude/auction-deposit/tools/video/photo/acropolis.jpg') center/cover;animation:kb 13.78s linear both}
+@keyframes kb{from{transform:scale(1.0)}to{transform:scale(1.12) translate(-20px,10px)}}
+.in{opacity:0;animation:rise .8s cubic-bezier(.2,.8,.2,1) both}
+@keyframes rise{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:none}}
+.pop{opacity:0;animation:pop .55s cubic-bezier(.2,1.6,.4,1) both}
+@keyframes pop{from{opacity:0;transform:scale(.3)}to{opacity:1;transform:scale(1)}}
+.slide{opacity:0;animation:slide .8s cubic-bezier(.2,.8,.2,1) both}
+@keyframes slide{from{opacity:0;transform:translateX(-80px)}to{opacity:1;transform:none}}
+.h{font-size:72px;font-weight:800;letter-spacing:-1.5px}
+.s{font-size:40px;color:#d7e6f7;font-weight:500}
+.gold{color:#ffd76a}.green{color:#62e0a3}.amber{color:#ffb547}.red{color:#ff7a6b}
+.glass{background:rgba(9,32,62,.72);border:1.5px solid rgba(140,190,255,.28);border-radius:26px;backdrop-filter:blur(6px);box-shadow:0 20px 60px rgba(0,0,0,.35)}
+.credit{position:absolute;left:26px;bottom:18px;font-size:18px;color:rgba(255,255,255,.75);text-shadow:0 1px 4px rgba(0,0,0,.8)}
+.flag{position:absolute}.pole{position:absolute;left:-14px;top:-12px;width:12px;border-radius:6px;background:linear-gradient(90deg,#9aa4ad,#f4f6f8,#8a939b)}
+.fs{position:absolute;top:0;height:100%;background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='270' height='180' viewBox='0 0 27 18'><rect y='0' width='27' height='2' fill='%230D5EAF'/><rect y='2' width='27' height='2' fill='%23ffffff'/><rect y='4' width='27' height='2' fill='%230D5EAF'/><rect y='6' width='27' height='2' fill='%23ffffff'/><rect y='8' width='27' height='2' fill='%230D5EAF'/><rect y='10' width='27' height='2' fill='%23ffffff'/><rect y='12' width='27' height='2' fill='%230D5EAF'/><rect y='14' width='27' height='2' fill='%23ffffff'/><rect y='16' width='27' height='2' fill='%230D5EAF'/><rect width='10' height='10' fill='%230D5EAF'/><rect x='4' width='2' height='10' fill='%23fff'/><rect y='4' width='10' height='2' fill='%23fff'/></svg>");background-size:var(--w) var(--h);animation:wv 1.5s ease-in-out infinite alternate;box-shadow:inset 0 0 0 9999px rgba(0,0,0,0)}
+@keyframes wv{from{transform:translateY(-7px);filter:brightness(1.08)}to{transform:translateY(7px);filter:brightness(.86)}}
+.coin{position:absolute;width:70px;height:70px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff3c4,#f2c14e 45%,#c58b1c);border:4px solid #a8740f;color:#6d4908;font-weight:900;font-size:34px;display:flex;align-items:center;justify-content:center;box-shadow:0 0 24px rgba(255,200,80,.45)}
+.vig{position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(0,0,0,0) 55%,rgba(0,0,0,.45) 100%)}
+
+.photo{filter:blur(10px) brightness(.38)}
+.wrap{position:absolute;left:150px;right:150px;top:150px;display:grid;grid-template-columns:1.25fr 1fr;gap:40px}
+.card{padding:40px 46px}.big{font-size:150px;font-weight:900;line-height:1;color:#ffd76a;font-variant-numeric:tabular-nums}
+.lbl{font-size:42px;color:#e6f0fb;margin-top:12px}
+.homes{display:flex;gap:22px;margin-top:26px}.home{width:96px;height:96px;opacity:.28}
+.home.lit{animation:lit .6s ease-out 6.2s both}@keyframes lit{to{opacity:1;filter:drop-shadow(0 0 18px #ffd76a)}}
+.wide{grid-column:1/3;text-align:center;padding:34px}.wide .big{font-size:120px}
+.src{position:absolute;left:0;right:0;bottom:30px;text-align:center;font-size:22px;color:#9fb6d2}
+
+</style></head><body><div class="stage"><div class="photo"></div><div class="vig"></div><div class="flag" style="left:1640px;top:60px;width:170px;height:113px;--w:170px;--h:113px"><div class="fs" style="left:0.00px;width:6.27px;background-position:-0.00px 0;animation-delay:-0.00s"></div><div class="fs" style="left:5.67px;width:6.27px;background-position:-5.67px 0;animation-delay:-0.07s"></div><div class="fs" style="left:11.33px;width:6.27px;background-position:-11.33px 0;animation-delay:-0.14s"></div><div class="fs" style="left:17.00px;width:6.27px;background-position:-17.00px 0;animation-delay:-0.21s"></div><div class="fs" style="left:22.67px;width:6.27px;background-position:-22.67px 0;animation-delay:-0.28s"></div><div class="fs" style="left:28.33px;width:6.27px;background-position:-28.33px 0;animation-delay:-0.35s"></div><div class="fs" style="left:34.00px;width:6.27px;background-position:-34.00px 0;animation-delay:-0.42s"></div><div class="fs" style="left:39.67px;width:6.27px;background-position:-39.67px 0;animation-delay:-0.49s"></div><div class="fs" style="left:45.33px;width:6.27px;background-position:-45.33px 0;animation-delay:-0.56s"></div><div class="fs" style="left:51.00px;width:6.27px;background-position:-51.00px 0;animation-delay:-0.63s"></div><div class="fs" style="left:56.67px;width:6.27px;background-position:-56.67px 0;animation-delay:-0.70s"></div><div class="fs" style="left:62.33px;width:6.27px;background-position:-62.33px 0;animation-delay:-0.77s"></div><div class="fs" style="left:68.00px;width:6.27px;background-position:-68.00px 0;animation-delay:-0.84s"></div><div class="fs" style="left:73.67px;width:6.27px;background-position:-73.67px 0;animation-delay:-0.91s"></div><div class="fs" style="left:79.33px;width:6.27px;background-position:-79.33px 0;animation-delay:-0.98s"></div><div class="fs" style="left:85.00px;width:6.27px;background-position:-85.00px 0;animation-delay:-1.05s"></div><div class="fs" style="left:90.67px;width:6.27px;background-position:-90.67px 0;animation-delay:-1.12s"></div><div class="fs" style="left:96.33px;width:6.27px;background-position:-96.33px 0;animation-delay:-1.19s"></div><div class="fs" style="left:102.00px;width:6.27px;background-position:-102.00px 0;animation-delay:-1.26s"></div><div class="fs" style="left:107.67px;width:6.27px;background-position:-107.67px 0;animation-delay:-1.33s"></div><div class="fs" style="left:113.33px;width:6.27px;background-position:-113.33px 0;animation-delay:-1.40s"></div><div class="fs" style="left:119.00px;width:6.27px;background-position:-119.00px 0;animation-delay:-1.47s"></div><div class="fs" style="left:124.67px;width:6.27px;background-position:-124.67px 0;animation-delay:-1.54s"></div><div class="fs" style="left:130.33px;width:6.27px;background-position:-130.33px 0;animation-delay:-1.61s"></div><div class="fs" style="left:136.00px;width:6.27px;background-position:-136.00px 0;animation-delay:-1.68s"></div><div class="fs" style="left:141.67px;width:6.27px;background-position:-141.67px 0;animation-delay:-1.75s"></div><div class="fs" style="left:147.33px;width:6.27px;background-position:-147.33px 0;animation-delay:-1.82s"></div><div class="fs" style="left:153.00px;width:6.27px;background-position:-153.00px 0;animation-delay:-1.89s"></div><div class="fs" style="left:158.67px;width:6.27px;background-position:-158.67px 0;animation-delay:-1.96s"></div><div class="fs" style="left:164.33px;width:6.27px;background-position:-164.33px 0;animation-delay:-2.03s"></div></div>
+<div class="wrap">
+<div class="card glass in" style="animation-delay:.4s"><div class="big"><span id="c1">0</span></div><div class="lbl">property auctions waiting in <b>Greece</b></div></div>
+<div class="card glass in" style="animation-delay:4.4s"><div class="big">1 in 5</div><div class="lbl">auctions succeeds</div>
+<div class="homes"><svg class="home lit" viewBox="0 0 24 24"><path fill="#ffd76a" d="M12 3 2 11h3v9h5v-6h4v6h5v-9h3z"/></svg><svg class="home" viewBox="0 0 24 24"><path fill="#9fc0e8" d="M12 3 2 11h3v9h5v-6h4v6h5v-9h3z"/></svg><svg class="home" viewBox="0 0 24 24"><path fill="#9fc0e8" d="M12 3 2 11h3v9h5v-6h4v6h5v-9h3z"/></svg><svg class="home" viewBox="0 0 24 24"><path fill="#9fc0e8" d="M12 3 2 11h3v9h5v-6h4v6h5v-9h3z"/></svg><svg class="home" viewBox="0 0 24 24"><path fill="#9fc0e8" d="M12 3 2 11h3v9h5v-6h4v6h5v-9h3z"/></svg></div></div>
+<div class="wide glass in" style="animation-delay:7.6s"><div class="lbl" style="margin:0 0 8px">Europe's largest banks hold</div><div class="big"><span id="c2">€0bn</span></div><div class="lbl">of bad loans</div></div>
+</div>
+<div class="src in" style="animation-delay:8.4s">Sources: euro2day citing IOBE, Cepal and the IMF (Q1 2026) · Banca Ifis Market Watch NPL (Q2 2025)</div></div>
+<script>function ease(x){return x<0?0:x>1?1:1-Math.pow(1-x,3)}
+window.tick=function(ms){var t=ms/1000;
+document.getElementById('c1').textContent=Math.round(300000*ease((t-0.8)/2.4)).toLocaleString('en-US');
+document.getElementById('c2').textContent='€'+Math.round(373*ease((t-8.0)/2.0))+'bn';}</script></body></html>

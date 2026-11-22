@@ -1,0 +1,51 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1920px;height:1080px;overflow:hidden;background:#04101f;font-family:Inter,"Helvetica Neue",Arial,sans-serif;color:#fff}
+.stage{position:absolute;inset:0;animation:fade 12.07s linear both}
+@keyframes fade{0%{opacity:0}4%{opacity:1}95%{opacity:1}100%{opacity:0}}
+.bg{position:absolute;inset:0;background:radial-gradient(ellipse at 30% 20%,#16477d 0%,#0b2a50 45%,#040f1e 100%)}
+.glow{position:absolute;width:900px;height:900px;border-radius:50%;background:radial-gradient(rgba(255,215,106,.10),rgba(255,215,106,0) 65%);animation:drift 12.07s linear both}
+@keyframes drift{from{transform:translate(-200px,0)}to{transform:translate(300px,80px)}}
+.dots{position:absolute;inset:0;background-image:radial-gradient(rgba(150,200,255,.18) 1.5px,transparent 1.6px);background-size:46px 46px;animation:pan 12.07s linear both;opacity:.6}
+@keyframes pan{from{background-position:0 0}to{background-position:120px 60px}}
+.photo{position:absolute;inset:-60px;background:url('file:///home/claude/auction-deposit/tools/video/photo/acropolis.jpg') center/cover;animation:kb 12.07s linear both}
+@keyframes kb{from{transform:scale(1.0)}to{transform:scale(1.12) translate(-20px,10px)}}
+.in{opacity:0;animation:rise .8s cubic-bezier(.2,.8,.2,1) both}
+@keyframes rise{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:none}}
+.pop{opacity:0;animation:pop .55s cubic-bezier(.2,1.6,.4,1) both}
+@keyframes pop{from{opacity:0;transform:scale(.3)}to{opacity:1;transform:scale(1)}}
+.slide{opacity:0;animation:slide .8s cubic-bezier(.2,.8,.2,1) both}
+@keyframes slide{from{opacity:0;transform:translateX(-80px)}to{opacity:1;transform:none}}
+.h{font-size:72px;font-weight:800;letter-spacing:-1.5px}
+.s{font-size:40px;color:#d7e6f7;font-weight:500}
+.gold{color:#ffd76a}.green{color:#62e0a3}.amber{color:#ffb547}.red{color:#ff7a6b}
+.glass{background:rgba(9,32,62,.72);border:1.5px solid rgba(140,190,255,.28);border-radius:26px;backdrop-filter:blur(6px);box-shadow:0 20px 60px rgba(0,0,0,.35)}
+.credit{position:absolute;left:26px;bottom:18px;font-size:18px;color:rgba(255,255,255,.75);text-shadow:0 1px 4px rgba(0,0,0,.8)}
+.flag{position:absolute}.pole{position:absolute;left:-14px;top:-12px;width:12px;border-radius:6px;background:linear-gradient(90deg,#9aa4ad,#f4f6f8,#8a939b)}
+.fs{position:absolute;top:0;height:100%;background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='270' height='180' viewBox='0 0 27 18'><rect y='0' width='27' height='2' fill='%230D5EAF'/><rect y='2' width='27' height='2' fill='%23ffffff'/><rect y='4' width='27' height='2' fill='%230D5EAF'/><rect y='6' width='27' height='2' fill='%23ffffff'/><rect y='8' width='27' height='2' fill='%230D5EAF'/><rect y='10' width='27' height='2' fill='%23ffffff'/><rect y='12' width='27' height='2' fill='%230D5EAF'/><rect y='14' width='27' height='2' fill='%23ffffff'/><rect y='16' width='27' height='2' fill='%230D5EAF'/><rect width='10' height='10' fill='%230D5EAF'/><rect x='4' width='2' height='10' fill='%23fff'/><rect y='4' width='10' height='2' fill='%23fff'/></svg>");background-size:var(--w) var(--h);animation:wv 1.5s ease-in-out infinite alternate;box-shadow:inset 0 0 0 9999px rgba(0,0,0,0)}
+@keyframes wv{from{transform:translateY(-7px);filter:brightness(1.08)}to{transform:translateY(7px);filter:brightness(.86)}}
+.coin{position:absolute;width:70px;height:70px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff3c4,#f2c14e 45%,#c58b1c);border:4px solid #a8740f;color:#6d4908;font-weight:900;font-size:34px;display:flex;align-items:center;justify-content:center;box-shadow:0 0 24px rgba(255,200,80,.45)}
+.vig{position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(0,0,0,0) 55%,rgba(0,0,0,.45) 100%)}
+
+.t{position:absolute;left:0;right:0;top:70px;text-align:center}
+.person{position:absolute;top:300px;width:170px;text-align:center;font-size:32px;color:#d7e6f7}
+.fly{opacity:0;animation:fly 1.4s cubic-bezier(.5,0,.6,1) both}
+@keyframes fly{0%{opacity:0;transform:none}12%{opacity:1}100%{opacity:1;transform:translate(var(--dx),var(--dy)) scale(.8)}}
+.vault{position:absolute;left:960px;top:290px;width:300px;height:300px;border-radius:30px;background:linear-gradient(#3a4558,#232b38);border:5px solid #59677d;display:flex;align-items:center;justify-content:center}
+.clock{width:150px;height:150px;border-radius:50%;border:8px solid #8fa3bd;position:relative}
+.hand{position:absolute;left:67px;top:16px;width:8px;height:58px;background:#ffb547;border-radius:4px;transform-origin:4px 58px;animation:spin 2s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.weeks{position:absolute;left:960px;top:610px;width:300px;text-align:center;font-size:30px;color:#9fb6d2}
+.list{position:absolute;left:1340px;top:270px;width:520px}
+.it{display:flex;gap:18px;align-items:flex-start;font-size:38px;line-height:1.25;margin-bottom:46px}
+.ic{flex:0 0 56px;height:56px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:32px;font-weight:900}
+
+</style></head><body><div class="stage"><div class="bg"></div><div class="dots"></div><div class="glow" style="left:600px;top:200px"></div>
+<div class="t h in" style="animation-delay:.1s">Today, deposits wait, and trust is thin</div><div class="person in" style="left:140px;animation-delay:0.30s"><svg viewBox="0 0 100 120" width="150"><circle cx="50" cy="34" r="24" fill="#a9cbf0"/><path d="M8 118c4-34 22-50 42-50s38 16 42 50z" fill="#3e74b4"/></svg><div>Bidder 1</div></div><div class="person in" style="left:350px;animation-delay:0.45s"><svg viewBox="0 0 100 120" width="150"><circle cx="50" cy="34" r="24" fill="#a9cbf0"/><path d="M8 118c4-34 22-50 42-50s38 16 42 50z" fill="#3e74b4"/></svg><div>Bidder 2</div></div><div class="person in" style="left:560px;animation-delay:0.60s"><svg viewBox="0 0 100 120" width="150"><circle cx="50" cy="34" r="24" fill="#a9cbf0"/><path d="M8 118c4-34 22-50 42-50s38 16 42 50z" fill="#3e74b4"/></svg><div>Bidder 3</div></div><div class="coin fly" style="left:180px;top:520px;--dx:870px;--dy:-110px;animation-delay:1.00s">€</div><div class="coin fly" style="left:390px;top:520px;--dx:730px;--dy:-110px;animation-delay:1.25s">€</div><div class="coin fly" style="left:600px;top:520px;--dx:590px;--dy:-110px;animation-delay:1.50s">€</div>
+<div class="vault in" style="animation-delay:.6s"><div class="clock"><div class="hand"></div></div></div><div class="weeks in" style="animation-delay:2s">money tied up</div>
+<div class="list">
+<div class="it slide" style="animation-delay:2.9s"><div class="ic" style="background:#5a4a1c;color:#ffd76a">⏳</div><div>Unsuccessful bidders wait to get their deposit back.</div></div>
+<div class="it slide" style="animation-delay:5.0s"><div class="ic" style="background:#5c3a14;color:#ffb547">✕</div><div>Auctions get <span class="amber">cancelled or suspended</span>.</div></div>
+<div class="it slide" style="animation-delay:7.0s"><div class="ic" style="background:#5c2420;color:#ff7a6b">!</div><div>Some winners <span class="red">never pay</span> the rest.</div></div>
+</div></div>
+<script></script></body></html>

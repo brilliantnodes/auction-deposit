@@ -1,0 +1,59 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1920px;height:1080px;overflow:hidden;background:#04101f;font-family:Inter,"Helvetica Neue",Arial,sans-serif;color:#fff}
+.stage{position:absolute;inset:0;animation:fade 18.97s linear both}
+@keyframes fade{0%{opacity:0}4%{opacity:1}95%{opacity:1}100%{opacity:0}}
+.bg{position:absolute;inset:0;background:radial-gradient(ellipse at 30% 20%,#16477d 0%,#0b2a50 45%,#040f1e 100%)}
+.glow{position:absolute;width:900px;height:900px;border-radius:50%;background:radial-gradient(rgba(255,215,106,.10),rgba(255,215,106,0) 65%);animation:drift 18.97s linear both}
+@keyframes drift{from{transform:translate(-200px,0)}to{transform:translate(300px,80px)}}
+.dots{position:absolute;inset:0;background-image:radial-gradient(rgba(150,200,255,.18) 1.5px,transparent 1.6px);background-size:46px 46px;animation:pan 18.97s linear both;opacity:.6}
+@keyframes pan{from{background-position:0 0}to{background-position:120px 60px}}
+.photo{position:absolute;inset:-60px;background:url('file:///home/claude/auction-deposit/tools/video/photo/acropolis.jpg') center/cover;animation:kb 18.97s linear both}
+@keyframes kb{from{transform:scale(1.0)}to{transform:scale(1.12) translate(-20px,10px)}}
+.in{opacity:0;animation:rise .8s cubic-bezier(.2,.8,.2,1) both}
+@keyframes rise{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:none}}
+.pop{opacity:0;animation:pop .55s cubic-bezier(.2,1.6,.4,1) both}
+@keyframes pop{from{opacity:0;transform:scale(.3)}to{opacity:1;transform:scale(1)}}
+.slide{opacity:0;animation:slide .8s cubic-bezier(.2,.8,.2,1) both}
+@keyframes slide{from{opacity:0;transform:translateX(-80px)}to{opacity:1;transform:none}}
+.h{font-size:72px;font-weight:800;letter-spacing:-1.5px}
+.s{font-size:40px;color:#d7e6f7;font-weight:500}
+.gold{color:#ffd76a}.green{color:#62e0a3}.amber{color:#ffb547}.red{color:#ff7a6b}
+.glass{background:rgba(9,32,62,.72);border:1.5px solid rgba(140,190,255,.28);border-radius:26px;backdrop-filter:blur(6px);box-shadow:0 20px 60px rgba(0,0,0,.35)}
+.credit{position:absolute;left:26px;bottom:18px;font-size:18px;color:rgba(255,255,255,.75);text-shadow:0 1px 4px rgba(0,0,0,.8)}
+.flag{position:absolute}.pole{position:absolute;left:-14px;top:-12px;width:12px;border-radius:6px;background:linear-gradient(90deg,#9aa4ad,#f4f6f8,#8a939b)}
+.fs{position:absolute;top:0;height:100%;background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='270' height='180' viewBox='0 0 27 18'><rect y='0' width='27' height='2' fill='%230D5EAF'/><rect y='2' width='27' height='2' fill='%23ffffff'/><rect y='4' width='27' height='2' fill='%230D5EAF'/><rect y='6' width='27' height='2' fill='%23ffffff'/><rect y='8' width='27' height='2' fill='%230D5EAF'/><rect y='10' width='27' height='2' fill='%23ffffff'/><rect y='12' width='27' height='2' fill='%230D5EAF'/><rect y='14' width='27' height='2' fill='%23ffffff'/><rect y='16' width='27' height='2' fill='%230D5EAF'/><rect width='10' height='10' fill='%230D5EAF'/><rect x='4' width='2' height='10' fill='%23fff'/><rect y='4' width='10' height='2' fill='%23fff'/></svg>");background-size:var(--w) var(--h);animation:wv 1.5s ease-in-out infinite alternate;box-shadow:inset 0 0 0 9999px rgba(0,0,0,0)}
+@keyframes wv{from{transform:translateY(-7px);filter:brightness(1.08)}to{transform:translateY(7px);filter:brightness(.86)}}
+.coin{position:absolute;width:70px;height:70px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff3c4,#f2c14e 45%,#c58b1c);border:4px solid #a8740f;color:#6d4908;font-weight:900;font-size:34px;display:flex;align-items:center;justify-content:center;box-shadow:0 0 24px rgba(255,200,80,.45)}
+.vig{position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(0,0,0,0) 55%,rgba(0,0,0,.45) 100%)}
+
+.t{position:absolute;left:0;right:0;top:56px;text-align:center}
+.lab{position:absolute;font-size:32px;font-weight:700;text-align:center}
+.vault{position:absolute;left:150px;top:300px;width:400px;height:400px;border-radius:40px;background:radial-gradient(circle at 50% 40%,#1d5aa0,#0b2a50);border:4px solid #4f8fd6;box-shadow:0 0 0 0 rgba(98,224,163,.0);animation:vglow 2s ease-in-out 2.4s both}
+@keyframes vglow{to{box-shadow:0 0 70px 6px rgba(98,224,163,.45);border-color:#62e0a3}}
+.lock{position:absolute;left:115px;top:95px;width:170px;height:190px}
+.cin{opacity:0;animation:cin 1.2s cubic-bezier(.5,0,.6,1) both}
+@keyframes cin{0%{opacity:0;transform:translate(-160px,var(--y0)) scale(.9)}15%{opacity:1}100%{opacity:0;transform:translate(150px,0) scale(.5)}}
+.doc{position:absolute;left:690px;top:280px;width:560px;padding:30px 34px;background:#f4f1e8;color:#1f2a36;border-radius:16px;box-shadow:0 24px 70px rgba(0,0,0,.45);transform:rotate(-1.5deg)}
+.doc .hd{font-size:26px;font-weight:800;color:#0d5eaf;margin-bottom:14px;letter-spacing:.5px}
+.doc .ln{font-family:ui-monospace,Menlo,monospace;font-size:30px;padding:10px 8px;border-bottom:1px dashed #c9c2ae;border-radius:6px}
+.hl{animation:hl 1.2s ease-out both}@keyframes hl{0%{background:rgba(255,215,106,0)}40%{background:rgba(255,215,106,.55)}100%{background:rgba(255,215,106,.28)}}
+.val{position:absolute;width:74px;height:74px;border-radius:50%;background:radial-gradient(#62e0a3,#1d6b47);border:4px solid #b9f3d6;opacity:0;animation:pop .5s cubic-bezier(.2,1.6,.4,1) both}
+.beam{position:absolute;left:1250px;top:490px;height:6px;width:0;background:linear-gradient(90deg,rgba(98,224,163,0),#62e0a3);border-radius:3px;animation:beam .8s ease-out 6.4s both;transform-origin:left}
+@keyframes beam{to{width:180px}}
+.chk{position:absolute;left:1325px;top:740px;width:320px;text-align:center;font-size:28px;color:#d7e6f7;line-height:1.4}
+.twice{position:absolute;left:150px;right:150px;top:880px;padding:22px 30px;display:flex;align-items:center;justify-content:center;gap:26px;font-size:40px}
+.tk{width:58px;height:58px;border-radius:50%;background:#1d6b47;border:3px solid #62e0a3;display:inline-flex;align-items:center;justify-content:center;font-weight:900;color:#d9ffe9}
+.line{height:4px;width:200px;background:repeating-linear-gradient(90deg,#ffd76a 0 14px,transparent 14px 24px)}
+
+</style></head><body><div class="stage"><div class="bg"></div><div class="dots"></div><div class="glow" style="left:100px;top:100px"></div>
+<div class="t h in" style="animation-delay:.1s">How AuctionDeposit works</div>
+<div class="in" style="animation-delay:.6s"><div class="vault"><svg class="lock" viewBox="0 0 34 38"><path d="M9 16V11a8 8 0 0 1 16 0v5" stroke="#ffd76a" stroke-width="3.5" fill="none"/><rect x="4" y="16" width="26" height="20" rx="4" fill="#ffd76a"/><circle cx="17" cy="25" r="3" fill="#6d4908"/><rect x="15.6" y="26" width="2.8" height="6" fill="#6d4908"/></svg></div></div>
+<div class="lab in" style="left:150px;width:400px;top:720px;animation-delay:1.2s">One escrow on <span class="gold">GenLayer</span></div><div class="coin cin" style="left:240px;top:430px;--y0:-60px;animation-delay:1.40s">€</div><div class="coin cin" style="left:240px;top:470px;--y0:0px;animation-delay:1.75s">€</div><div class="coin cin" style="left:240px;top:510px;--y0:60px;animation-delay:2.10s">€</div>
+<div class="doc in" style="animation-delay:4.0s"><div class="hd">OFFICIAL AUCTION RECORD</div>
+<div class="ln">Auction: EA-24117</div><div class="ln hl" style="animation-delay:7.0s">Status: Completed</div><div class="ln hl" style="animation-delay:7.6s">Winning bidder: B-1102</div><div class="ln hl" style="animation-delay:8.2s">Balance: Paid in full</div></div>
+<div class="val" style="left:1460px;top:370px;animation-delay:5.00s"></div><div class="val" style="left:1603px;top:474px;animation-delay:5.25s"></div><div class="val" style="left:1548px;top:641px;animation-delay:5.50s"></div><div class="val" style="left:1372px;top:641px;animation-delay:5.75s"></div><div class="val" style="left:1317px;top:474px;animation-delay:6.00s"></div><div class="beam"></div>
+<div class="lab in" style="left:1310px;width:340px;top:250px;animation-delay:5.0s">Validators read it</div>
+<div class="chk in" style="animation-delay:9.6s">AI only <b>copies</b> the lines.<br>Code <b>checks</b> every copy.</div>
+<div class="twice glass in" style="animation-delay:12.6s"><span>Nothing moves on one look</span><span class="tk pop" style="animation-delay:13.6s">✓</span><span class="line"></span><span class="tk pop" style="animation-delay:14.6s">✓</span><span class="gold"><b>seen twice, 10 minutes apart</b></span></div></div>
+<script></script></body></html>

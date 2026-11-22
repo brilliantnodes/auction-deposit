@@ -31,7 +31,7 @@
       <li><strong>Open.</strong> The creditor freezes the terms: the auction, the record page, a 1 GEN deposit and the deadlines.</li>
       <li><strong>Deposit.</strong> Two bidders lodge exactly 1 GEN each before the auction starts, under the codes the record will print (B-201 and B-202).</li>
       <li><strong>Read.</strong> After the auction, anyone asks for a reading. Each validator opens the record page and copies the status, winner and balance lines; code checks them and validators must agree exactly.</li>
-      <li><strong>Seen twice.</strong> A result counts only when two readings at least 2 minutes apart show it. Then code pays: losers refunded, the winner's deposit to the creditor when paid or forfeited, everyone refunded if cancelled.</li>
+      <li><strong>Seen twice.</strong> A result counts only when two readings at least 2 minutes apart show it. Then code pays: unsuccessful bidders refunded, the winner's deposit to the creditor when paid or forfeited, everyone refunded if cancelled.</li>
     </ol>
   </section>
 
@@ -98,7 +98,7 @@
       <li><strong>The model copies; code decides.</strong> Code finds each copied value after its label on the validator's own copy of the page, looks the whole status and balance text up in closed tables (anything else is UNCLEAR and moves nothing) and checks the winner is a well-formed bidder code.</li>
       <li><strong>Exact agreement:</strong> a majority of validators must accept the reading, and each accepts it only if kind, status, winner and balance equal its own (any two no-readings agree; nothing moves on them).</li>
       <li><strong>Seen twice:</strong> a state counts once two readings stamped at least the confirmation time apart show it, after deposits close.</li>
-      <li><strong>Outcomes:</strong> cancelled, suspended or no bidders refund everyone; completed with a pending balance refunds the losers and holds the winner's deposit; paid in full sends it to the creditor as part of the price; buyer in default sends it as the penalty; no confirmed payment within the winner's window forfeits it; no outcome by the refund date refunds everyone.</li>
+      <li><strong>Outcomes:</strong> cancelled, suspended or no bidders refund everyone; completed with a pending balance refunds the unsuccessful bidders and holds the winner's deposit; paid in full sends it to the creditor as part of the price; buyer in default sends it as the penalty; no confirmed payment within the winner's window forfeits it; no outcome by the refund date refunds everyone.</li>
       <li><strong>Payouts are credits:</strong> each address withdraws its own.</li>
     </ul>
     <p class="small">Full rules and limits: <a href="https://github.com/brilliantnodes/auction-deposit#readme" target="_blank" rel="noopener noreferrer">README</a>. The contract's <code>get_rules()</code> returns them on chain.</p>

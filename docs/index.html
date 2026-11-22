@@ -25,9 +25,9 @@ footer{max-width:980px;margin:auto;padding:0 20px 40px;color:var(--mute);font-si
 <header><div class="w">
 <h1>AuctionDeposit</h1>
 <p class="big"><b>A safe way to put down a bid deposit at a property auction.</b></p>
-<p>When a bank sells a repossessed home at auction, every bidder must first pay a deposit. Losers wait for their money back, auctions are often cancelled or suspended, and some winners never pay the rest. AuctionDeposit keeps every bidder's deposit in one escrow on GenLayer, and the money moves only on what the official auction record says:</p>
+<p>When a bank sells a repossessed home at auction, every bidder must first pay a deposit. Unsuccessful bidders wait for their money back, auctions are often cancelled or suspended, and some winners never pay the rest. AuctionDeposit keeps every bidder's deposit in one escrow on GenLayer, and the money moves only on what the official auction record says:</p>
 <ul>
-<li>losers get their deposit back;</li>
+<li>unsuccessful bidders get their deposit back;</li>
 <li>the winner's deposit goes to the bank as part of the price once the record shows the price paid, or as a penalty if the winner walks away;</li>
 <li>a cancelled or suspended auction refunds everyone.</li>
 </ul>
@@ -45,7 +45,7 @@ footer{max-width:980px;margin:auto;padding:0 20px 40px;color:var(--mute);font-si
 <div class="card"><h3>1. Open</h3><p class="small">The bank freezes the terms: the auction and property as the record prints them, the record page (on a host frozen when the contract was deployed), the deposit, when deposits close, the winner's payment window and the refund deadline.</p></div>
 <div class="card"><h3>2. Deposit</h3><p class="small">Each bidder pays exactly the deposit and names the bidder code the record will use for them. A wrong amount is refused and credited back.</p></div>
 <div class="card"><h3>3. Read the record</h3><p class="small">Validators open the record page; the AI only copies the status, winner and balance lines. Code checks every copy against the page and a closed list of phrases. Validators accept only an exactly equal result, and a majority must agree.</p></div>
-<div class="card"><h3>4. Seen twice</h3><p class="small">Nothing moves on one look: a result counts once two readings, sent at least 10 minutes apart in the live runs (2 minutes on the Try it page), show it. Losers are refunded as soon as the winner is confirmed.</p></div>
+<div class="card"><h3>4. Seen twice</h3><p class="small">Nothing moves on one look: a result counts once two readings, sent at least 10 minutes apart in the live runs (2 minutes on the Try it page), show it. Unsuccessful bidders are refunded as soon as the winner is confirmed.</p></div>
 <div class="card"><h3>5. Deadlines</h3><p class="small">No payment shown within the winner's window: its deposit goes to the bank. No result by the refund deadline: everyone is refunded. Code alone, 30 minutes late, no AI needed.</p></div>
 <div class="card"><h3>6. Credits</h3><p class="small">Every payout is a credit each party withdraws itself. After the runs below, every party withdrew and the contract held nothing.</p></div>
 </div>

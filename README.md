@@ -10,6 +10,8 @@ Status: **work in progress** (contract v1.1, the ten demo cases, 259 tests on Ge
 
 **Try it yourself:** https://brilliantnodes.github.io/auction-deposit/app/ runs your own fictional auction on GenLayer Studio with free temporary accounts (creditor and two bidders; the record shows a paid, defaulted or cancelled outcome; about 20 to 35 minutes). Everything in the demo is fictional: the auction platform, creditor, properties and bidders. Test GEN only. Not legal advice.
 
+**The article:** [Who holds the deposit? A proposal for settling property-auction deposits from the official auction record](https://brilliantnodes.github.io/auction-deposit/article.html). **For reviewers:** [REVIEWERS.md](REVIEWERS.md).
+
 ## How it decides
 - Validators read the auction's record page; the model only **copies** the status, winning bidder and balance lines with their labels.
 - Plain code checks every copy against the validator's own copy of the page, uses closed phrase tables (anything else is UNCLEAR and moves nothing), and validators must agree **exactly**.

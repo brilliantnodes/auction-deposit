@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Who holds the deposit? A proposal for settling property-auction deposits from the official auction record | Brilliant Nodes</title>
+<meta name="description" content="A proposal for settling property-auction bid deposits from the official auction record: an escrow on GenLayer, with ten fictional auctions run live on two test networks.">
+<meta property="og:title" content="Who holds the deposit? A proposal for settling property-auction deposits from the official auction record">
+<meta property="og:description" content="A proposal for settling property-auction bid deposits from the official auction record: an escrow on GenLayer, with ten fictional auctions run live on two test networks.">
+<meta property="og:type" content="article">
+<style>
+  :root { --ink:#1b1d21; --muted:#5d636e; --line:#e3e5e8; --accent:#2f5bd3; --bg:#fbfbfa; }
+  @media (prefers-color-scheme: dark) {
+    :root { --ink:#e7e8ea; --muted:#a0a6b0; --line:#2c3038; --accent:#8fb0ff; --bg:#15171b; }
+  }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink);
+         font:18px/1.7 Georgia, "Iowan Old Style", "Times New Roman", serif; }
+  header, main, footer { max-width:720px; margin:0 auto; padding:0 22px; }
+  header { padding-top:28px; font:14px/1.4 system-ui, -apple-system, "Segoe UI", sans-serif; color:var(--muted); }
+  header a { color:var(--muted); text-decoration:none; }
+  header a:hover { color:var(--accent); }
+  h1 { font-size:2.1rem; line-height:1.2; margin:28px 0 8px; letter-spacing:-0.01em; }
+  h2 { font:700 1.25rem/1.3 system-ui, -apple-system, "Segoe UI", sans-serif; margin:2.2em 0 .5em; }
+  p, li { margin:.7em 0; }
+  ul, ol { padding-left:1.4em; }
+  a { color:var(--accent); overflow-wrap:anywhere; }
+  em { color:inherit; }
+  table { border-collapse:collapse; width:100%; font-size:.9em; margin:1em 0; }
+  th, td { border-bottom:1px solid var(--line); padding:.45em .5em; text-align:left; vertical-align:top; }
+  code { font-size:.85em; }
+  footer { margin-top:48px; padding-bottom:40px; border-top:1px solid var(--line);
+           font:14px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; color:var(--muted); }
+  footer p { margin:14px 0 0; }
+</style>
+</head>
+<body>
+<header><a href="https://brilliantnodes.github.io/auction-deposit/">&larr; AuctionDeposit</a> &middot; Brilliant Nodes</header>
+<main>
+<article>
+<h1>Who holds the deposit? A proposal for settling property-auction deposits from the official auction record</h1>
+<p>Brilliant Nodes · November 2026</p>
+<h2>The problem: a deposit for a sale that may never happen</h2>
+<p>When a bank or loan servicer forecloses on a property, the property is usually sold at a public auction. In Greece these judicial auctions are held on an electronic platform, and a bidder may bid only after lodging a bid security [1]. The security is typically 30% of the starting price, and the winner must pay the full price within 10 working days of the award [2]. Banks selling repossessed property on their own e-auctions follow a similar pattern: the bank's published terms ask for 10% of the reserve price, paid into the bank's escrow account or covered by a bank guarantee [3].</p>
+<p>The volume is large and the success rate low. Nearly 300,000 property auctions are waiting in Greece, and only about one in five succeeds; unsold properties are listed again [4]. Behind them sits a wider stock of bad loans: Europe's largest banks held €373 billion of non-performing exposures in mid-2025 [5]. (That figure is the stock of bad loans, not the value of the properties at auction.)</p>
+<p>So most deposits are lodged for an auction that will end without a sale: it is cancelled, suspended by a court, adjourned, or attracts no bids. Even when a sale happens, every losing bidder's money has to come back, and the winner's deposit must either count towards the price or, if the winner fails to pay, be kept as a penalty.</p>
+<h2>Current practice and its limits</h2>
+<p>Today each of these outcomes is handled by whoever holds the money: the notary, the platform's account, or the selling bank itself. This works, but it has three costs.</p>
+<ol>
+<li><strong>The holder is not neutral.</strong> In a bank's own e-auction, the deposit sits with the seller. A bidder has to trust that the party that benefits from a forfeit will apply the forfeit rules fairly.</li>
+<li><strong>Every return is a manual step.</strong> With four auctions in five ending without a sale, the same property can draw deposits auction after auction. Each refund is a payment someone has to approve and send.</li>
+<li><strong>The facts that decide the money are already public, but nothing reads them.</strong> The outcome of an auction (completed, cancelled, suspended, no bids, who won, whether the balance was paid) is recorded by the notary and the platform. The question "who gets the deposit back?" is answered by that record. Yet a person still has to look at it and move the money.</li>
+</ol>
+<p>The second and third points matter most for smaller and cross-border bidders, for whom a deposit locked up with an unfamiliar counterparty is a real cost, and who are exactly the buyers a market with 300,000 waiting auctions needs.</p>
+<h2>An alternative approach</h2>
+<p>We propose an escrow that holds every bidder's deposit for one auction and moves it only on what the official auction record says. No person decides; a published rule does.</p>
+<p>The rules fit in one table, fixed before any bidder lodges:</p>
+<table>
+<thead>
+<tr>
+<th>What the record shows</th>
+<th>Who gets the money</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Completed, winner named, balance shown paid in full</td>
+<td>Losing bidders are refunded; the winner's deposit goes to the creditor as part of the price.</td>
+</tr>
+<tr>
+<td>Completed, winner shown in default</td>
+<td>Losing bidders are refunded; the winner's deposit goes to the creditor as the penalty.</td>
+</tr>
+<tr>
+<td>Completed, but no payment shown within the winner's payment window</td>
+<td>As for default: the winner's deposit is forfeited.</td>
+</tr>
+<tr>
+<td>Cancelled, suspended, or no bids</td>
+<td>Every bidder is refunded.</td>
+</tr>
+<tr>
+<td>Award annulled or suspended after the win</td>
+<td>Every bidder is refunded, the winner too.</td>
+</tr>
+<tr>
+<td>Adjourned</td>
+<td>Nothing moves until the auction is held.</td>
+</tr>
+<tr>
+<td>Anything the rules do not recognise, or no confirmed outcome by a long-stop date</td>
+<td>Every bidder is refunded at the long stop.</td>
+</tr>
+</tbody>
+</table>
+<p>Two design choices carry most of the weight.</p>
+<p><strong>Read twice, and agree exactly.</strong> Several independent machines each open the record page and copy three lines from it: the status, the winning bidder and the balance. A reading counts only if they all copy the same values. A state counts only if two such readings, sent at least a set time apart, show it. A page that is wrong for a moment, or edited and changed back, cannot move money.</p>
+<p><strong>Machines copy; code decides.</strong> Language models are good at finding a line on a page written for people, and poor judges of who should be paid. So the model is never asked who won or what should happen. It copies a line with its label. Plain code then checks that the copied value really is on the page next to that label, maps it through a closed list of phrases ("Paid in full", "Buyer in default", "Suspended by court order"), and treats anything else as unclear. Unclear moves nothing.</p>
+<h2>How the agreement binds the money</h2>
+<p>This is the part of the design we consider most important, so we state it precisely. The prototype runs on GenLayer, a network in which each validator can open a public web page itself and must reach the same result as the others before anything is recorded.</p>
+<ul>
+<li>Each validator fetches the record page and asks its model to copy the status, winner and balance lines.</li>
+<li>Each validator then checks the copy against its own fetch of the page. A value that is not printed after its own label on that page is refused.</li>
+<li>The validators compare the three checked values. Only an exact match on all three is accepted. There is no tolerance and no "close enough": two acceptable readings can never lead to two different payouts.</li>
+<li>The contract's own code, not the model, turns the agreed values into a state, and the state into amounts. Every amount comes from the table above, and the amounts always add up to the deposits held.</li>
+<li>Deadlines (the winner's payment window, the long stop) are enforced by code from the clock alone, so no money can be stuck waiting for a page that never changes.</li>
+<li>Payouts are credited to each address, and each address withdraws its own money.</li>
+</ul>
+<h2>Demonstrated evidence</h2>
+<p>We built a fictional auction platform with ten auctions, three bidders each, one auction for every row of the table plus two attacks. Time is compressed: what takes days at a real auction takes minutes in the demonstration.</p>
+<ul>
+<li><strong>The two attacks.</strong> In one auction the record page carries a planted line claiming that a different bidder won. The contract follows the record, the real winner is paid out correctly, and the others are refunded. In another, the link shows a different auction's result; nothing moves on it, and everyone is refunded at the long stop.</li>
+<li><strong>Live runs.</strong> All ten auctions ran end to end on two public test networks, GenLayer Studio and Testnet Bradbury. Every auction ended as its terms specified. On Bradbury this took 78 transactions, all finalized, and the contract held nothing at the end.</li>
+<li><strong>A finding from the live runs.</strong> Some models copied the label into the value ("Status: Completed" instead of "Completed"). The first version of the contract refused those readings: nothing moved, but the reading had to be repeated (six times in the Studio run). The current version strips a copied label from its own value and still requires the rest to appear after that label on the page, so the check is no looser.</li>
+<li><strong>Tests.</strong> The contract passes 259 automated tests on two versions of the GenLayer virtual machine. When we deliberately broke the code in 150 different ways, the tests caught every break.</li>
+<li><strong>Try it.</strong> Anyone can run their own fictional auction in a browser, with free temporary accounts for a creditor and two bidders, and see a paid, defaulted or cancelled outcome settle in about 20 to 35 minutes [6].</li>
+</ul>
+<p>This is a demonstration with fictional data and test tokens. It shows the mechanism works on records we control; it does not yet show it works on real ones.</p>
+<h2>Limits</h2>
+<ul>
+<li>The escrow trusts one record page. In practice that page must be kept by the platform or notary, not by the creditor: a creditor who controlled the page could lie.</li>
+<li>A bidder code links a payment address to a bidder only because the bidder says so. Someone could take a code first; this blocks the real bidder from the escrow but gains nothing.</li>
+<li>"Seen twice" is measured by when readings are sent, not by when each validator looked.</li>
+<li>The phrase list is in English. A record in Greek would currently read as unclear and refund everyone at the long stop.</li>
+</ul>
+<h2>Further research</h2>
+<ul>
+<li><strong>Real records.</strong> How are auction outcomes published on real platforms: as stable pages per auction, as tables, as PDFs, or behind a login? What would a minimal machine-readable outcome line look like?</li>
+<li><strong>Language.</strong> Extending the closed phrase list to Greek and other languages, and measuring how often independent readers agree on real pages.</li>
+<li><strong>Legal timing.</strong> Real deadlines run in working days and can be extended or challenged. How should confirmation periods and the long stop be set per procedure?</li>
+<li><strong>Who may open an escrow.</strong> Should only the platform or notary be able to open one, so that a bidder never has to check a creditor's address?</li>
+<li><strong>Identity.</strong> Could the notary or platform attest that a payment address belongs to a registered bidder, without publishing personal data?</li>
+<li><strong>Bank-run auctions.</strong> Where the seller holds the deposit today, would a neutral escrow lower the discount bidders demand, and so raise prices for the creditor?</li>
+</ul>
+<p>Comments from notaries, servicers, auction platforms and bidders on any of these points would be very welcome.</p>
+<h2>References</h2>
+<ol>
+<li>European e-Justice Portal, Judicial auctions: Greece (bid security, Article 959 Code of Civil Procedure): <a rel="noopener" href="https://e-justice.europa.eu/topics/court-procedures/judicial-auctions/el_en">https://e-justice.europa.eu/topics/court-procedures/judicial-auctions/el_en</a></li>
+<li>Kyprianou (law firm), Real Estate Auctions in Greece: NPL Resolution, e-Auction Procedures, and Foreign Investor Access: <a rel="noopener" href="https://www.kyprianou.com/?p=19467">https://www.kyprianou.com/?p=19467</a></li>
+<li>National Bank of Greece, list of terms for the sale of property by e-auction (example): <a rel="noopener" href="https://www.nbg.gr/-/jssmedia/Files/Group/Press-office/Press-office-announcements/A-12-10-2023-401/List-of-terms-351301-401-12-10-2023.pdf">https://www.nbg.gr/-/jssmedia/Files/Group/Press-office/Press-office-announcements/A-12-10-2023-401/List-of-terms-351301-401-12-10-2023.pdf</a></li>
+<li>euro2day, Nearly 300,000 properties in line for auction (citing IOBE and Cepal, Q1 2026, and the IMF): <a rel="noopener" href="https://www.euro2day.gr/en2/article/2358318/nearly-300000-properties-in-line-for-auction">https://www.euro2day.gr/en2/article/2358318/nearly-300000-properties-in-line-for-auction</a></li>
+<li>Banca Ifis, Market Watch NPL, September 2025 (gross non-performing exposures of EU significant banks, Q2 2025): <a rel="noopener" href="https://www.bancaifis.it/app/uploads/2025/09/MW_Npl_Sep25_ENG_20250926.pdf">https://www.bancaifis.it/app/uploads/2025/09/MW_Npl_Sep25_ENG_20250926.pdf</a></li>
+<li>Try it yourself: <a rel="noopener" href="https://brilliantnodes.github.io/auction-deposit/app/">https://brilliantnodes.github.io/auction-deposit/app/</a></li>
+<li>Source code and technical documentation (open source, MIT): <a rel="noopener" href="https://github.com/brilliantnodes/auction-deposit">https://github.com/brilliantnodes/auction-deposit</a></li>
+<li>Replay of the live runs: <a rel="noopener" href="https://brilliantnodes.github.io/auction-deposit/">https://brilliantnodes.github.io/auction-deposit/</a></li>
+</ol>
+<p>All platforms, banks, creditors, properties, bidders and figures in the demonstration are fictional. Test tokens only. Not legal or investment advice.</p>
+<p>Written by Brilliant Nodes. Open-source prototype.</p>
+</article>
+</main>
+<footer>
+<p>Written by Brilliant Nodes. Open-source prototype; test tokens only; not investment advice.
+<a href="https://brilliantnodes.github.io/auction-deposit/">Back to AuctionDeposit</a>.</p>
+</footer>
+</body>
+</html>

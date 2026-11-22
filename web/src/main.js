@@ -16,7 +16,7 @@ const BALANCE_SECONDS = 15 * 60;
 const REFUND_AFTER = 40 * 60;
 const LEAD = 6 * 60; // at least this long to set up deposits before the auction starts
 const PAGES_FROM = 1795239900; // first and last slot with a published record page
-const PAGES_TO = 1796103000;
+const PAGES_TO = 1798695000;
 const G = 10n ** 18n;
 const STORIES = {
   paid: { letter: "P", title: "Won, balance paid", property: "Flat 2, 7 Marigold Lane, Velmora",
@@ -125,7 +125,7 @@ function drawSlot() {
   const d = nextSlot();
   const ok = d >= PAGES_FROM && d <= PAGES_TO;
   $("slot-note").replaceChildren();
-  if (!ok) { $("slot-note").textContent = "No record page is published for the next slot. Please check back later."; $("btn-open").disabled = true; return; }
+  if (!ok) { $("slot-note").innerHTML = 'No record page is published for the next slot. The finished live runs are on the <a href="../">main page</a>.'; $("btn-open").disabled = true; return; }
   const id = auctionId(story, d);
   $("slot-note").append(`Auction ${id} starts at ${hhmm(d)} UTC (your time ${local(d)}, in ${inWords(d - nowS())}); deposits close then. `, link(recordUrl(story, id), "See its record page"), ".");
   $("btn-open").disabled = false;

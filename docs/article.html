@@ -42,7 +42,7 @@
 <p>Brilliant Nodes · November 2026</p>
 <h2>The problem: a deposit for a sale that may never happen</h2>
 <p>When a bank or loan servicer forecloses on a property, the property is usually sold at a public auction. In Greece these judicial auctions are held on an electronic platform, and a bidder may bid only after lodging a bid security [1]. The security is typically 30% of the starting price, and the winner must pay the full price within 10 working days of the award [2]. Banks selling repossessed property on their own e-auctions follow a similar pattern: the bank's published terms ask for 10% of the reserve price, paid into the bank's escrow account or covered by a bank guarantee [3].</p>
-<p>The volume is large and the success rate low. Nearly 300,000 property auctions are waiting in Greece, and only about one in five succeeds; unsold properties are listed again [4]. Behind them sits a wider stock of bad loans: Europe's largest banks held €373 billion of non-performing exposures in mid-2025 [5]. (That figure is the stock of bad loans, not the value of the properties at auction.)</p>
+<p>The volume is large and the success rate low. Nearly 300,000 property auctions are waiting in Greece, and only about one in five succeeds (the IMF's average over four years); unsold properties are listed again [4]. Behind them sits a wider stock of bad loans: Europe's largest banks held €373 billion of non-performing exposures in mid-2025 [5]. (That figure is the stock of bad loans, not the value of the properties at auction.)</p>
 <p>So most deposits are lodged for an auction that will end without a sale: it is cancelled, suspended by a court, adjourned, or attracts no bids. Even when a sale happens, every losing bidder's money has to come back, and the winner's deposit must either count towards the price or, if the winner fails to pay, be kept as a penalty.</p>
 <h2>Current practice and its limits</h2>
 <p>Today each of these outcomes is handled by whoever holds the money: the notary, the platform's account, or the selling bank itself. This works, but it has three costs.</p>
@@ -88,20 +88,24 @@
 <td>Nothing moves until the auction is held.</td>
 </tr>
 <tr>
-<td>Anything the rules do not recognise, or no confirmed outcome by a long-stop date</td>
-<td>Every bidder is refunded at the long stop.</td>
+<td>Anything the rules do not recognise</td>
+<td>Nothing moves. Before a winner is confirmed, every bidder is refunded at the long stop; after, a payment the rules cannot read counts as no payment.</td>
+</tr>
+<tr>
+<td>No confirmed outcome by a long-stop date</td>
+<td>Every bidder is refunded.</td>
 </tr>
 </tbody>
 </table>
 <p>Two design choices carry most of the weight.</p>
-<p><strong>Read twice, and agree exactly.</strong> Several independent machines each open the record page and copy three lines from it: the status, the winning bidder and the balance. A reading counts only if they all copy the same values. A state counts only if two such readings, sent at least a set time apart, show it. A page that is wrong for a moment, or edited and changed back, cannot move money.</p>
+<p><strong>Read twice, and agree exactly.</strong> Several independent machines each open the record page and copy three lines from it: the status, the winning bidder and the balance. A reading counts only if a majority of validators, each reading the page itself, reach exactly the same values. A state counts only if two such readings, sent at least a set time apart, show it. A page that is wrong for a moment cannot move money unless two readings, sent that time apart, both catch it.</p>
 <p><strong>Machines copy; code decides.</strong> Language models are good at finding a line on a page written for people, and poor judges of who should be paid. So the model is never asked who won or what should happen. It copies a line with its label. Plain code then checks that the copied value really is on the page next to that label, maps it through a closed list of phrases ("Paid in full", "Buyer in default", "Suspended by court order"), and treats anything else as unclear. Unclear moves nothing.</p>
 <h2>How the agreement binds the money</h2>
-<p>This is the part of the design we consider most important, so we state it precisely. The prototype runs on GenLayer, a network in which each validator can open a public web page itself and must reach the same result as the others before anything is recorded.</p>
+<p>This is the part of the design we consider most important, so we state it precisely. The prototype runs on GenLayer, a network in which each validator can open a public web page itself, and a majority must reach the same result before anything is recorded.</p>
 <ul>
 <li>Each validator fetches the record page and asks its model to copy the status, winner and balance lines.</li>
 <li>Each validator then checks the copy against its own fetch of the page. A value that is not printed after its own label on that page is refused.</li>
-<li>The validators compare the three checked values. Only an exact match on all three is accepted. There is no tolerance and no "close enough": two acceptable readings can never lead to two different payouts.</li>
+<li>The validators compare the three checked values. A validator accepts only an exact match on all three, and a majority of validators must accept. There is no tolerance and no "close enough": two acceptable readings can never lead to two different payouts.</li>
 <li>The contract's own code, not the model, turns the agreed values into a state, and the state into amounts. Every amount comes from the table above, and the amounts always add up to the deposits held.</li>
 <li>Deadlines (the winner's payment window, the long stop) are enforced by code from the clock alone, so no money can be stuck waiting for a page that never changes.</li>
 <li>Payouts are credited to each address, and each address withdraws its own money.</li>
@@ -109,9 +113,9 @@
 <h2>Demonstrated evidence</h2>
 <p>We built a fictional auction platform with ten auctions, three bidders each, one auction for every row of the table plus two attacks. Time is compressed: what takes days at a real auction takes minutes in the demonstration.</p>
 <ul>
-<li><strong>The two attacks.</strong> In one auction the record page carries a planted line claiming that a different bidder won. The contract follows the record, the real winner is paid out correctly, and the others are refunded. In another, the link shows a different auction's result; nothing moves on it, and everyone is refunded at the long stop.</li>
-<li><strong>Live runs.</strong> All ten auctions ran end to end on two public test networks, GenLayer Studio and Testnet Bradbury. Every auction ended as its terms specified. On Bradbury this took 78 transactions, all finalized, and the contract held nothing at the end.</li>
-<li><strong>A finding from the live runs.</strong> Some models copied the label into the value ("Status: Completed" instead of "Completed"). The first version of the contract refused those readings: nothing moved, but the reading had to be repeated (six times in the Studio run). The current version strips a copied label from its own value and still requires the rest to appear after that label on the page, so the check is no looser.</li>
+<li><strong>The two attacks.</strong> In one auction the record page carries a planted line claiming that a different bidder won. The contract follows the record: the record's winner is confirmed, its deposit goes to the creditor as part of the price, and the others are refunded. In another, the link shows a different auction's result; nothing moves on it, and everyone is refunded at the long stop.</li>
+<li><strong>Live runs.</strong> All ten auctions ran end to end on GenLayer Studio, GenLayer's hosted development network, and on its public Testnet Bradbury. Every auction ended as its terms specified. On Bradbury this took 78 transactions, all finalized, and the contract held nothing at the end.</li>
+<li><strong>A finding from the live runs.</strong> The first prompt asked for the whole line, and some models included the label in the value ("Status: Completed" instead of "Completed"). The first version of the contract refused those readings: nothing moved, but the reading had to be repeated (six times across the two live runs: five on Studio, one on Bradbury). The current version strips a copied label from its own value and still requires the rest to appear after that label on the page, so the check is no looser.</li>
 <li><strong>Tests.</strong> The contract passes 259 automated tests on two versions of the GenLayer virtual machine. When we deliberately broke the code in 150 different ways, the tests caught every break.</li>
 <li><strong>Try it.</strong> Anyone can run their own fictional auction in a browser, with free temporary accounts for a creditor and two bidders, and see a paid, defaulted or cancelled outcome settle in about 20 to 35 minutes [6].</li>
 </ul>
@@ -121,6 +125,7 @@
 <li>The escrow trusts one record page. In practice that page must be kept by the platform or notary, not by the creditor: a creditor who controlled the page could lie.</li>
 <li>A bidder code links a payment address to a bidder only because the bidder says so. Someone could take a code first; this blocks the real bidder from the escrow but gains nothing.</li>
 <li>"Seen twice" is measured by when readings are sent, not by when each validator looked.</li>
+<li>After a winner is confirmed, a payment shown in words the rules do not know, or a record page that goes offline, counts as no payment: the winner's deposit is forfeited when its payment window closes.</li>
 <li>The phrase list is in English. A record in Greek would currently read as unclear and refund everyone at the long stop.</li>
 </ul>
 <h2>Further research</h2>
@@ -138,7 +143,7 @@
 <li>European e-Justice Portal, Judicial auctions: Greece (bid security, Article 959 Code of Civil Procedure): <a rel="noopener" href="https://e-justice.europa.eu/topics/court-procedures/judicial-auctions/el_en">https://e-justice.europa.eu/topics/court-procedures/judicial-auctions/el_en</a></li>
 <li>Kyprianou (law firm), Real Estate Auctions in Greece: NPL Resolution, e-Auction Procedures, and Foreign Investor Access: <a rel="noopener" href="https://www.kyprianou.com/?p=19467">https://www.kyprianou.com/?p=19467</a></li>
 <li>National Bank of Greece, list of terms for the sale of property by e-auction (example): <a rel="noopener" href="https://www.nbg.gr/-/jssmedia/Files/Group/Press-office/Press-office-announcements/A-12-10-2023-401/List-of-terms-351301-401-12-10-2023.pdf">https://www.nbg.gr/-/jssmedia/Files/Group/Press-office/Press-office-announcements/A-12-10-2023-401/List-of-terms-351301-401-12-10-2023.pdf</a></li>
-<li>euro2day, Nearly 300,000 properties in line for auction (citing IOBE and Cepal, Q1 2026, and the IMF): <a rel="noopener" href="https://www.euro2day.gr/en2/article/2358318/nearly-300000-properties-in-line-for-auction">https://www.euro2day.gr/en2/article/2358318/nearly-300000-properties-in-line-for-auction</a></li>
+<li>euro2day, Nearly 300,000 properties in line for auction (citing IOBE and Cepal, Q1 2026, and the IMF): <a rel="noopener" href="https://www.euro2day.gr/en/article/2358318/nearly-300000-properties-are-awaiting-auction">https://www.euro2day.gr/en/article/2358318/nearly-300000-properties-are-awaiting-auction</a></li>
 <li>Banca Ifis, Market Watch NPL, September 2025 (gross non-performing exposures of EU significant banks, Q2 2025): <a rel="noopener" href="https://www.bancaifis.it/app/uploads/2025/09/MW_Npl_Sep25_ENG_20250926.pdf">https://www.bancaifis.it/app/uploads/2025/09/MW_Npl_Sep25_ENG_20250926.pdf</a></li>
 <li>Try it yourself: <a rel="noopener" href="https://brilliantnodes.github.io/auction-deposit/app/">https://brilliantnodes.github.io/auction-deposit/app/</a></li>
 <li>Source code and technical documentation (open source, MIT): <a rel="noopener" href="https://github.com/brilliantnodes/auction-deposit">https://github.com/brilliantnodes/auction-deposit</a></li>

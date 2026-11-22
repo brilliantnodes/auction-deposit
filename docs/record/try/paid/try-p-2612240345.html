@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Auction TRY-P-2612240345 - Official auction record - Kestrel Notarial e-Auctions</title>
+<style>body{font-family:-apple-system,Segoe UI,Helvetica,Arial,sans-serif;max-width:780px;margin:32px auto;padding:0 18px;color:#1d2a26;background:#f6f8f7}
+.bar{background:#1f4a3f;color:#fff;padding:14px 18px;border-radius:6px}.bar b{font-size:19px}.bar span{display:block;font-size:13px;opacity:.8}
+.notice{margin:16px 0 0;padding:10px 14px;border:1px solid #d9c27a;background:#fff8e1;border-radius:6px;font-size:14px}
+h1{font-size:22px;margin:22px 0 14px}.row{padding:9px 0;border-bottom:1px solid #dbe3df}.k{display:inline-block;min-width:170px;color:#55635e}
+.v{font-weight:600}.note{font-size:13px;color:#66736e;margin-top:18px}footer{margin-top:34px;font-size:12px;color:#8a9691}</style>
+</head>
+<body>
+<div class="bar"><b>Kestrel Notarial e-Auctions</b><span>Electronic property auctions (fictional)</span></div>
+<h1>Official auction record</h1>
+<div id="entry" hidden>
+<div class="row"><span class="k">Auction:</span> <span class="v">TRY-P-2612240345</span></div>
+<div class="row"><span class="k">Property:</span> <span class="v">Flat 2, 7 Marigold Lane, Velmora</span></div>
+<div class="row"><span class="k">Creditor:</span> <span class="v">Brannock Loan Servicing S.A.</span></div>
+<div class="row"><span class="k">Auction date:</span> <span class="v">2026-12-24 03:45 UTC</span></div>
+<div class="row"><span class="k">Starting price:</span> <span class="v">EUR 52,000</span></div>
+<div class="row"><span class="k">Bid deposit:</span> <span class="v">EUR 5,200</span></div>
+<div class="row"><span class="k">Status:</span> <span class="v" id="status"></span></div>
+<div class="row"><span class="k">Winning bidder:</span> <span class="v" id="winner"></span></div>
+<div class="row"><span class="k">Winning bid:</span> <span class="v" id="bid"></span></div>
+<div class="row"><span class="k">Balance:</span> <span class="v" id="balance"></span></div>
+<div class="row"><span class="k">Last updated:</span> <span class="v" id="updated"></span></div>
+</div>
+<noscript><p>This record needs JavaScript to show the current entry.</p></noscript>
+<p class="note">Bidder codes are given by the notary on registration. Losing bidders&#x27; deposits are returned after the auction.</p>
+<footer>Fictional platform, creditor, property and bidders, published for a GenLayer AuctionDeposit demonstration by Brilliant Nodes. Not a real auction record.</footer>
+<script>
+(function () {
+  var s = [{"from": 1798062300, "status": "Scheduled", "winner": "-", "bid": "-", "balance": "-"}, {"from": 1798084080, "status": "Completed", "winner": "B-201", "bid": "EUR 58,750", "balance": "Awaiting payment"}, {"from": 1798084500, "status": "Completed", "winner": "B-201", "bid": "EUR 58,750", "balance": "Paid in full"}];
+  var now = Date.now() / 1000, cur = s[0];
+  for (var i = 0; i < s.length; i++) if (s[i].from <= now) cur = s[i];
+  ["status", "winner", "bid", "balance"].forEach(function (k) { document.getElementById(k).textContent = cur[k]; });
+  document.getElementById("updated").textContent = new Date(cur.from * 1000).toISOString().slice(0, 16).replace("T", " ") + " UTC";
+  document.getElementById("entry").hidden = false;
+})();
+</script>
+</body>
+</html>

@@ -6,7 +6,7 @@
 <title>AuctionDeposit: try it yourself</title>
 <meta name="description" content="Run a fictional property auction on GenLayer Studio: lodge bid deposits, let validators read the official auction record, and watch code settle every deposit. Test GEN only.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23143d33'/%3E%3Cpath d='M9 20l5 5 9-15' stroke='%23e4c66b' stroke-width='3.4' fill='none'/%3E%3C/svg%3E">
-  <script type="module" crossorigin src="./assets/index-kF_J2XH_.js"></script>
+  <script type="module" crossorigin src="./assets/index-WW1mpkrG.js"></script>
   <link rel="modulepreload" crossorigin href="./assets/genlayer-DpotIrBa.js">
   <link rel="stylesheet" crossorigin href="./assets/index-BWLNwvL_.css">
 </head>
@@ -96,7 +96,7 @@
     <h2>The rules, in brief</h2>
     <ul class="rules">
       <li><strong>The model copies; code decides.</strong> Code finds each copied value after its label on the validator's own copy of the page, looks the whole status and balance text up in closed tables (anything else is UNCLEAR and moves nothing) and checks the winner is a well-formed bidder code.</li>
-      <li><strong>Exact agreement:</strong> validators accept a reading only if kind, reason, status, winner and balance equal their own.</li>
+      <li><strong>Exact agreement:</strong> a majority of validators must accept the reading, and each accepts it only if kind, status, winner and balance equal its own (any two no-readings agree; nothing moves on them).</li>
       <li><strong>Seen twice:</strong> a state counts once two readings stamped at least the confirmation time apart show it, after deposits close.</li>
       <li><strong>Outcomes:</strong> cancelled, suspended or no bidders refund everyone; completed with a pending balance refunds the losers and holds the winner's deposit; paid in full sends it to the creditor as part of the price; buyer in default sends it as the penalty; no confirmed payment within the winner's window forfeits it; no outcome by the refund date refunds everyone.</li>
       <li><strong>Payouts are credits:</strong> each address withdraws its own.</li>
